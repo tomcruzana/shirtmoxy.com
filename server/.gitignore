@@ -1,0 +1,8 @@
+/.metadata/
+
+# ignore logs files
+*.log
+*.gz
+
+# ignore properties file
+*.properties
