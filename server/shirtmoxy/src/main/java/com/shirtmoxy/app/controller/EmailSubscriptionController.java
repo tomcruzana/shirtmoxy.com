@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shirtmoxy.app.exception.EmailSubscriptionException;
 import com.shirtmoxy.app.service.EmailSubscriptionService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class EmailSubscriptionController {
 
@@ -21,9 +23,9 @@ public class EmailSubscriptionController {
 	Environment env;
 
 	@PostMapping("/subscribe")
-	public ResponseEntity<String> addCustomer(@RequestBody String email) throws EmailSubscriptionException{
+	public ResponseEntity<String> addCustomer(@RequestBody @Valid String email) throws EmailSubscriptionException {
 		emailSubscriptionService.addEmail(email);
-		String successMessage = env.getProperty("API.CREATE_SUCCESS");
+		String successMessage = env.getProperty("API.EMAIL_CREATE_SUCCESS");
 		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 	}
 

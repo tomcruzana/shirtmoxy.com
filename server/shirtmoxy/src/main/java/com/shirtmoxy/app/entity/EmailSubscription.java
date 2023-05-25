@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "email_subscription")
@@ -19,6 +21,8 @@ public class EmailSubscription {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 
+	@NotNull
+	@Email
 	private String email;
 
 	@Column(name = "date_created")
