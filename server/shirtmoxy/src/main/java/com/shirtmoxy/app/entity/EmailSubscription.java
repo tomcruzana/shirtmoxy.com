@@ -1,12 +1,29 @@
 package com.shirtmoxy.app.entity;
 
-//@Entity
-//@Table(name = "")
+import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+@Entity
+@Table(name = "email_subscription")
 public class EmailSubscription {
-	
-	/* TODO: add hibernate annotations */
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer Id;
+
 	private String email;
-	private String dateCreated;
+
+	@Column(name = "date_created")
+	@Temporal(TemporalType.DATE)
+	private Date dateCreated;
 
 	public EmailSubscription() {
 
@@ -20,11 +37,11 @@ public class EmailSubscription {
 		this.email = email;
 	}
 
-	public String getDateCreated() {
+	public Date getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(String dateCreated) {
+	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 

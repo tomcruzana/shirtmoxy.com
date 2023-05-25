@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shirtmoxy.app.dto.EmailSubscriptionDto;
+import com.shirtmoxy.app.exception.EmailSubscriptionException;
 import com.shirtmoxy.app.service.EmailSubscriptionService;
 
 @RestController
@@ -21,12 +21,9 @@ public class EmailSubscriptionController {
 	Environment env;
 
 	@PostMapping("/subscribe")
-	public ResponseEntity<String> addCustomer(@RequestBody EmailSubscriptionDto emailSubscriptionDto) throws Exception {
-		
-		emailSubscriptionService.addEmail(emailSubscriptionDto);
-		
-		String successMessage = env.getProperty("API.INSERT_SUCCESS");
-		
+	public ResponseEntity<String> addCustomer(@RequestBody String email) throws EmailSubscriptionException{
+		emailSubscriptionService.addEmail(email);
+		String successMessage = env.getProperty("API.CREATE_SUCCESS");
 		return new ResponseEntity<>(successMessage, HttpStatus.CREATED);
 	}
 
