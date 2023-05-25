@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PreloaderComponent } from './components/common/preloader/preloader.component';
@@ -67,6 +69,7 @@ import { ContactComponent } from './components/pages/contact/contact.component';
     ContactComponent
   ],
   imports: [
+    SweetAlert2Module,
     BrowserModule,
     AppRoutingModule
   ],
