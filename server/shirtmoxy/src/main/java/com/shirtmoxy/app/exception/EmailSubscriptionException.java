@@ -1,13 +1,9 @@
 package com.shirtmoxy.app.exception;
 
-import org.springframework.dao.DataIntegrityViolationException;
-
-public class EmailSubscriptionException extends DataIntegrityViolationException {
-	private String message;
+public class EmailSubscriptionException extends Exception {
+	private static final long serialVersionUID = 1L;
 
 	public EmailSubscriptionException(String message) {
 		super(message);
-		this.message = message;
 	}
-
 }
