@@ -3,8 +3,8 @@
 /*================================================
 Default CSS
 =================================================*/
-$body-font: 'Poppins', sans-serif;
-$banner-title-font: 'Playfair Display', serif;
+$banner-title-font: 'Century Gothic', 'Playfair Display', serif;
+$body-font: 'Montserrat','Poppins', sans-serif;
 $carrot-orange-color: #ff743c;
 $paragraph-color: #8d8d90;
 $title-color: #2d3652;
@@ -34,6 +34,7 @@ body {
 }
 p {
     color: $paragraph-color; 
+
 }
 a {
     display: inline-block;
@@ -55,10 +56,15 @@ button {
         border: 0;
     }
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h4, h5, h6 {
     color: $title-color;
     font-weight: 600;
     line-height: 1.3;
+  }
+  
+h2, h3 {
+    @extend h1, h4, h5, h6;
+    // letter-spacing: 3pt;
 }
 .d-table {
     width: 100%;
