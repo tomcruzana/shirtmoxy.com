@@ -1,5 +1,4 @@
 <div class="navbar-area border-bottom">
-
     <!-- nav mobile start -->
     <div class="mobile-nav">
         <a routerLink="/" class="logo"
@@ -84,11 +83,12 @@
                             >
                         </li>
 
+                        <!-- 
                         <div class="menu-btn">
                             <a href="tel:+11234567890" class="phone-btn"
                                 ><i class="bx bxs-phone"></i> +1 123 456 7890</a
                             >
-                        </div>
+                        </div> -->
 
                         <!-- <li class="nav-item">
                             <a href="javascript:void(0)" class="nav-link"
@@ -397,12 +397,12 @@
                                     >
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link"
-                                >Blog <i class="bx bx-plus"></i
-                            ></a>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" routerLink="/sign-in"
+                                ><i class="bx bx-user"></i> Sign In</a
+                            >
 
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
@@ -430,14 +430,38 @@
                                 </li>
                             </ul>
                         </li> -->
+
+                        <li class="nav-item">
+                            <a
+                                routerLink="/sign-in"
+                                class="nav-link"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{
+                                    exact: true
+                                }"
+                                ><i class="bx bx-user"></i> Sign In</a
+                            >
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                routerLink="/cart"
+                                class="nav-link"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{
+                                    exact: true
+                                }"
+                                ><i class="bx bx-cart"></i> Cart</a
+                            >
+                        </li>
                     </ul>
 
-                    <div class="cart-area">
+                    <!-- <div class="cart-area">
                         <a routerLink="/cart" class="mx-4"
                             ><i class="bx bx-cart"></i
                         ></a>
                         <a routerLink="/sign-in"><i class="bx bx-user"></i></a>
-                    </div>
+                    </div> -->
                 </div>
             </nav>
         </div>
