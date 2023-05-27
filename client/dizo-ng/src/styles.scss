@@ -5,11 +5,26 @@ Default CSS
 =================================================*/
 $body-font: 'Poppins', sans-serif;
 $banner-title-font: 'Playfair Display', serif;
-$main-color: #ff743c;
+$carrot-orange-color: #ff743c;
 $paragraph-color: #8d8d90;
 $title-color: #2d3652;
 $color-blue: #4356d6;
+
+/*Shirt Moxy Color Palette*/
+// primary colors
+$raspberry-color: #E61C5D;
+$prussian-blue-color: #003144;
+$carrot-orange-color: #F39200;
+
+// secondary colors
+$licorice-color: #130301;
+$dim-gray: #6B6D76;
+$white_smoke-color: #F2F2F2;
+
+// tertiary colors
 $color-white: #ffffff;
+$color-black: #000000;
+
 
 body {
     font-size: 16px;
@@ -96,14 +111,14 @@ img {
     color: $color-white;
 }
 .bg-color-in {
-    background-color: #fafbff;
+    background-color: $white_smoke-color;
 }
 .border-radius-5 {
     border-radius: 75px 5px 75px 5px !important;
 }
 /*Default Btn Style*/
 .default-btn {
-    background-color: $main-color;
+    background-color: $carrot-orange-color;
     padding: 12px 42px;
     color: $color-white;
     border-radius: 5px;
@@ -119,7 +134,7 @@ img {
         left: 0%;
         width: 50%;
         height: 50%;
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         z-index: -1;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
@@ -131,7 +146,7 @@ img {
         right: 0%;
         width: 50%;
         height: 50%;
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         z-index: -1;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
@@ -176,7 +191,7 @@ img {
 /*Section Title Style*/
 .scetion-title {
     span {
-        color: $main-color;
+        color: $carrot-orange-color;
         font-weight: 500;
         line-height: 0;
     }
@@ -195,7 +210,7 @@ img {
 Navbar Area
 ====================================*/
 .navbar-area {
-    background-color: transparent;
+    background-color: $color-white;
     -webkit-transition: 0.3s;
     transition: 0.3s;
     position: relative;
@@ -250,11 +265,11 @@ Navbar Area
         .navbar-nav {
             .nav-item {
                 &:hover a, .active {
-                    color: $main-color;
+                    color: $raspberry-color;
                 }
                 a {
                     text-transform: capitalize;
-                    color: #222222;
+                    color: $licorice-color;
                     font-weight: 500;
                     margin: {
                         left: 12px;
@@ -263,27 +278,27 @@ Navbar Area
                     i {
                         line-height: 0;
                         position: relative;
-                        top: 3px;
+                        // top: 3px;
                     }
                     &:hover, :focus {
-                        color: $main-color;
+                        color: $raspberry-color;
                     }
                     &.active {
-                        color: $main-color !important;
+                        color: $raspberry-color !important;
                     }
-                    &.active i {
-                        -webkit-transform: rotate(90deg);
-                        transform: rotate(90deg);
-                    }
-                    &:hover i {
-                        -webkit-transform: rotate(90deg);
-                        transform: rotate(90deg);
-                        transition: 0.7s;
-                    }
-                    &:focus i {
-                        -webkit-transform: rotate(90deg);
-                        transform: rotate(90deg);
-                    }
+                    // &.active i {
+                    //     -webkit-transform: rotate(90deg);
+                    //     transform: rotate(90deg);
+                    // }
+                    // &:hover i {
+                    //     -webkit-transform: rotate(90deg);
+                    //     transform: rotate(90deg);
+                    //     transition: 0.7s;
+                    // }
+                    // &:focus i {
+                    //     -webkit-transform: rotate(90deg);
+                    //     transform: rotate(90deg);
+                    // }
                     .active::before {
                         transform: scale(1);
                     }
@@ -312,7 +327,7 @@ Navbar Area
                             &.active{
                                 background-color: #f3f3f3;
                                 border-radius: .25rem; 
-                                color: $main-color !important;
+                                color: $carrot-orange-color !important;
                             }
                             &::before {
                                 content: "";
@@ -321,7 +336,7 @@ Navbar Area
                                 left: 0;
                                 width: 0;
                                 height: 1px;
-                                background-color: $main-color;
+                                background-color: $carrot-orange-color;
                                 -webkit-transition: all 0.5s;
                                 transition: all 0.5s;
                             }
@@ -329,14 +344,14 @@ Navbar Area
                                 width: 100%;
                             }
                             &:hover, :focus, .active {
-                                color: $main-color !important;
+                                color: $carrot-orange-color !important;
                                 letter-spacing: 0.5px;
                                 background-color: #f3f3f3;
                                 border-radius: .25rem;
                             }
                         }
                         &.active {
-                           color: $main-color !important;
+                           color: $carrot-orange-color !important;
                         }
                     }
                 }
@@ -413,7 +428,7 @@ Navbar Area
         right: 20px;
     };
     a {
-        color: $title-color;
+        color: $licorice-color;
         border-radius: 3px;
         font-size: 26px;
         font-weight: bold;
@@ -427,7 +442,7 @@ Navbar Area
         transition: 0.7s;
 
         &:hover {
-            background-color: $title-color;
+            background-color: $raspberry-color;
             color: $color-white;
         }
     }
@@ -528,7 +543,7 @@ Navbar Area
                             text-transform: capitalize;
 
                             &:hover {
-                                color: $main-color;
+                                color: $carrot-orange-color;
                             }
                             img {
                                 width: 80px;
@@ -604,7 +619,7 @@ Navbar Area
                         }
                         &:hover i {
                             color: $color-white;
-                            background: $main-color;
+                            background: $carrot-orange-color;
                         }
                         &:last-child {
                             margin-bottom: 0;
@@ -633,11 +648,11 @@ Navbar Area
                                 transition: all 0.5s;
 
                                 &:hover {
-                                    background-color: $main-color;
+                                    background-color: $carrot-orange-color;
                                 }
                             }
                             &:hover {
-                                color: $main-color;
+                                color: $carrot-orange-color;
                             }
                         }
                         &:hover {
@@ -717,7 +732,7 @@ Navbar Area
                 li{
                     a {
                         .active {
-                            color: $main-color;
+                            color: $carrot-orange-color;
                         } 
                     }
                 }
@@ -777,10 +792,10 @@ Banner Section Style
                 background-color: $title-color !important;
             }
             &.active span {
-                background-color: $main-color !important;
+                background-color: $carrot-orange-color !important;
             }
             &:hover span {
-                background-color: $main-color !important;
+                background-color: $carrot-orange-color !important;
             }
         }
     }
@@ -844,7 +859,7 @@ About Area Style
         bottom: 30px;
     };
     span {
-        color: $main-color;
+        color: $carrot-orange-color;
         font-weight: 500;
         line-height: 0;
     }
@@ -904,12 +919,12 @@ About Area Style
             }
             &:hover::before {
                 top: 0;
-                background-color: $main-color;
+                background-color: $carrot-orange-color;
                 color: $color-white;
             }
             &:hover::after {
                 bottom: 0;
-                background-color: $main-color;
+                background-color: $carrot-orange-color;
                 color: $color-white;
             }
         }
@@ -945,7 +960,7 @@ Service Area Style
             line-height: 40px;
             color: $color-white !important;
             font-size: 24px !important;
-            background-color: $main-color !important;
+            background-color: $carrot-orange-color !important;
             opacity: 0.5;
             transition: 0.7s;
 
@@ -959,7 +974,7 @@ Service Area Style
             line-height: 40px;
             color: $color-white !important;
             font-size: 24px !important;
-            background-color: $main-color !important;
+            background-color: $carrot-orange-color !important;
             opacity: 0.5;
             transition: 0.7s;
 
@@ -976,10 +991,10 @@ Service Area Style
     margin-bottom: 30px;
 
     &:hover .service-content a h3 {
-        color: $main-color;
+        color: $carrot-orange-color;
     }
     &:hover .service-content .more-btn {
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
     }
     a {
         display: block;
@@ -1014,13 +1029,13 @@ Service Area Style
             transition: 0.7s;
             
             &:hover {
-                background-color: $main-color;
+                background-color: $carrot-orange-color;
             }
         }
     }
 }
 .service-bg {
-    background-color: #fafbff;
+    background-color: $white_smoke-color;
     padding-top: 150px;
     position: relative;
 }
@@ -1062,7 +1077,7 @@ Product Area Style
             margin: 0;
             font-weight: 600;
             span {
-                color: $main-color;
+                color: $carrot-orange-color;
                 font-size: 20px;
             }
         }
@@ -1130,12 +1145,12 @@ Price Section Style
 
             &.active {
                 a {
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                     color: $color-white;
                 }
             }
             a {
-                color: $main-color;
+                color: $carrot-orange-color;
                 display: inline-block;
                 margin-right: 20px;
                 text-align: center;
@@ -1184,7 +1199,7 @@ Price Section Style
         background-color: $title-color;
     }
     &:hover .get-btn  {
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         color: $color-white;
     }
     &:hover ul li, &:hover .single-price-title  h2 {
@@ -1195,13 +1210,13 @@ Price Section Style
     }
     &.current .get-btn  {
         background-color: $color-white;
-        color: $main-color;
+        color: $carrot-orange-color;
     }
     &.current ul li, &.current .single-price-title h2 {
         color: $color-white;
     }
     &.current .get-btn  {
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         color: $color-white;
     }
     span {
@@ -1224,7 +1239,7 @@ Price Section Style
                 font-size: 22px;
                 line-height: 0;
                 margin-right: 5px;
-                color: $main-color;
+                color: $carrot-orange-color;
                 font-weight: 600;
             }
             sub {
@@ -1261,7 +1276,7 @@ Price Section Style
 
         &:hover {
             background-color: #ffe5db;
-            color: $main-color;
+            color: $carrot-orange-color;
         }
     }
 }
@@ -1414,7 +1429,7 @@ Testimonial Section CSS
             line-height: 40px;
             color: $color-white !important;
             font-size: 24px !important;
-            background-color: $main-color !important;
+            background-color: $carrot-orange-color !important;
             opacity: 0.5;
             transition: 0.7s;
 
@@ -1431,7 +1446,7 @@ Testimonial Section CSS
             line-height: 40px;
             color: $color-white !important;
             font-size: 24px !important;
-            background-color: $main-color !important;
+            background-color: $carrot-orange-color !important;
             opacity: 0.5;
             transition: 0.7s;
 
@@ -1478,7 +1493,7 @@ Blog Area CSS
         transform: translateY(-5px);
     }
     &:hover .blog-content a h3 {
-        color: $main-color;
+        color: $carrot-orange-color;
     }
     a {
         display: block;
@@ -1506,7 +1521,7 @@ Blog Area CSS
 
             li {
                 display: inline-block;
-                color: $main-color;
+                color: $carrot-orange-color;
                 font-weight: 500;
                 margin-right: 15px;
 
@@ -1514,7 +1529,7 @@ Blog Area CSS
                     margin-right: 5px;
                 }
                 a {
-                    color: $main-color;
+                    color: $carrot-orange-color;
 
                     i {
                         margin-right: 5px;
@@ -1535,7 +1550,7 @@ Blog Area CSS
                 top: 2px; 
             }
             &:hover {
-                color: $main-color;
+                color: $carrot-orange-color;
                 letter-spacing: 1px;
             }
         }
@@ -1551,7 +1566,7 @@ Blog Area CSS
 Footer Area CSS
 ====================================*/
 .footer-area {
-    background-color: #1c243c;
+    background-color: $prussian-blue-color;
     margin-top: 100px;
 }
 .footer-contact {
@@ -1567,7 +1582,7 @@ Footer Area CSS
     i {
         width: 50px;
         height: 50px;
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         border-radius: 50px;
         line-height: 50px;
         font-size: 24px;
@@ -1627,7 +1642,7 @@ Footer Area CSS
                     width: 0;
                     height: 1px;
                     opacity: 0;
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                     transition: 0.5s;
                 }
                 &:hover::before {
@@ -1635,7 +1650,7 @@ Footer Area CSS
                     opacity: 1;
                 }
                 &:hover {
-                    color: $main-color;
+                    color: $carrot-orange-color;
                 }
             }
         }
@@ -1664,7 +1679,7 @@ Footer Area CSS
 
             &:hover i {
                 border-radius: 50px;
-                background-color: $main-color;
+                background-color: $carrot-orange-color;
             }
             i {
                 font-size: 20px;
@@ -1682,7 +1697,7 @@ Footer Area CSS
                 transition: 0.7s;
 
                 &:hover {
-                    color: $main-color;
+                    color: $carrot-orange-color;
                 }
             }
         }
@@ -1716,7 +1731,7 @@ Footer Area CSS
         padding-right: 30px;
 
         a {
-            color: $main-color;
+            color: $carrot-orange-color;
 
             &:hover {
                 color: $color-white;
@@ -1747,7 +1762,7 @@ Footer Area CSS
                 color: $color-white;
 
                 &:hover {
-                    color: $main-color;
+                    color: $carrot-orange-color;
                 }
             }
         }
@@ -1775,7 +1790,7 @@ Home Slider Style
             transition: 0.7s;
 
             &:hover {
-                background-color: $main-color !important;
+                background-color: $carrot-orange-color !important;
             }
         }
         .owl-next {
@@ -1792,7 +1807,7 @@ Home Slider Style
             transition: 0.7s;
 
             &:hover {
-                background-color: $main-color !important;
+                background-color: $carrot-orange-color !important;
             }
         }
     }
@@ -1880,7 +1895,7 @@ Product-images Slider Style
                 left: -5%;
                 transform: translateY(-16px);
                 font-size: 35px !important;
-                color: $main-color !important;
+                color: $carrot-orange-color !important;
     
                 &:hover {
                     color: $title-color !important;
@@ -1893,7 +1908,7 @@ Product-images Slider Style
                 right: -5%;
                 transform: translateY(-16px);
                 font-size: 35px !important;
-                color: $main-color !important;
+                color: $carrot-orange-color !important;
     
                 &:hover {
                     color: $title-color !important;
@@ -1910,7 +1925,7 @@ Product-images Slider Style
 Choose Area Style
 ====================================*/
 .choose-area {
-    background-color: #fafbff;
+    background-color: $white_smoke-color;
 }
 .choose-card {
     background-color: $color-white;
@@ -1929,7 +1944,7 @@ Choose Area Style
         top: 0;
         left: 0;
         right: 0;
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         width: 100%;
         height: 0;
         opacity: 0;
@@ -1951,7 +1966,7 @@ Choose Area Style
         font-size: 45px;
         margin-bottom: 10px;
         transition: 0.4s;
-        color: $main-color;
+        color: $carrot-orange-color;
     }
     h3 {
         font-size: 20px;
@@ -1991,7 +2006,7 @@ Testimonial Area Two Style
             line-height: 40px;
             color: $color-white !important;
             font-size: 24px !important;
-            background-color: $main-color !important;
+            background-color: $carrot-orange-color !important;
             opacity: 0.5;
             transition: 0.7s;
 
@@ -2008,7 +2023,7 @@ Testimonial Area Two Style
             line-height: 40px;
             color: $color-white !important;
             font-size: 24px !important;
-            background-color: $main-color !important;
+            background-color: $carrot-orange-color !important;
             opacity: 0.5;
             transition: 0.7s;
 
@@ -2024,7 +2039,7 @@ Testimonial Area Two Style
 
     h3 {
         font-size: 24px;
-        color: $main-color;
+        color: $carrot-orange-color;
     }
     p {
         color: $color-white;
@@ -2075,8 +2090,9 @@ Newsleter Area Style
 .newsleter-area {
     padding: 50px 0;
     text-align: center;
+    border: 1px solid $dim-gray;
     border-radius: 15px;
-    background-color: $title-color;
+    background-color: $prussian-blue-color;
 
     h2 {
         font-size: 35px;
@@ -2110,7 +2126,7 @@ Newsleter Area Style
         top: 5px;
         right: 10px;
         margin: 0;
-        background-color: $main-color;
+        background-color: $carrot-orange-color;
         color: $color-white;
         height: 45px;
         line-height: 45px;
@@ -2211,7 +2227,7 @@ Inner Banner Style
 
             li {
                 font-size: 15px;
-                color: $main-color;
+                color: $carrot-orange-color;
                 display: inline-block;
                 margin-right: 10px;
 
@@ -2226,7 +2242,7 @@ Inner Banner Style
                     color: $color-white;
 
                     &:hover {
-                        color: $main-color;
+                        color: $carrot-orange-color;
                     }
                 }
             }
@@ -2343,7 +2359,7 @@ Contact Pages Style
                 transition: 0.7s;
 
                 &:hover {
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                 }
             }
         }
@@ -2358,7 +2374,7 @@ Contact Pages Style
     .forget {
         margin-bottom: 15px;
         float: right;
-        color: $main-color;
+        color: $carrot-orange-color;
         font-weight: 600;
 
         &:hover {
@@ -2370,7 +2386,7 @@ Contact Pages Style
         font-weight: 600;
 
         a {
-            color: $main-color;
+            color: $carrot-orange-color;
 
             &:hover {
                 color: $color-blue;
@@ -2394,7 +2410,7 @@ Contact Pages Style
         margin-bottom: 15px;
 
         a {
-            color: $main-color;
+            color: $carrot-orange-color;
 
             &:hover {
                 color: $color-blue;
@@ -2407,7 +2423,7 @@ Contact Pages Style
             margin-bottom: 25px;
 
             a {
-                color: $main-color;
+                color: $carrot-orange-color;
                 font-weight: 600;
 
                 &:hover {
@@ -2468,7 +2484,7 @@ Blog Details Page Style
 
                     i {
                         font-size: 20px;
-                        color: $main-color;
+                        color: $carrot-orange-color;
                         margin-right: 5px;
                     }
                 }
@@ -2497,7 +2513,7 @@ Blog Details Page Style
                 display: none;
             }
             &::before {
-                color: $main-color;
+                color: $carrot-orange-color;
                 content: "\ee34";
                 position: absolute;
                 left: 50px;
@@ -2547,13 +2563,13 @@ Blog Details Page Style
                 font-weight: 600;
 
                 &:hover {
-                    color: $main-color;
+                    color: $carrot-orange-color;
                 }
             }
         }
         span {
             display: inline-block;
-            color: $main-color;
+            color: $carrot-orange-color;
             font-size: 20px;
             margin-right: 5px;
             position: relative;
@@ -2586,7 +2602,7 @@ Blog Details Page Style
                         height: 32px;
                         line-height: 33px;
                         border-radius: 50%;
-                        background-color: $main-color;
+                        background-color: $carrot-orange-color;
                         text-align: center;
                         font-size: 14px;
 
@@ -2730,7 +2746,7 @@ Blog Details Page Style
                 }
                 .post-com-btn {
                     padding: 12px 30px;
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                     color: $color-white;
                     text-align: center;
                     outline: none;
@@ -2801,7 +2817,7 @@ Blog Details Page Style
             font-size: 20px;
             border: none;
             color: $color-white;
-            background-color: $main-color;
+            background-color: $carrot-orange-color;
             -webkit-transition: 0.5s;
             transition: 0.5s;
             cursor: pointer;
@@ -2905,7 +2921,7 @@ Blog Details Page Style
                 border-bottom: 1px solid #efefef;
 
                 &::before {
-                    background: $main-color;
+                    background: $carrot-orange-color;
                     position: absolute;
                     height: 7px;
                     width: 7px;
@@ -2929,7 +2945,7 @@ Blog Details Page Style
                         font-size: 13px;
                     }
                     &:hover {
-                        color: $main-color;
+                        color: $carrot-orange-color;
                     }
                 }
             }              
@@ -2955,7 +2971,7 @@ Blog Details Page Style
                     text-transform: capitalize;
 
                     &:hover {
-                        background-color: $main-color;
+                        background-color: $carrot-orange-color;
                         color: $color-white;
                     }
                 }
@@ -2978,7 +2994,7 @@ Pagination Area Style
         margin-bottom: 30px;
     }
     .page-link {
-        color: $main-color;
+        color: $carrot-orange-color;
         background-color: $color-white;
         box-shadow: 0 0 15px #d0d0d0;
         width: 40px;
@@ -2999,8 +3015,8 @@ Pagination Area Style
         }
         &.current, &:hover, &:focus {
             color: $color-white;
-            background-color: $main-color;
-            border: 1px solid $main-color;
+            background-color: $carrot-orange-color;
+            border: 1px solid $carrot-orange-color;
         }
     }
     .page-item {
@@ -3015,8 +3031,8 @@ Pagination Area Style
         &.current .page-link {
             z-index: 1;
             color: $color-white;
-            background-color: $main-color;
-            border-color: $main-color;
+            background-color: $carrot-orange-color;
+            border-color: $carrot-orange-color;
         }
     }
 }
@@ -3072,7 +3088,7 @@ Cart Page Style
                                 font-size: 16px;
 
                                 &:hover {
-                                    color: $main-color !important;
+                                    color: $carrot-orange-color !important;
                                 }
                             }
                         }
@@ -3089,7 +3105,7 @@ Cart Page Style
                                     font-size: 24px;
                                 }
                                 &:hover {
-                                    color: $main-color;
+                                    color: $carrot-orange-color;
                                 }
                             }
                             span {
@@ -3221,13 +3237,13 @@ Cart Page Style
                         outline: 0;
                         box-shadow: none;
                         border: 1px solid $paragraph-color;
-                        background-color: $main-color !important;
+                        background-color: $carrot-orange-color !important;
                     }
                     option {
                         padding: 10px;
 
                         &:hover {
-                            background-color: $main-color !important;
+                            background-color: $carrot-orange-color !important;
                         }
                     }
                 }
@@ -3260,7 +3276,7 @@ Cart Page Style
 
                 :hover {
                     color: $color-white !important;
-                    background-color: $main-color !important;
+                    background-color: $carrot-orange-color !important;
                 }
             }
             .current {
@@ -3271,12 +3287,12 @@ Cart Page Style
     }
 }
 .cart-wraps-area .nice-select .option.focus, .cart-wraps-area .nice-select .option.selected.focus, .cart-wraps-area .nice-select .option:hover {
-   background-color: $main-color !important;
+   background-color: $carrot-orange-color !important;
    color: $color-white !important;
    font-weight: 600;
 }
 .cart-wraps-area .cart-calc select .option.focus, .cart-wraps-area .cart-calc .nice-select .option.selected.focus {
-    background-color: $main-color !important;
+    background-color: $carrot-orange-color !important;
     color: $color-white !important;
 }
 .cart-wraps-area .cart-table table tbody tr td.product-quantity .input-counter input::-webkit-input-placeholder {
@@ -3313,15 +3329,15 @@ Checkout Page Style
         background: $color-white;
         padding: 20px 15px;
         margin-bottom: 65px;
-        border-top: 3px solid $main-color;
-        color: $main-color;
+        border-top: 3px solid $carrot-orange-color;
+        color: $carrot-orange-color;
 
         span {
             color: $title-color;
             font-size: 20px;
 
             a {
-                color: $main-color;
+                color: $carrot-orange-color;
 
                 &:hover {
                     color: $color-blue;
@@ -3352,7 +3368,7 @@ Checkout Page Style
             font-weight: 500;
 
             span {
-                color: $main-color;
+                color: $carrot-orange-color;
             }
         } 
         .form-control {
@@ -3407,7 +3423,7 @@ Checkout Page Style
                     padding-right: 20px;
 
                     &:hover {
-                        background-color: $main-color !important;
+                        background-color: $carrot-orange-color !important;
                         color: $color-white;
                     }
                     &:focus {
@@ -3439,7 +3455,7 @@ Checkout Page Style
     }
 }
 .checkout-area .billing-details .form-group .nice-select .option:hover, .checkout-area .billing-details .form-group .nice-select .option.focus, .checkout-area .billing-details .form-group .nice-select .option.selected.focus {
-    background-color: $main-color !important;
+    background-color: $carrot-orange-color !important;
     color: $color-white !important;
     border: none;
     outline: none;
@@ -3492,7 +3508,7 @@ Checkout Page Style
                                 font-weight: 600;
 
                                 &:hover {
-                                    color: $main-color;
+                                    color: $carrot-orange-color;
                                 }
                             }
                         }
@@ -3544,7 +3560,7 @@ Checkout Page Style
                 cursor: pointer;
                 display: block;
                 font-weight: 600;
-                color: $main-color;
+                color: $carrot-orange-color;
                 position: relative;
                 margin-bottom: 8px;
 
@@ -3563,7 +3579,7 @@ Checkout Page Style
                     content: '';
                     width: 12px;
                     height: 12px;
-                    background: $main-color;
+                    background: $carrot-orange-color;
                     position: absolute;
                     top: 6px;
                     left: 3px;
@@ -3602,7 +3618,7 @@ Checkout Page Style
                     content: '';
                     width: 12px;
                     height: 12px;
-                    background: $main-color;
+                    background: $carrot-orange-color;
                     position: absolute;
                     top: 6px;
                     left: 3px;
@@ -3624,7 +3640,7 @@ Checkout Page Style
     }
 }
 .billing-details .form-group .nice-select .option:hover,  .billing-details .form-group .nice-select .option.focus, .billing-details .form-group .nice-select .option.selected.focus {
-    background-color: $main-color !important;
+    background-color: $carrot-orange-color !important;
     color: $color-white !important;
 }
 
@@ -3660,7 +3676,7 @@ Product Details Page Style
             font-size: 14px;
 
             i {
-                color: $main-color;
+                color: $carrot-orange-color;
             }
         }
         .rating-count {
@@ -3671,8 +3687,8 @@ Product Details Page Style
             line-height: initial;
 
             &:hover {
-                color: $main-color;
-                border-color: $main-color;
+                color: $carrot-orange-color;
+                border-color: $carrot-orange-color;
             }              
         }
     }
@@ -3709,7 +3725,7 @@ Product Details Page Style
                 transition: 0.5s;
 
                 &:hover {
-                    color: $main-color;
+                    color: $carrot-orange-color;
                 }
             }
             .minus-btn {
@@ -3762,7 +3778,7 @@ Product Details Page Style
                 a {
                     width: 35px;
                     height: 35px;
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                     font-size: 16px;
                     color: $color-white;
                     line-height: 35px;
@@ -3821,19 +3837,19 @@ Product Details Page Style
 
                 &:focus {
                     color: $color-white;
-                    background-color:$main-color;
-                    border-color: $main-color;
+                    background-color:$carrot-orange-color;
+                    border-color: $carrot-orange-color;
                 }
             }
             &.active a {
                 color: $color-white;
-                background-color: $main-color;
-                border-color: $main-color;
+                background-color: $carrot-orange-color;
+                border-color: $carrot-orange-color;
             }
             &.current a {
                 color: $color-white;
-                background-color: $main-color;
-                border-color: $main-color;
+                background-color: $carrot-orange-color;
+                border-color: $carrot-orange-color;
             }
         }
     }
@@ -3887,7 +3903,7 @@ Product Details Page Style
                             display: inline-block;
                             
                             i {
-                                color: $main-color;
+                                color: $carrot-orange-color;
                                 font-size: 14px;
                             }
                             p {
@@ -3903,7 +3919,7 @@ Product Details Page Style
                             bottom: 0;
                             font-size: 14px;
                             color: $color-white;
-                            background-color: $main-color;
+                            background-color: $carrot-orange-color;
                             padding: 7px 15px;
                             border-radius: 5px;
 
@@ -3925,7 +3941,7 @@ Product Details Page Style
 
                             .rating  {
                                 i {
-                                    color: $main-color;
+                                    color: $carrot-orange-color;
                                     font-size: 14px;
                                 }
                             }
@@ -3959,7 +3975,7 @@ Product Details Page Style
                                 font-size: 15px;
 
                                 &:hover {
-                                    color: $main-color;
+                                    color: $carrot-orange-color;
                                 }                                  
                             }      
                         }                          
@@ -4046,7 +4062,7 @@ Service Details Page Style
             height: 3px;
             bottom: 0;
             left: 0;
-            background-color: $main-color;
+            background-color: $carrot-orange-color;
         }
     }
     p {
@@ -4075,7 +4091,7 @@ Service Details Page Style
             left: 0;
             width: 50px;
             height: 3px;
-            background-color: $main-color;
+            background-color: $carrot-orange-color;
 
         }
     }
@@ -4098,7 +4114,7 @@ Service Details Page Style
                 font-weight: 500;
 
                 &:hover {
-                    color: $main-color;
+                    color: $carrot-orange-color;
                 }
             }
         }
@@ -4119,7 +4135,7 @@ Service Details Page Style
             left: 0;
             width: 25px;
             height: 3px;
-            background-color: $main-color;
+            background-color: $carrot-orange-color;
         }
     }
     ul {
@@ -4141,7 +4157,7 @@ Service Details Page Style
                 text-transform: capitalize;
 
                 &:hover {
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                     color: $color-white;
                 }
             }
@@ -4250,7 +4266,7 @@ Testimonials Page Style
         li {
             display: inline-block;
             font-size: 16px;
-            color: $main-color;
+            color: $carrot-orange-color;
         }
     }
     p {
@@ -4275,13 +4291,13 @@ Testimonials Page Style
 
             span {
                 
-                color: $main-color;
+                color: $carrot-orange-color;
             }
         }
         h3 {
             margin: 50px 0 0;
             position: relative;
-            color: $main-color;
+            color: $carrot-orange-color;
         }
         p {
             margin: 20px 0 20px;
@@ -4468,7 +4484,7 @@ Coming Soon Area Style
                     color: $color-white;
                 }
                 &:hover {
-                    background-color: $main-color;
+                    background-color: $carrot-orange-color;
                 }
             }
         }
@@ -4532,12 +4548,12 @@ Back To Top Button Style
     z-index: 99;
 } 
 .top-btn {
-    background-color: $main-color;
+    background-color: $carrot-orange-color;
     color: $color-white;
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    box-shadow: 0 0 15px $main-color;
+    box-shadow: 0 0 15px $carrot-orange-color;
     font-size: 20px;
     display: inline-block;
     text-align: center;
