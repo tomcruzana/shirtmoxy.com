@@ -25,6 +25,7 @@ public class EmailSubscription {
 	@Email
 	private String email;
 
+	@NotNull
 	@Column(name = "date_created")
 	@Temporal(TemporalType.DATE)
 	private Date dateCreated;
