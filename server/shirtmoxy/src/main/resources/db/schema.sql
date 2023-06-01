@@ -1,9 +1,9 @@
 -- Create the email_subscription table
-CREATE TABLE email_subscription (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    date_created DATE NOT NULL DEFAULT (CURRENT_DATE),
-    email VARCHAR(255) UNIQUE NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `email_subscription` (
+   `id` INT PRIMARY KEY AUTO_INCREMENT,
+   `date_created` DATE NOT NULL DEFAULT (CURRENT_DATE),
+   `email` VARCHAR(255) UNIQUE NOT NULL
+) ENGINE=INNODB;
 
 -- Create the media_format table
 CREATE TABLE IF NOT EXISTS `media_format` (
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `product_media_id` INT,
   `category_id` INT NOT NULL,
   `name` VARCHAR(255) UNIQUE NOT NULL,
-  `description` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
   `manufacturer` VARCHAR(255),
   `weight` DECIMAL(10,2),
   `price` DECIMAL(10,2) NOT NULL,
