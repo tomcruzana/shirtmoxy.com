@@ -2,6 +2,7 @@ package com.shirtmoxy.app.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "variant")
@@ -20,6 +22,8 @@ public class Variant {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Min(value = 0, message = "Inventory count must be greater than or equal to 0")
+	@Column(nullable = false, columnDefinition = "INT DEFAULT 0")
 	private int inventoryCount;
 
 	@ManyToOne(fetch = FetchType.LAZY)

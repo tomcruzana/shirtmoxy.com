@@ -1,5 +1,6 @@
 package com.shirtmoxy.app.entity;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -14,6 +15,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "product")
@@ -23,7 +30,9 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "SKU")
+	@NotEmpty(message = "SKU is required and must not be empty")
+	@Size(max = 255, message = "SKU cannot exceed 255 characters")
+	@Column(unique = true, nullable = false, length = 255)
 	private String sku;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -34,12 +43,34 @@ public class Product {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
+	@NotEmpty(message = "Name is required and must not be empty")
+	@Size(max = 255, message = "Name cannot exceed 255 characters")
+	@Column(nullable = false, length = 255)
 	private String name;
+
+	@NotEmpty(message = "Description is required and must not be empty")
+	@Size(max = 255, message = "Description cannot exceed 255 characters")
+	@Column(nullable = false, length = 255)
 	private String description;
+
+	@Size(max = 255, message = "Manufacturer cannot exceed 255 characters")
 	private String manufacturer;
-	private double weight;
-	private double price;
-	private double tax;
+
+	@Digits(integer = 8, fraction = 2, message = "Weight must have a maximum of 8 digits, including 2 decimal places")
+	@DecimalMin(value = "0.00", inclusive = true, message = "Weight must be greater than or equal to 0.00")
+	@DecimalMax(value = "999999.99", inclusive = true, message = "Weight must be less than or equal to 999999.99")
+	@Column(name = "weight", columnDefinition = "DECIMAL(10,2)")
+	private BigDecimal weight;
+
+	@Digits(integer = 8, fraction = 2, message = "Price must have a maximum of 8 digits, including 2 decimal places")
+	@DecimalMin(value = "0.00", inclusive = true, message = "Price must be greater than or equal to 0.00")
+	@Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
+	private BigDecimal price;
+
+	@Digits(integer = 8, fraction = 2, message = "Tax must have a maximum of 8 digits, including 2 decimal places")
+	@DecimalMin(value = "0.00", inclusive = true, message = "Tax must be greater than or equal to 0.00")
+	@Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
+	private BigDecimal tax;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "variant_id", nullable = false)
@@ -49,6 +80,8 @@ public class Product {
 	@JoinColumn(name = "barcode_id")
 	private Barcode barcode;
 
+	@NotNull(message = "isActive must not be null")
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
 	private boolean isActive;
 
 	public Product() {
@@ -110,27 +143,27 @@ public class Product {
 		this.manufacturer = manufacturer;
 	}
 
-	public double getWeight() {
+	public BigDecimal getWeight() {
 		return weight;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
-	public double getTax() {
+	public BigDecimal getTax() {
 		return tax;
 	}
 
-	public void setTax(double tax) {
+	public void setTax(BigDecimal tax) {
 		this.tax = tax;
 	}
 

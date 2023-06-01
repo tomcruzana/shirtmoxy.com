@@ -10,8 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "email_subscription")
@@ -21,11 +23,13 @@ public class EmailSubscription {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 
-	@NotNull
-	@Email
+	@NotEmpty(message = "Email is required")
+    @Email(message = "Invalid email format")
+	@Size(max = 255, message = "Email must not exceed 255 characters")
+    @Column(unique = true, nullable = false, length = 255)
 	private String email;
 
-	@NotNull
+	@NotNull(message = "Date created is required")
 	@Column(name = "date_created")
 	@Temporal(TemporalType.DATE)
 	private Date dateCreated;
