@@ -1,7 +1,5 @@
 package com.shirtmoxy.app.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -29,7 +27,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<ProductDto>> searchProducts(@RequestParam("keyword") String keyword,
+	public ResponseEntity<Page<ProductDto>> searchProducts(@RequestParam("query") String keyword,
 			@RequestParam("pageNum") int pageNum) {
 
 		Page<ProductDto> searchResult = productService.search(keyword, pageNum);

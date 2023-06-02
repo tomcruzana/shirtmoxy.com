@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shirtmoxy.app.dto.ProductDto;
@@ -29,9 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<ProductDto> readAllProducts(int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE); // Create a Pageable object
+		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findAll(pageable);
-		
+
 		List<ProductDto> productDtos = new ArrayList<>();
 
 		for (Product product : productsPage.getContent()) {
@@ -50,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<ProductDto> search(String keyword, int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE);
+		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("name"));
 		Page<Product> searchResult = productRepo.search(keyword, pageable);
 
 		List<ProductDto> productDtos = new ArrayList<>();
