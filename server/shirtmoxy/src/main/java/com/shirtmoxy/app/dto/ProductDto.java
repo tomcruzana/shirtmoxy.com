@@ -18,7 +18,7 @@ public class ProductDto {
 
 	private Set<ProductMediaDto> productMediaSet;
 
-	private int categoryId;
+	private CategoryDto category;
 
 	@NotEmpty(message = "Name is required and must not be empty")
 	@Size(max = 255, message = "Name cannot exceed 255 characters")
@@ -40,9 +40,9 @@ public class ProductDto {
 	@DecimalMax(value = "999999.99", inclusive = true, message = "Tax must be less than or equal to 999999.99")
 	private BigDecimal tax;
 
-	private int variantId;
+	private VariantDto variant;
 
-	private int barcodeId;
+	private BarcodeDto barcode;
 
 	@NotNull(message = "isActive must not be null")
 	private boolean isActive;
@@ -74,12 +74,12 @@ public class ProductDto {
 		this.productMediaSet = productMediaSet;
 	}
 
-	public int getCategoryId() {
-		return categoryId;
+	public CategoryDto getCategory() {
+		return category;
 	}
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory(CategoryDto category) {
+		this.category = category;
 	}
 
 	public String getName() {
@@ -130,20 +130,20 @@ public class ProductDto {
 		this.tax = tax;
 	}
 
-	public int getVariantId() {
-		return variantId;
+	public VariantDto getVariant() {
+		return variant;
 	}
 
-	public void setVariantId(int variantId) {
-		this.variantId = variantId;
+	public void setVariant(VariantDto variant) {
+		this.variant = variant;
 	}
 
-	public int getBarcodeId() {
-		return barcodeId;
+	public BarcodeDto getBarcode() {
+		return barcode;
 	}
 
-	public void setBarcodeId(int barcodeId) {
-		this.barcodeId = barcodeId;
+	public void setBarcode(BarcodeDto barcode) {
+		this.barcode = barcode;
 	}
 
 	public boolean isActive() {
