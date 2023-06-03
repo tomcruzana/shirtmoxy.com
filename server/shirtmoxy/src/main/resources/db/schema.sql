@@ -94,7 +94,11 @@ CREATE TABLE IF NOT EXISTS `product` (
   FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   FOREIGN KEY (`variant_id`) REFERENCES `variant` (`id`),
   FOREIGN KEY (`barcode_id`) REFERENCES `barcode` (`id`)
-) ENGINE=InnoDB;
+) ENGINE=INNODB;
+
+-- Add FULLTEXT index for search functionality
+ALTER TABLE `product`
+ADD FULLTEXT(`SKU`, `name`, `description`, `manufacturer`);
 
 -- Create the junction table for product & product_media tables
 -- to establish a M-M relationship
