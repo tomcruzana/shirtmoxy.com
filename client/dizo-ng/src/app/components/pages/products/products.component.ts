@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  isExpanded: boolean = true;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleSearchFilterCollapse() {
+    this.isExpanded = !this.isExpanded;
   }
 
 }

@@ -3,8 +3,8 @@
 /*================================================
 Default CSS
 =================================================*/
-$banner-title-font: 'Century Gothic', 'Playfair Display', serif;
-$body-font: 'Montserrat','Poppins', sans-serif;
+$banner-title-font: "Century Gothic", "Playfair Display", serif;
+$body-font: "Montserrat", "Poppins", sans-serif;
 $carrot-orange-color: #ff743c;
 $paragraph-color: #8d8d90;
 $title-color: #2d3652;
@@ -12,19 +12,18 @@ $color-blue: #4356d6;
 
 /*Shirt Moxy Color Palette*/
 // primary colors
-$raspberry-color: #E61C5D;
+$raspberry-color: #e61c5d;
 $prussian-blue-color: #003144;
-$carrot-orange-color: #F39200;
+$carrot-orange-color: #f39200;
 
 // secondary colors
 $licorice-color: #130301;
-$dim-gray: #6B6D76;
-$white_smoke-color: #F2F2F2;
+$dim-gray: #6b6d76;
+$white_smoke-color: #f2f2f2;
 
 // tertiary colors
 $color-white: #ffffff;
 $color-black: #000000;
-
 
 body {
     font-size: 16px;
@@ -33,8 +32,7 @@ body {
     color: $paragraph-color;
 }
 p {
-    color: $paragraph-color; 
-
+    color: $paragraph-color;
 }
 a {
     display: inline-block;
@@ -42,7 +40,8 @@ a {
     transition: all 0.5s;
     text-decoration: none;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         text-decoration: none;
     }
 }
@@ -52,17 +51,21 @@ button {
     outline: 0;
 
     &:focus {
-        outline: 0 ;
+        outline: 0;
         border: 0;
     }
 }
-h1, h4, h5, h6 {
+h1,
+h4,
+h5,
+h6 {
     color: $title-color;
     font-weight: 600;
     line-height: 1.3;
-  }
-  
-h2, h3 {
+}
+
+h2,
+h3 {
     @extend h1, h4, h5, h6;
     // letter-spacing: 3pt;
 }
@@ -81,7 +84,7 @@ img {
     padding: {
         top: 100px;
         bottom: 100px;
-    };
+    }
 }
 .pt-100 {
     padding-top: 100px;
@@ -93,7 +96,7 @@ img {
     padding: {
         top: 70px;
         bottom: 70px;
-    };
+    }
 }
 .pt-70 {
     padding-top: 70px;
@@ -144,7 +147,7 @@ img {
         z-index: -1;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
-      }      
+    }
     &::after {
         content: "";
         position: absolute;
@@ -164,8 +167,8 @@ img {
         top: 0;
         background-color: $title-color;
         color: $color-white;
-     }
-      
+    }
+
     &:hover::after {
         bottom: 0;
         background-color: $title-color;
@@ -182,16 +185,16 @@ img {
             color: $color-white;
             background-color: $title-color;
         }
-    } 
+    }
     &.active::before {
         width: 100%;
         height: 100%;
-        background-color: transparent
+        background-color: transparent;
     }
     &.active::after {
         width: 100%;
         height: 100%;
-        background-color: transparent
+        background-color: transparent;
     }
 }
 /*Section Title Style*/
@@ -226,7 +229,7 @@ Navbar Area
     padding: {
         left: 0;
         right: 0;
-    };
+    }
     .navbar-brand {
         img {
             float: left;
@@ -270,7 +273,8 @@ Navbar Area
     nav {
         .navbar-nav {
             .nav-item {
-                &:hover a, .active {
+                &:hover a,
+                .active {
                     color: $raspberry-color;
                 }
                 a {
@@ -280,13 +284,14 @@ Navbar Area
                     margin: {
                         left: 12px;
                         right: 12px;
-                    };
+                    }
                     i {
                         line-height: 0;
                         position: relative;
                         // top: 3px;
                     }
-                    &:hover, :focus {
+                    &:hover,
+                    :focus {
                         color: $raspberry-color;
                     }
                     &.active {
@@ -322,7 +327,7 @@ Navbar Area
                             border-bottom: none;
                         }
                         a {
-                            color:#222222 !important;
+                            color: #222222 !important;
                             position: relative;
                             transition: 0.7s;
                             font-weight: 500;
@@ -330,9 +335,9 @@ Navbar Area
                             &:hover {
                                 background-color: #f3f3f3;
                             }
-                            &.active{
+                            &.active {
                                 background-color: #f3f3f3;
-                                border-radius: .25rem; 
+                                border-radius: 0.25rem;
                                 color: $carrot-orange-color !important;
                             }
                             &::before {
@@ -349,15 +354,17 @@ Navbar Area
                             &:hover::before {
                                 width: 100%;
                             }
-                            &:hover, :focus, .active {
+                            &:hover,
+                            :focus,
+                            .active {
                                 color: $carrot-orange-color !important;
                                 letter-spacing: 0.5px;
                                 background-color: #f3f3f3;
-                                border-radius: .25rem;
+                                border-radius: 0.25rem;
                             }
                         }
                         &.active {
-                           color: $carrot-orange-color !important;
+                            color: $carrot-orange-color !important;
                         }
                     }
                 }
@@ -397,7 +404,7 @@ Navbar Area
             z-index: -1;
             -webkit-transition: all 0.5s;
             transition: all 0.5s;
-        }      
+        }
         &::after {
             content: "";
             position: absolute;
@@ -425,14 +432,15 @@ Navbar Area
         }
     }
 }
-.cart-area, .user-area {
+.cart-area,
+.user-area {
     display: inline-block;
     color: $color-white;
     position: relative;
     margin: {
         left: 20px;
         right: 20px;
-    };
+    }
     a {
         color: $licorice-color;
         border-radius: 3px;
@@ -518,7 +526,7 @@ Navbar Area
                     padding-bottom: 5px;
 
                     &::before {
-                        content: '';
+                        content: "";
                         position: absolute;
                         left: 0;
                         bottom: -1px;
@@ -570,7 +578,7 @@ Navbar Area
                             right: -5px;
                             bottom: 0;
                             top: -10px;
-                        };
+                        }
                         li {
                             -webkit-box-flex: 0;
                             -ms-flex: 0 0 25%;
@@ -580,7 +588,7 @@ Navbar Area
                                 left: 5px;
                                 right: 5px;
                                 top: 10px;
-                            };
+                            }
                         }
                     }
                 }
@@ -605,7 +613,6 @@ Navbar Area
                             color: $title-color;
                             margin-top: 5px;
                             text-transform: initial;
-                            
                         }
                         i {
                             position: absolute;
@@ -629,7 +636,7 @@ Navbar Area
                         }
                         &:last-child {
                             margin-bottom: 0;
-                        } 
+                        }
                     }
                 }
                 .social-list {
@@ -703,7 +710,7 @@ Navbar Area
             -webkit-box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.05);
             box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.05);
             padding: 30px 25px;
-        }            
+        }
     }
     button {
         &:focus {
@@ -735,11 +742,11 @@ Navbar Area
     .mean-container {
         .mean-nav {
             ul {
-                li{
+                li {
                     a {
                         .active {
                             color: $carrot-orange-color;
-                        } 
+                        }
                     }
                 }
             }
@@ -752,7 +759,7 @@ Navbar Area
             color: $color-white;
 
             span {
-                background-color: $color-white ;
+                background-color: $color-white;
             }
         }
     }
@@ -863,7 +870,7 @@ About Area Style
         left: 40px;
         top: 30px;
         bottom: 30px;
-    };
+    }
     span {
         color: $carrot-orange-color;
         font-weight: 500;
@@ -907,7 +914,7 @@ About Area Style
                 z-index: -1;
                 -webkit-transition: all 0.5s;
                 transition: all 0.5s;
-            }      
+            }
             &::after {
                 content: "";
                 position: absolute;
@@ -1033,7 +1040,7 @@ Service Area Style
             text-align: center;
             border-radius: 5px;
             transition: 0.7s;
-            
+
             &:hover {
                 background-color: $carrot-orange-color;
             }
@@ -1053,6 +1060,23 @@ Product Area Style
     position: relative;
     z-index: 1;
 }
+$white-smoke-color-hover: #d8d8d8;
+$white-smoke-color-focus: #e0e0e0;
+
+// Override button styles
+.search-filter-btn {
+    border: none !important;
+    background-color: $white_smoke-color;
+    transition: all 0.7s !important;
+
+    &:hover {
+        background-color: $white-smoke-color-hover;
+    }
+
+    &:focus {
+        background-color: $white-smoke-color-focus;
+    }
+}
 .product-card {
     border-radius: 25px;
     background-color: $color-white;
@@ -1067,7 +1091,7 @@ Product Area Style
         }
     }
     .product-content {
-        padding: 24px  20px;
+        padding: 24px 20px;
         position: relative;
 
         a {
@@ -1127,7 +1151,7 @@ Product Area Style
     position: absolute;
     top: 500px;
     z-index: -1;
-    left: 0 ;
+    left: 0;
     right: 0;
     margin: 0 auto;
 }
@@ -1144,7 +1168,7 @@ Price Section Style
         list-style: none;
         padding: 0;
         margin: 0;
-        margin:auto;
+        margin: auto;
 
         li {
             display: inline-block;
@@ -1175,10 +1199,10 @@ Price Section Style
     }
     .active {
         display: block;
-    } 
+    }
 }
 .single-price {
-    padding-top: 38px ;
+    padding-top: 38px;
     padding-bottom: 30px;
     text-align: center;
     background-color: $color-white;
@@ -1190,7 +1214,7 @@ Price Section Style
     z-index: 1;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
@@ -1204,24 +1228,26 @@ Price Section Style
     &:hover {
         background-color: $title-color;
     }
-    &:hover .get-btn  {
+    &:hover .get-btn {
         background-color: $carrot-orange-color;
         color: $color-white;
     }
-    &:hover ul li, &:hover .single-price-title  h2 {
+    &:hover ul li,
+    &:hover .single-price-title h2 {
         color: $color-white;
     }
     &.current {
         background-color: $title-color;
     }
-    &.current .get-btn  {
+    &.current .get-btn {
         background-color: $color-white;
         color: $carrot-orange-color;
     }
-    &.current ul li, &.current .single-price-title h2 {
+    &.current ul li,
+    &.current .single-price-title h2 {
         color: $color-white;
     }
-    &.current .get-btn  {
+    &.current .get-btn {
         background-color: $carrot-orange-color;
         color: $color-white;
     }
@@ -1235,7 +1261,7 @@ Price Section Style
         margin: {
             top: 20px;
             bottom: 30px;
-        };
+        }
         h2 {
             font-size: 40px;
             color: $title-color;
@@ -1315,7 +1341,7 @@ Designer Card CSS
         padding-bottom: 20px;
         text-align: center;
         background-color: $color-white;
-        border-radius:15px 15px 0 0;
+        border-radius: 15px 15px 0 0;
         width: 100%;
         transition: 0.7s;
 
@@ -1355,7 +1381,7 @@ Designer Card CSS
                     margin: {
                         left: 3px;
                         right: 3px;
-                    };
+                    }
                     a {
                         color: $color-blue;
                         font-size: 20px;
@@ -1392,9 +1418,9 @@ Testimonial Section CSS
     padding: {
         top: 30px;
         bottom: 70px;
-    };
+    }
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
@@ -1406,7 +1432,7 @@ Testimonial Section CSS
             position: center center;
             size: cover;
             repeat: no-repeat;
-        };
+        }
     }
     h3 {
         font-size: 24px;
@@ -1419,7 +1445,7 @@ Testimonial Section CSS
             left: auto;
             right: auto;
             bottom: 30px;
-        };
+        }
     }
 }
 .testimonial-slider {
@@ -1553,7 +1579,7 @@ Blog Area CSS
 
             i {
                 position: relative;
-                top: 2px; 
+                top: 2px;
             }
             &:hover {
                 color: $carrot-orange-color;
@@ -1602,7 +1628,7 @@ Footer Area CSS
         font: {
             size: 20px;
             weight: 500;
-        };
+        }
         a {
             color: $color-white;
         }
@@ -1641,7 +1667,7 @@ Footer Area CSS
                 transition: 0.7s;
 
                 &::before {
-                    content: '';
+                    content: "";
                     position: absolute;
                     bottom: 0;
                     left: 0;
@@ -1744,7 +1770,7 @@ Footer Area CSS
             }
         }
         &::before {
-            content: '';
+            content: "";
             position: absolute;
             width: 1px;
             height: 30px;
@@ -1825,7 +1851,7 @@ Home Slider Style
     background-size: cover;
     position: relative;
 
-    &::before{
+    &::before {
         content: "";
         position: absolute;
         top: 0;
@@ -1884,16 +1910,16 @@ Home Slider Style
 /*=================================
 Product-images Slider Style
 ====================================*/
-.product-images-slider{
+.product-images-slider {
     padding-top: 45px;
 
     .product-images {
         position: relative;
-    
-        .product-images-item{
+
+        .product-images-item {
             cursor: pointer;
         }
-        
+
         .owl-nav {
             .owl-prev {
                 position: absolute;
@@ -1902,7 +1928,7 @@ Product-images Slider Style
                 transform: translateY(-16px);
                 font-size: 35px !important;
                 color: $carrot-orange-color !important;
-    
+
                 &:hover {
                     color: $title-color !important;
                     background-color: transparent !important;
@@ -1915,7 +1941,7 @@ Product-images Slider Style
                 transform: translateY(-16px);
                 font-size: 35px !important;
                 color: $carrot-orange-color !important;
-    
+
                 &:hover {
                     color: $title-color !important;
                     background-color: transparent !important;
@@ -1923,9 +1949,7 @@ Product-images Slider Style
             }
         }
     }
-    
 }
-
 
 /*=================================
 Choose Area Style
@@ -1945,7 +1969,7 @@ Choose Area Style
     z-index: 1;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -1962,7 +1986,8 @@ Choose Area Style
         height: 100%;
         border-radius: 10px;
     }
-    &:hover i, h3 {
+    &:hover i,
+    h3 {
         color: $color-white;
     }
     &:hover h3 {
@@ -1989,7 +2014,7 @@ Testimonial Area Two Style
     background-color: $title-color;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -2056,10 +2081,10 @@ Testimonial Area Two Style
     }
 }
 .testimonial-img-2 {
-   img {
-       border-radius: 15px;
-       width: 370px !important;
-   }
+    img {
+        border-radius: 15px;
+        width: 370px !important;
+    }
 }
 .testimonial-icon {
     position: absolute;
@@ -2172,7 +2197,7 @@ Home Page Three Style
             z-index: 1;
         }
         &::before {
-            content: '';
+            content: "";
             position: absolute;
             z-index: -1;
             top: 15%;
@@ -2206,7 +2231,7 @@ Inner Banner Style
     background-size: cover;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
@@ -2238,7 +2263,7 @@ Inner Banner Style
                 margin-right: 10px;
 
                 &:last-child {
-                    margin-right: 0; 
+                    margin-right: 0;
                 }
                 i {
                     font-size: 16px;
@@ -2297,7 +2322,7 @@ Contact Pages Style
 ==================================*/
 .contact-wrap-form {
     background-color: $color-white;
-    box-shadow: 0 0 15px rgba(0, 0, 0,0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     padding: 50px;
 
     p {
@@ -2404,7 +2429,8 @@ Contact Pages Style
     }
     .recover-login {
         color: #ff4a35;
-        font-weight: 600;margin-bottom: 15px;
+        font-weight: 600;
+        margin-bottom: 15px;
 
         &:hover a {
             color: $color-blue;
@@ -2470,7 +2496,7 @@ Blog Details Page Style
     }
     .blog-text {
         margin-bottom: 30px;
-       
+
         h2 {
             font-size: 35px;
             color: $title-color;
@@ -2525,13 +2551,13 @@ Blog Details Page Style
                 left: 50px;
                 top: -50px;
                 z-index: -1;
-                font-family: 'boxicons';
+                font-family: "boxicons";
                 font-size: 140px;
                 font-weight: 900;
                 opacity: 0.1;
             }
             &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -2540,7 +2566,7 @@ Blog Details Page Style
                 background-color: $color-blue;
                 margin-top: 20px;
                 margin-bottom: 20px;
-            }  
+            }
         }
     }
     h3 {
@@ -2558,7 +2584,7 @@ Blog Details Page Style
         display: flex;
         flex-wrap: wrap;
         margin-top: 30px;
-        
+
         .article-tags {
             flex: 0 0 50%;
             max-width: 50%;
@@ -2615,9 +2641,9 @@ Blog Details Page Style
                         &:hover {
                             animation: tada 1s linear;
                         }
-                    }  
+                    }
                 }
-            } 
+            }
         }
     }
     .post-navigation {
@@ -2668,7 +2694,7 @@ Blog Details Page Style
             border-bottom: 1px solid #eeeeee;
 
             &:last-child {
-                border-bottom:none;
+                border-bottom: none;
             }
             .comment-author-img {
                 display: inline-block;
@@ -2722,7 +2748,7 @@ Blog Details Page Style
             .comment-respond-title {
                 margin-top: 0;
                 margin-bottom: 15px;
-                font-size: 24px;   
+                font-size: 24px;
             }
             .comment-form {
                 .form-group {
@@ -2758,7 +2784,7 @@ Blog Details Page Style
                     outline: none;
                     border: none;
                     transition: 0.7s;
-                    
+
                     &:hover {
                         background-color: $title-color;
                     }
@@ -2931,7 +2957,7 @@ Blog Details Page Style
                     position: absolute;
                     height: 7px;
                     width: 7px;
-                    content: '';
+                    content: "";
                     left: 0;
                     top: 10px;
                     transform: rotate(45deg);
@@ -2954,7 +2980,7 @@ Blog Details Page Style
                         color: $carrot-orange-color;
                     }
                 }
-            }              
+            }
         }
     }
     .widget_tag {
@@ -3019,7 +3045,9 @@ Pagination Area Style
                 margin-left: -4px;
             }
         }
-        &.current, &:hover, &:focus {
+        &.current,
+        &:hover,
+        &:focus {
             color: $color-white;
             background-color: $carrot-orange-color;
             border: 1px solid $carrot-orange-color;
@@ -3184,7 +3212,7 @@ Cart Page Style
         border-radius: 0;
         margin: auto;
         margin-top: 50px;
-        
+
         h3 {
             font-size: 24px;
             margin-bottom: 25px;
@@ -3239,7 +3267,8 @@ Cart Page Style
                     color: #6c777d;
                     border: 1px solid #ffd3d3;
 
-                    &:focus,:hover {
+                    &:focus,
+                    :hover {
                         outline: 0;
                         box-shadow: none;
                         border: 1px solid $paragraph-color;
@@ -3260,7 +3289,8 @@ Cart Page Style
                     padding: 25px 18px;
                     font-weight: 400;
 
-                    &:focus,:hover {
+                    &:focus,
+                    :hover {
                         outline: 0;
                         box-shadow: none;
                         border: 1px solid $paragraph-color;
@@ -3292,38 +3322,88 @@ Cart Page Style
         }
     }
 }
-.cart-wraps-area .nice-select .option.focus, .cart-wraps-area .nice-select .option.selected.focus, .cart-wraps-area .nice-select .option:hover {
-   background-color: $carrot-orange-color !important;
-   color: $color-white !important;
-   font-weight: 600;
+.cart-wraps-area .nice-select .option.focus,
+.cart-wraps-area .nice-select .option.selected.focus,
+.cart-wraps-area .nice-select .option:hover {
+    background-color: $carrot-orange-color !important;
+    color: $color-white !important;
+    font-weight: 600;
 }
-.cart-wraps-area .cart-calc select .option.focus, .cart-wraps-area .cart-calc .nice-select .option.selected.focus {
+.cart-wraps-area .cart-calc select .option.focus,
+.cart-wraps-area .cart-calc .nice-select .option.selected.focus {
     background-color: $carrot-orange-color !important;
     color: $color-white !important;
 }
-.cart-wraps-area .cart-table table tbody tr td.product-quantity .input-counter input::-webkit-input-placeholder {
+.cart-wraps-area
+    .cart-table
+    table
+    tbody
+    tr
+    td.product-quantity
+    .input-counter
+    input::-webkit-input-placeholder {
     color: $title-color;
 }
-.cart-wraps-area .cart-table table tbody tr td.product-quantity .input-counter input:-ms-input-placeholder {
+.cart-wraps-area
+    .cart-table
+    table
+    tbody
+    tr
+    td.product-quantity
+    .input-counter
+    input:-ms-input-placeholder {
     color: $title-color;
 }
-.cart-wraps-area.cart-table table tbody tr td.product-quantity .input-counter input::-ms-input-placeholder {
+.cart-wraps-area.cart-table
+    table
+    tbody
+    tr
+    td.product-quantity
+    .input-counter
+    input::-ms-input-placeholder {
     color: $title-color;
 }
-.cart-wraps-area .cart-table table tbody tr td.product-quantity .input-counter input::placeholder {
+.cart-wraps-area
+    .cart-table
+    table
+    tbody
+    tr
+    td.product-quantity
+    .input-counter
+    input::placeholder {
     color: $title-color;
 }
-.cart-wraps-area .cart-calc .cart-wraps-area form .form-control input::-webkit-input-placeholder {
+.cart-wraps-area
+    .cart-calc
+    .cart-wraps-area
+    form
+    .form-control
+    input::-webkit-input-placeholder {
     color: #6c777d;
 }
-.cart-area .cart-calc .cart-wraps-area form .form-control input:-ms-input-placeholder {
+.cart-area
+    .cart-calc
+    .cart-wraps-area
+    form
+    .form-control
+    input:-ms-input-placeholder {
     color: #6c777d;
 }
-.cart-area .cart-area .cart-calc .cart-wraps-area .form-control input::-ms-input-placeholder {
+.cart-area
+    .cart-area
+    .cart-calc
+    .cart-wraps-area
+    .form-control
+    input::-ms-input-placeholder {
     color: #6c777d;
 }
-.cart-area .cart-area .cart-calc .cart-wraps-area .form-control input::placeholder {
-    color:#495057;
+.cart-area
+    .cart-area
+    .cart-calc
+    .cart-wraps-area
+    .form-control
+    input::placeholder {
+    color: #495057;
 }
 
 /*=================================
@@ -3376,7 +3456,7 @@ Checkout Page Style
             span {
                 color: $carrot-orange-color;
             }
-        } 
+        }
         .form-control {
             height: 50px;
             color: #2d3652;
@@ -3386,7 +3466,8 @@ Checkout Page Style
             padding: 10px 20px;
             width: 100%;
 
-            &:focus,:hover {
+            &:focus,
+            :hover {
                 outline: 0;
                 box-shadow: none;
                 border: 1px solid $paragraph-color;
@@ -3400,7 +3481,8 @@ Checkout Page Style
             font-weight: 400;
             width: 100%;
 
-            &:focus,:hover {
+            &:focus,
+            :hover {
                 outline: 0;
                 box-shadow: none;
                 border: 1px solid $paragraph-color;
@@ -3457,10 +3539,16 @@ Checkout Page Style
             color: $title-color;
             margin-left: 5px;
             font-weight: 500;
-        } 
+        }
     }
 }
-.checkout-area .billing-details .form-group .nice-select .option:hover, .checkout-area .billing-details .form-group .nice-select .option.focus, .checkout-area .billing-details .form-group .nice-select .option.selected.focus {
+.checkout-area .billing-details .form-group .nice-select .option:hover,
+.checkout-area .billing-details .form-group .nice-select .option.focus,
+.checkout-area
+    .billing-details
+    .form-group
+    .nice-select
+    .option.selected.focus {
     background-color: $carrot-orange-color !important;
     color: $color-white !important;
     border: none;
@@ -3535,8 +3623,8 @@ Checkout Page Style
                                 color: $title-color;
                                 font-weight: 700;
                             }
-                        } 
-                        &.shipping-price {                         
+                        }
+                        &.shipping-price {
                             font-weight: 700;
                         }
                         &.order-subtotal-price {
@@ -3544,18 +3632,18 @@ Checkout Page Style
                         }
                         &.product-subtotal {
                             font-weight: 700;
-                        }                          
-                    } 
+                        }
+                    }
                 }
             }
-        }          
+        }
     }
     .payment-box {
         background-color: $color-white;
         box-shadow: 0 5px 28px rgba(0, 0, 0, 0.07);
         margin-top: 30px;
         margin-bottom: 30px;
-        padding:50px 30px;
+        padding: 50px 30px;
 
         .payment-method {
             p [type="radio"]:checked {
@@ -3571,7 +3659,7 @@ Checkout Page Style
                 margin-bottom: 8px;
 
                 &::before {
-                    content: '';
+                    content: "";
                     position: absolute;
                     left: 0;
                     top: 3px;
@@ -3582,7 +3670,7 @@ Checkout Page Style
                     background: $color-white;
                 }
                 &::after {
-                    content: '';
+                    content: "";
                     width: 12px;
                     height: 12px;
                     background: $carrot-orange-color;
@@ -3595,7 +3683,7 @@ Checkout Page Style
                     opacity: 1;
                     visibility: visible;
                     transform: scale(1);
-                }                
+                }
             }
             p [type="radio"]:not(:checked) {
                 display: none;
@@ -3610,7 +3698,7 @@ Checkout Page Style
                 margin-bottom: 8px;
 
                 &::before {
-                    content: '';
+                    content: "";
                     position: absolute;
                     left: 0;
                     top: 3px;
@@ -3621,7 +3709,7 @@ Checkout Page Style
                     background: $color-white;
                 }
                 &::after {
-                    content: '';
+                    content: "";
                     width: 12px;
                     height: 12px;
                     background: $carrot-orange-color;
@@ -3634,7 +3722,7 @@ Checkout Page Style
                     opacity: 0;
                     visibility: hidden;
                     transform: scale(0);
-                }     
+                }
             }
         }
         .default-btn {
@@ -3645,7 +3733,9 @@ Checkout Page Style
         }
     }
 }
-.billing-details .form-group .nice-select .option:hover,  .billing-details .form-group .nice-select .option.focus, .billing-details .form-group .nice-select .option.selected.focus {
+.billing-details .form-group .nice-select .option:hover,
+.billing-details .form-group .nice-select .option.focus,
+.billing-details .form-group .nice-select .option.selected.focus {
     background-color: $carrot-orange-color !important;
     color: $color-white !important;
 }
@@ -3688,14 +3778,14 @@ Product Details Page Style
         .rating-count {
             margin-left: 5px;
             display: inline-block;
-            color:  $title-color;
+            color: $title-color;
             border-bottom: 1px solid $title-color;
             line-height: initial;
 
             &:hover {
                 color: $carrot-orange-color;
                 border-color: $carrot-orange-color;
-            }              
+            }
         }
     }
     p {
@@ -3717,7 +3807,7 @@ Product Details Page Style
             display: inline-block;
             position: relative;
             margin-bottom: 15px;
-            
+
             span {
                 position: absolute;
                 top: 0;
@@ -3798,7 +3888,6 @@ Product Details Page Style
             }
         }
     }
-
 }
 .product .input-count-area .input-counter input::-webkit-input-placeholder {
     color: $title-color;
@@ -3843,7 +3932,7 @@ Product Details Page Style
 
                 &:focus {
                     color: $color-white;
-                    background-color:$carrot-orange-color;
+                    background-color: $carrot-orange-color;
                     border-color: $carrot-orange-color;
                 }
             }
@@ -3871,7 +3960,7 @@ Product Details Page Style
 
                     &:last-child {
                         margin-bottom: 0;
-                    }                      
+                    }
                 }
                 .additional-information {
                     padding-left: 0;
@@ -3907,7 +3996,7 @@ Product Details Page Style
 
                         .rating {
                             display: inline-block;
-                            
+
                             i {
                                 color: $carrot-orange-color;
                                 font-size: 14px;
@@ -3917,7 +4006,7 @@ Product Details Page Style
                                 display: inline-block;
                                 padding-left: 5px;
                                 line-height: initial;
-                            }                         
+                            }
                         }
                         .btn-right {
                             position: absolute;
@@ -3933,7 +4022,7 @@ Product Details Page Style
                                 background-color: $color-blue;
                                 color: $color-white;
                             }
-                        }   
+                        }
                     }
                     .review-comments {
                         margin-top: 35px;
@@ -3945,7 +4034,7 @@ Product Details Page Style
                             border-top: 1px dashed #eeeeee;
                             padding-top: 30px;
 
-                            .rating  {
+                            .rating {
                                 i {
                                     color: $carrot-orange-color;
                                     font-size: 14px;
@@ -3965,7 +4054,7 @@ Product Details Page Style
 
                                 strong {
                                     font-weight: 600;
-                                } 
+                                }
                             }
                             p {
                                 margin-bottom: 0;
@@ -3982,9 +4071,9 @@ Product Details Page Style
 
                                 &:hover {
                                     color: $carrot-orange-color;
-                                }                                  
-                            }      
-                        }                          
+                                }
+                            }
+                        }
                     }
                     .review-form {
                         margin-top: 30px;
@@ -3996,8 +4085,8 @@ Product Details Page Style
                             box-shadow: none;
                             padding: 0;
                         }
-                    }  
-                } 
+                    }
+                }
             }
         }
     }
@@ -4005,7 +4094,7 @@ Product Details Page Style
 
 /*==================================
 Service Details Page Style
-====================================*/ 
+====================================*/
 .service-dtls-slider {
     position: relative;
     margin-bottom: 30px;
@@ -4026,7 +4115,7 @@ Service Details Page Style
             background-color: $color-white !important;
             opacity: 0.5;
             transition: 0.7s;
-            
+
             &:hover {
                 opacity: 1;
             }
@@ -4062,7 +4151,7 @@ Service Details Page Style
         position: relative;
 
         &::before {
-            content: '';
+            content: "";
             position: absolute;
             width: 60px;
             height: 3px;
@@ -4091,14 +4180,13 @@ Service Details Page Style
         padding-bottom: 15px;
 
         &::before {
-            content: '';
+            content: "";
             position: absolute;
             bottom: 0;
             left: 0;
             width: 50px;
             height: 3px;
             background-color: $carrot-orange-color;
-
         }
     }
     ul {
@@ -4135,7 +4223,7 @@ Service Details Page Style
         padding-bottom: 15px;
 
         &::before {
-            content: '';
+            content: "";
             position: absolute;
             bottom: 0;
             left: 0;
@@ -4151,7 +4239,7 @@ Service Details Page Style
 
         li {
             display: inline-block;
-            
+
             a {
                 color: $paragraph-color;
                 font-weight: normal;
@@ -4173,7 +4261,7 @@ Service Details Page Style
 
 /*==================================
 Faq Page Style
-====================================*/ 
+====================================*/
 .faq-accordion {
     margin-right: auto;
     margin-bottom: 30px;
@@ -4243,7 +4331,7 @@ Faq Page Style
 
 /*==================================
 Testimonials Page Style
-====================================*/ 
+====================================*/
 .client-card {
     text-align: center;
     background-color: $color-white;
@@ -4279,7 +4367,6 @@ Testimonials Page Style
         margin-top: 15px;
         margin-bottom: 15px;
     }
-    
 }
 
 /*=================================
@@ -4296,7 +4383,6 @@ Testimonials Page Style
             color: $title-color;
 
             span {
-                
                 color: $carrot-orange-color;
             }
         }
@@ -4389,7 +4475,7 @@ Coming Soon Area Style
 
                     &::before {
                         display: none;
-                    }  
+                    }
                 }
                 &:first-child {
                     margin-left: 0;
@@ -4474,7 +4560,7 @@ Coming Soon Area Style
             list-style: none;
             margin-top: 30px;
             padding: 0;
-            
+
             li {
                 display: inline-block;
                 width: 45px;
@@ -4546,13 +4632,13 @@ Preloader CSS Style
 Back To Top Button Style
 =====================================*/
 #toTop {
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
     display: none;
     z-index: 99;
-} 
+}
 .top-btn {
     background-color: $carrot-orange-color;
     color: $color-white;
@@ -4564,9 +4650,9 @@ Back To Top Button Style
     display: inline-block;
     text-align: center;
     line-height: 45px;
-    transition: .9s;
+    transition: 0.9s;
 
-    &:hover{
+    &:hover {
         background: $title-color;
         box-shadow: 0 0 15px $title-color;
         color: $color-white;
@@ -4577,7 +4663,9 @@ Back To Top Button Style
 Animation CSS
 =================================*/
 @-webkit-keyframes circle-in {
-    0%, 80%, 100% {
+    0%,
+    80%,
+    100% {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
@@ -4587,7 +4675,9 @@ Animation CSS
     }
 }
 @keyframes circle-in {
-    0%, 80%, 100% {
+    0%,
+    80%,
+    100% {
         -webkit-transform: scale(0);
         transform: scale(0);
     }
