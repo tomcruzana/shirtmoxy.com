@@ -310,9 +310,9 @@ Navbar Area
                     //     -webkit-transform: rotate(90deg);
                     //     transform: rotate(90deg);
                     // }
-                    .active::before {
-                        transform: scale(1);
-                    }
+                    // .active::before {
+                    //     transform: scale(1);
+                    // }
                 }
                 .dropdown-menu {
                     border: none;
@@ -329,7 +329,7 @@ Navbar Area
                         a {
                             color: #222222 !important;
                             position: relative;
-                            transition: 0.7s;
+                            // transition: 0.7s;
                             font-weight: 500;
 
                             &:hover {
@@ -338,7 +338,7 @@ Navbar Area
                             &.active {
                                 background-color: #f3f3f3;
                                 border-radius: 0.25rem;
-                                color: $carrot-orange-color !important;
+                                color: $raspberry-color !important;
                             }
                             &::before {
                                 content: "";
@@ -347,9 +347,9 @@ Navbar Area
                                 left: 0;
                                 width: 0;
                                 height: 1px;
-                                background-color: $carrot-orange-color;
-                                -webkit-transition: all 0.5s;
-                                transition: all 0.5s;
+                                background-color: $raspberry-color;
+                                // -webkit-transition: all 0.5s;
+                                // transition: all 0.5s;
                             }
                             &:hover::before {
                                 width: 100%;
@@ -357,14 +357,14 @@ Navbar Area
                             &:hover,
                             :focus,
                             .active {
-                                color: $carrot-orange-color !important;
-                                letter-spacing: 0.5px;
+                                color: $raspberry-color !important;
+                                // letter-spacing: 0.5px;
                                 background-color: #f3f3f3;
                                 border-radius: 0.25rem;
                             }
                         }
                         &.active {
-                            color: $carrot-orange-color !important;
+                            color: $raspberry-color !important;
                         }
                     }
                 }
