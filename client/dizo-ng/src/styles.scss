@@ -2395,6 +2395,17 @@ Contact Pages Style
             }
         }
     }
+
+    .horizontal-separator {
+        width: 100%;
+        line-height: 0.1em;
+        margin: 10px 0 20px;
+
+        span {
+            background: #fff;
+            padding: 0 10px;
+        }
+    }
     .agree-label {
         label {
             font-weight: 600;
