@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageOneComponent } from './components/pages/home-page-one/home-page-one.component';
 import { HomePageTwoComponent } from './components/pages/home-page-two/home-page-two.component';
-import { HomePageThreeComponent } from './components/pages/home-page-three/home-page-three.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { PricingComponent } from './components/pages/pricing/pricing.component';
 import { FaqComponent } from './components/pages/faq/faq.component';
@@ -28,7 +27,6 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 const routes: Routes = [
     {path: '', component: HomePageTwoComponent},
     {path: 'home-two', component: HomePageTwoComponent},
-    {path: 'home-three', component: HomePageThreeComponent},
     {path: 'about', component: AboutComponent},
     {path: 'pricing', component: PricingComponent},
     {path: 'faq', component: FaqComponent},

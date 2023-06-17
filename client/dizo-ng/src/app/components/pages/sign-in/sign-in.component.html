@@ -5,59 +5,170 @@
         <div class="contact-wrap-form sign-in-width">
             <div class="scetion-title text-center">
                 <span>Sign In</span>
-                <h2>Sign In to your account!</h2>
-                <p>with your social network</p>
-                <ul class="sign-social-icon">
+                <h2>Sign In to your account</h2>
+                <p>with your social</p>
+                <ul class="sign-social-icon mt-4">
                     <li>
-                        <a href="#" class="bg-primary"
+                        <a
+                            routerLink="/sign-in"
+                            class="bg-primary"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{
+                                exact: true
+                            }"
                             ><i class="bx bxl-facebook"></i
                         ></a>
                     </li>
                     <li>
-                        <a href="#" class="bg-danger"
+                        <a
+                            routerLink="/sign-in"
+                            class="bg-danger"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{
+                                exact: true
+                            }"
                             ><i class="bx bxl-google"></i
                         ></a>
                     </li>
                 </ul>
             </div>
 
-            <form>
-                <div class="row border-top">
-                    <p class="py-4">or with your email address</p>
+            <p class="horizontal-separator my-5 border-bottom">
+                <span>or email</span>
+            </p>
 
+            <!-- sign-in form start -->
+            <form
+                name="form"
+                #f="ngForm"
+                (ngSubmit)="f.form.valid && onSubmit()"
+            >
+                <div class="row">
                     <div class="col-12">
+                        <!-- email input start -->
                         <div class="form-group">
                             <input
                                 class="form-control"
-                                type="text"
-                                name="name"
-                                placeholder="Username or Email"
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                [(ngModel)]="form.email"
+                                required
+                                email
+                                #email="ngModel"
+                                [ngClass]="{
+                                    'is-invalid': f.submitted && email.errors
+                                }"
                             />
+
+                            <!-- email input validation start -->
+                            <div
+                                *ngIf="f.submitted && email.errors"
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="email.errors['required']">
+                                    Email is required
+                                </div>
+                                <div *ngIf="email.errors['email']">
+                                    Email is invalid
+                                </div>
+                            </div>
+                            <!-- email input validation end -->
                         </div>
+                        <!-- email input end -->
                     </div>
 
                     <div class="col-12">
+                        <!-- password input start -->
                         <div class="form-group">
-                            <input
-                                class="form-control"
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                            />
+                            <div class="input-group">
+                                <input
+                                    class="form-control"
+                                    [type]="
+                                        inputFieldType ? 'text' : 'password'
+                                    "
+                                    name="password"
+                                    placeholder="Password"
+                                    [(ngModel)]="form.password"
+                                    required
+                                    minlength="6"
+                                    maxlength="40"
+                                    #password="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && password.errors
+                                    }"
+                                />
+
+                                <!-- password show/hide toggle start -->
+                                <span
+                                    class="input-group-text border-0 password-visibility-toggle-btn"
+                                >
+                                    <i
+                                        class="bx text-secondary"
+                                        [ngClass]="{'bx-hide' : !inputFieldType, 'bx-show' : inputFieldType,}"
+                                        (click)="toggleInputFieldType()"
+                                    ></i>
+                                </span>
+                                <!-- password show/hide toggle end -->
+
+                                <!-- password input validation start -->
+                                <div
+                                    *ngIf="f.submitted && password.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="password.errors['required']">
+                                        Password is required
+                                    </div>
+                                    <div *ngIf="password.errors['minlength']">
+                                        Password must be at least 6 characters
+                                    </div>
+                                    <div *ngIf="password.errors['maxlength']">
+                                        Username must not exceed 40 characters
+                                    </div>
+                                </div>
+                                <!-- password input validation end -->
+                            </div>
                         </div>
+                        <!-- password input end -->
                     </div>
 
                     <div class="col-lg-6 col-sm-6 form-condition">
+                        <!-- remember me checkbox input start -->
                         <div class="agree-label">
-                            <input type="checkbox" id="chb1" />
+                            <input
+                                type="checkbox"
+                                id="chb1"
+                                name="rememberMe"
+                                [(ngModel)]="form.rememberMe"
+                                #rememberMe="ngModel"
+                            />
                             <label for="chb1">Remember Me</label>
                         </div>
+                        <!-- remember me checkbox input end -->
                     </div>
 
                     <div class="col-lg-6 col-sm-6">
                         <a class="forget" routerLink="/recover-password"
                             >Forgot my password?</a
                         >
+                    </div>
+
+                    <div class="eula-notice mb-4">
+                        <p class="small text-start">
+                            By signing in, you have read and agree to our
+                            <a
+                                class="text-decoration-underline"
+                                routerLink="/terms-condition"
+                                >Shirt Moxy Terms and Conditions</a
+                            >. For more details on how we use the information we
+                            collect about you, please read our
+                            <a
+                                routerLink="/privacy-policy"
+                                class="text-decoration-underline"
+                                >Shirt Moxy Privacy and Cookie Policy.</a
+                            >
+                        </p>
                     </div>
 
                     <div class="col-12 text-center">
@@ -76,6 +187,7 @@
                     </div>
                 </div>
             </form>
+            <!-- sign-in form end -->
         </div>
     </div>
 </section>

@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+    selector: "app-sign-in",
+    templateUrl: "./sign-in.component.html",
+    styleUrls: ["./sign-in.component.scss"],
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent {
+    inputFieldType: boolean;
 
-  constructor() { }
+    form = {
+        email: "",
+        password: "",
+        rememberMe: false,
+    };
 
-  ngOnInit(): void {
-  }
+    onSubmit(): void {
+        // TODO : implement this on using a POST service
+        console.log(JSON.stringify(this.form, null, 2));
+    }
 
+    // resetForm(form: NgForm): void {
+    //     form.reset();
+    // }
+
+    toggleInputFieldType() {
+        this.inputFieldType = !this.inputFieldType;
+    }
 }

@@ -6,7 +6,7 @@
             <div class="scetion-title text-center">
                 <span>Ready to Start a Project?</span>
                 <h2>Create An Account</h2>
-                <p>with your social network</p>
+                <p>with your social</p>
                 <ul class="sign-social-icon">
                     <li>
                         <a href="#" class="bg-primary"
@@ -21,63 +21,308 @@
                 </ul>
             </div>
 
-            <form>
-                <div class="row border-top">
-                    <p class="py-4">or with your email address</p>
+            <p class="horizontal-separator my-5 border-bottom">
+                <span>or email</span>
+            </p>
 
-                    <div class="col-12">
+            <!-- sign-up form start -->
+            <form
+                name="form"
+                #f="ngForm"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                novalidate
+                [appMatchPassword]="['password', 'confirmPassword']"
+            >
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <!-- first name input start -->
                         <div class="form-group">
                             <input
                                 class="form-control"
                                 type="text"
-                                name="username"
-                                placeholder="Username (Required)"
+                                name="fname"
+                                placeholder="First name (Required)"
+                                [(ngModel)]="form.fname"
+                                required
+                                minlength="1"
+                                maxlength="43"
+                                #fname="ngModel"
+                                [ngClass]="{
+                                    'is-invalid': f.submitted && fname.errors
+                                }"
                             />
+                            <!-- first name input validation start -->
+                            <div
+                                *ngIf="f.submitted && fname.errors"
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="fname.errors['required']">
+                                    First name is required
+                                </div>
+                                <div *ngIf="fname.errors['fname']">
+                                    First name invalid
+                                </div>
+                                <div *ngIf="fname.errors['minlength']">
+                                    First name must be at least 1 character
+                                </div>
+                                <div *ngIf="fname.errors['maxlength']">
+                                    First name must not exceed 43 characters
+                                </div>
+                            </div>
+                            <!-- first name input validation end -->
                         </div>
+                        <!-- first name input end -->
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <!-- last name input start -->
+                        <div class="form-group">
+                            <input
+                                class="form-control"
+                                type="text"
+                                name="lname"
+                                placeholder="Last name (Required)"
+                                [(ngModel)]="form.lname"
+                                required
+                                minlength="1"
+                                maxlength="43"
+                                #lname="ngModel"
+                                [ngClass]="{
+                                    'is-invalid': f.submitted && lname.errors
+                                }"
+                            />
+                            <!-- last name input validation start -->
+                            <div
+                                *ngIf="f.submitted && lname.errors"
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="lname.errors['required']">
+                                    Last name is required
+                                </div>
+                                <div *ngIf="lname.errors['lname']">
+                                    Last name invalid
+                                </div>
+                                <div *ngIf="lname.errors['minlength']">
+                                    Last name must be at least 1 character
+                                </div>
+                                <div *ngIf="lname.errors['maxlength']">
+                                    Last name must not exceed 43 characters
+                                </div>
+                            </div>
+                            <!-- last name input validation end -->
+                        </div>
+                        <!-- last name input end -->
                     </div>
 
                     <div class="col-12">
+                        <!-- email input start -->
+                        <div class="form-group">
+                            <input
+                                class="form-control"
+                                type="email"
+                                name="email"
+                                placeholder="Email (Required)"
+                                [(ngModel)]="form.email"
+                                required
+                                email
+                                #email="ngModel"
+                                [ngClass]="{
+                                    'is-invalid': f.submitted && email.errors
+                                }"
+                            />
+
+                            <!-- email input validation start -->
+                            <div
+                                *ngIf="f.submitted && email.errors"
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="email.errors['required']">
+                                    Email is required
+                                </div>
+                                <div *ngIf="email.errors['email']">
+                                    Email is invalid
+                                </div>
+                            </div>
+                            <!-- email input validation end -->
+                        </div>
+                        <!-- email input end -->
+                    </div>
+
+                    <div class="col-12">
+                        <!-- company input start -->
                         <div class="form-group">
                             <input
                                 class="form-control"
                                 type="text"
                                 name="company"
                                 placeholder="Company"
+                                [(ngModel)]="form.company"
+                                minlength="1"
+                                maxlength="43"
+                                #company="ngModel"
+                                [ngClass]="{
+                                    'is-invalid': f.submitted && company.errors
+                                }"
                             />
+                            <!-- company input validation start -->
+                            <div
+                                *ngIf="f.submitted && company.errors"
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="company.errors['company']">
+                                    Company invalid
+                                </div>
+                                <div *ngIf="company.errors['minlength']">
+                                    Company must be at least 1 character
+                                </div>
+                                <div *ngIf="company.errors['maxlength']">
+                                    Company must not exceed 43 characters
+                                </div>
+                            </div>
+                            <!-- company input validation end -->
                         </div>
+                        <!-- company input end -->
                     </div>
 
                     <div class="col-12">
+                        <!-- password input start -->
                         <div class="form-group">
-                            <input
-                                class="form-control"
-                                type="email"
-                                name="name"
-                                placeholder="Email (Required)"
-                            />
+                            <div class="input-group">
+                                <input
+                                    class="form-control"
+                                    [type]="
+                                        inputFieldType ? 'text' : 'password'
+                                    "
+                                    name="password"
+                                    placeholder="Password (Required)"
+                                    [(ngModel)]="form.password"
+                                    required
+                                    minlength="6"
+                                    maxlength="40"
+                                    #password="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && password.errors
+                                    }"
+                                />
+
+                                <!-- password show/hide toggle start -->
+                                <span
+                                    class="input-group-text border-0 password-visibility-toggle-btn"
+                                >
+                                    <i
+                                        class="bx text-secondary"
+                                        [ngClass]="{
+                                            'bx-hide': !inputFieldType,
+                                            'bx-show': inputFieldType
+                                        }"
+                                        (click)="toggleInputFieldType()"
+                                    ></i>
+                                </span>
+                                <!-- password show/hide toggle end -->
+
+                                <!-- password input validation start -->
+                                <div
+                                    *ngIf="f.submitted && password.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="password.errors['required']">
+                                        Password is required
+                                    </div>
+                                    <div *ngIf="password.errors['minlength']">
+                                        Password must be at least 6 characters
+                                    </div>
+                                    <div *ngIf="password.errors['maxlength']">
+                                        Password must not exceed 40 characters
+                                    </div>
+                                </div>
+                                <!-- password input validation end -->
+                            </div>
                         </div>
+                        <!-- password input end -->
                     </div>
 
                     <div class="col-12">
+                        <!-- confirm password input start -->
                         <div class="form-group">
-                            <input
-                                class="form-control"
-                                type="password"
-                                name="password"
-                                placeholder="Password (Required)"
-                            />
+                            <div class="input-group">
+                                <input
+                                    class="form-control"
+                                    [type]="
+                                        inputFieldType ? 'text' : 'password'
+                                    "
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password (Required)"
+                                    [(ngModel)]="form.confirmPassword"
+                                    required
+                                    maxlength="40"
+                                    #confirmPassword="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted &&
+                                            confirmPassword.errors
+                                    }"
+                                />
+
+                                <!-- confirm password show/hide toggle start -->
+                                <span
+                                    class="input-group-text border-0 password-visibility-toggle-btn"
+                                >
+                                    <i
+                                        class="bx text-secondary"
+                                        [ngClass]="{
+                                            'bx-hide': !inputFieldType,
+                                            'bx-show': inputFieldType
+                                        }"
+                                        (click)="toggleInputFieldType()"
+                                    ></i>
+                                </span>
+                                <!-- confirm password show/hide toggle end -->
+
+                                <!-- confirm password input validation start -->
+                                <div
+                                    *ngIf="
+                                        f.submitted && confirmPassword.errors
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <div
+                                        *ngIf="
+                                            confirmPassword.errors['required']
+                                        "
+                                    >
+                                        Confirm Password is required
+                                    </div>
+                                    <div
+                                        *ngIf="
+                                            confirmPassword.errors['matching']
+                                        "
+                                    >
+                                        Confirm Password does not match
+                                    </div>
+                                </div>
+                                <!-- confirm password input validation end -->
+                            </div>
                         </div>
+                        <!-- confirm password input end -->
                     </div>
 
-                    <div class="col-12">
-                        <div class="form-group">
-                            <input
-                                class="form-control"
-                                type="password"
-                                name="cpassword"
-                                placeholder="Confirm Password (Required)"
-                            />
-                        </div>
+                    <div class="eula-notice mb-4">
+                        <p class="small text-start">
+                            By clicking the button below, you agree to, and have
+                            read, our
+                            <a
+                                class="text-decoration-underline"
+                                routerLink="/terms-condition"
+                                >Shirt Moxy Terms and Conditions</a
+                            >. For more details on how we use the information we
+                            collect about you, please read our
+                            <a
+                                routerLink="/privacy-policy"
+                                class="text-decoration-underline"
+                                >Shirt Moxy Privacy and Cookie Policy.</a
+                            >
+                        </p>
                     </div>
 
                     <div class="col-12 text-center">
@@ -97,6 +342,7 @@
                     </div>
                 </div>
             </form>
+            <!-- sign-up form end -->
         </div>
     </div>
 </section>
