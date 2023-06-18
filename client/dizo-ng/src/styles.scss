@@ -2439,12 +2439,12 @@ Contact Pages Style
         padding: 12px 70px;
     }
     .recover-login {
-        color: #ff4a35;
+        color: $raspberry-color;
         font-weight: 600;
         margin-bottom: 15px;
 
-        &:hover a {
-            color: $color-blue;
+        &:hover {
+            color: $prussian-blue-color;
         }
     }
     .recover-register {
