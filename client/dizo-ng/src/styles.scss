@@ -2509,6 +2509,26 @@ Contact Pages Style
 }
 
 /*================================
+User Profile Page Style
+==================================*/
+.profile-nav-links {
+    font-size: 18px;
+    font-weight: 600;
+
+    .active {
+        color: $carrot-orange-color;
+    }
+
+    a {
+        color: $color-blue;
+
+        &:hover {
+            color: $carrot-orange-color;
+        }
+    }
+}
+
+/*================================
 Blog Details Page Style
 ==================================*/
 .blog-dtls-content {

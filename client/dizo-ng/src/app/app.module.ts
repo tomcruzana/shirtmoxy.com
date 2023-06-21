@@ -34,6 +34,7 @@ import { BlogComponent } from "./components/pages/blog/blog.component";
 import { BlogDetailsComponent } from "./components/pages/blog-details/blog-details.component";
 import { ContactComponent } from "./components/pages/contact/contact.component";
 import { MatchPasswordDirective } from './directives/match-password.directive';
+import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 
 @NgModule({
     declarations: [
@@ -66,6 +67,7 @@ import { MatchPasswordDirective } from './directives/match-password.directive';
         BlogDetailsComponent,
         ContactComponent,
         MatchPasswordDirective,
+        UserProfileComponent,
     ],
     imports: [SweetAlert2Module, BrowserModule, AppRoutingModule, FormsModule],
     providers: [],

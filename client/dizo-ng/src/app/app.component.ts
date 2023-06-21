@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
                 window.scrollTo({
                     top: 0,
                     left: 0,
-                    behavior: 'instant' as ScrollBehavior
+                    behavior: "instant" as ScrollBehavior,
                 });
             });
     }
