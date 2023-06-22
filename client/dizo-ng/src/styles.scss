@@ -2527,18 +2527,35 @@ User Profile Page Style
         }
     }
 }
-.download-invoice{
+.download-invoice {
     font-size: 16px;
     color: $carrot-orange-color;
 }
 
 /*================================
-User Profile Page Style
+Change Passord Page Style
 ==================================*/
 .change-password-width {
     max-width: 570px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/*================================
+Manage Account Page Style
+==================================*/
+.manage-account {
+    .account-data {
+        .request-account-archive-link {
+            color: $color-blue;
+        }
+    }
+
+    .delete-account {
+        .delete-account-link {
+            color: #dc3545;
+        }
+    }
 }
 
 /*================================
