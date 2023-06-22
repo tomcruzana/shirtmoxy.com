@@ -24,6 +24,8 @@ import { BlogComponent } from "./components/pages/blog/blog.component";
 import { BlogDetailsComponent } from "./components/pages/blog-details/blog-details.component";
 import { ContactComponent } from "./components/pages/contact/contact.component";
 import { UserProfileComponent } from "./components/pages/user-profile/user-profile.component";
+import { ChangePasswordComponent } from "./components/pages/change-password/change-password.component";
+import { ManageAccountComponent } from "./components/pages/manage-account/manage-account.component";
 
 const routes: Routes = [
     { path: "", component: HomePageTwoComponent },
@@ -37,7 +39,12 @@ const routes: Routes = [
     { path: "sign-in", component: SignInComponent },
     { path: "sign-up", component: SignUpComponent },
     { path: "recover-password", component: RecoverPasswordComponent },
-    { path: "profile", component: UserProfileComponent },
+    { path: "consumer/profile", component: UserProfileComponent },
+    { path: "consumer/password-reset", component: ChangePasswordComponent },
+    {
+        path: "consumer/privacy/manage-account",
+        component: ManageAccountComponent,
+    },
     { path: "terms-condition", component: TermsConditionsComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
     { path: "coming-soon", component: ComingSoonComponent },

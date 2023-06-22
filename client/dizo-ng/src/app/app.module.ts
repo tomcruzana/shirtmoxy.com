@@ -35,6 +35,9 @@ import { BlogDetailsComponent } from "./components/pages/blog-details/blog-detai
 import { ContactComponent } from "./components/pages/contact/contact.component";
 import { MatchPasswordDirective } from './directives/match-password.directive';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { ProfileNavbarComponent } from './components/common/profile-navbar/profile-navbar.component';
+import { ChangePasswordComponent } from './components/pages/change-password/change-password.component';
+import { ManageAccountComponent } from './components/pages/manage-account/manage-account.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +71,9 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
         ContactComponent,
         MatchPasswordDirective,
         UserProfileComponent,
+        ProfileNavbarComponent,
+        ChangePasswordComponent,
+        ManageAccountComponent,
     ],
     imports: [SweetAlert2Module, BrowserModule, AppRoutingModule, FormsModule],
     providers: [],
