@@ -4,63 +4,16 @@
     <div class="container">
         <div class="contact-wrap-form">
             <!-- nav tabs start -->
-            <div class="border-bottom py-3 mb-3">
-                <ul class="nav nav-fill">
-                    <li class="nav-item profile-nav-links">
-                        <a
-                            class="nav-link fw-bold"
-                            aria-current="profile"
-                            routerLink="/profile"
-                            routerLinkActive="active"
-                            [routerLinkActiveOptions]="{
-                                exact: true
-                            }"
-                            >Profile</a
-                        >
-                    </li>
-                    <li class="nav-item profile-nav-links">
-                        <a
-                            class="nav-link fw-bold"
-                            routerLink="/unlink-social"
-                            routerLinkActive="active"
-                            [routerLinkActiveOptions]="{
-                                exact: true
-                            }"
-                            >Unlink Social</a
-                        >
-                    </li>
-                    <li class="nav-item profile-nav-links">
-                        <a
-                            class="nav-link fw-bold"
-                            routerLink="/change-password"
-                            routerLinkActive="active"
-                            [routerLinkActiveOptions]="{
-                                exact: true
-                            }"
-                            >Change Password</a
-                        >
-                    </li>
-                    <li class="nav-item profile-nav-links">
-                        <a
-                            class="nav-link fw-bold"
-                            routerLink="/manage-account"
-                            routerLinkActive="active"
-                            [routerLinkActiveOptions]="{
-                                exact: true
-                            }"
-                            >Manage Account</a
-                        >
-                    </li>
-                </ul>
-            </div>
+            <app-profile-navbar></app-profile-navbar>
             <!-- nav tabs end -->
 
+            <!-- basic info section start -->
             <form class="row g-3 p-3">
                 <!-- basic info start -->
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputFirstName" class="form-label fw-bold"
-                            >First Name</label
+                            >First Name <span class="required">*</span></label
                         >
                         <input
                             type="text"
@@ -75,7 +28,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputLastName" class="form-label fw-bold"
-                            >Last Name</label
+                            >Last Name <span class="required">*</span></label
                         >
                         <input
                             type="text"
@@ -105,7 +58,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputEmail" class="form-label fw-bold"
-                            >Email</label
+                            >Email <span class="required">*</span></label
                         >
                         <input
                             type="email"
@@ -136,7 +89,7 @@
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
                         <label for="inputPhoneNumber" class="form-label fw-bold"
-                            >Phone Number</label
+                            >Phone Number <span class="required">*</span></label
                         >
                         <input
                             type="tel"
@@ -179,13 +132,13 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="inputAddress" class="form-label fw-bold"
-                            >Address</label
+                            >Address <span class="required">*</span></label
                         >
                         <input
                             type="text"
                             class="form-control"
                             id="inputAddress"
-                            placeholder="1234 Main St"
+                            placeholder="Street Address"
                         />
                     </div>
                 </div>
@@ -198,14 +151,14 @@
                             type="text"
                             class="form-control"
                             id="inputAddress2"
-                            placeholder="Apartment, studio, or floor"
+                            placeholder="Apt, Floor, Suite, etc."
                         />
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputCity" class="form-label fw-bold"
-                            >City</label
+                            >City <span class="required">*</span></label
                         >
                         <input
                             type="text"
@@ -232,7 +185,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="inputZip" class="form-label fw-bold"
-                            >Zip</label
+                            >Zip <span class="required">*</span></label
                         >
                         <input
                             type="text"
@@ -266,14 +219,18 @@
                     </button>
                 </div>
             </form>
+            <!-- basic info section end -->
         </div>
 
+        <!-- payment details section start -->
         <div class="contact-wrap-form my-5">
             <div class="border-bottom py-3 mb-3">
                 <p class="text-start fw-bold">Payment Details</p>
             </div>
         </div>
+        <!-- payment details section end -->
 
+        <!-- tax invoices section start -->
         <div class="contact-wrap-form my-5">
             <div class="border-bottom py-3 mb-3">
                 <p class="text-start fw-bold">Tax Invoices</p>
@@ -294,16 +251,16 @@
                             <td>10221727</td>
                             <td>USD $215.42</td>
                             <td class="download-invoice">
-                                <i
-                                    class="bx bxs-download align-middle"
-                                ></i>
+                                <i class="bx bxs-download align-middle"></i>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <!-- tax invoices section end -->
 
+        <!-- privacy section start -->
         <div class="contact-wrap-form my-5">
             <div class="border-bottom py-3 mb-3">
                 <p class="text-start fw-bold">Privacy</p>
@@ -319,6 +276,7 @@
                 >
             </p>
         </div>
+        <!-- privacy section end -->
     </div>
 </section>
 
