@@ -39,10 +39,10 @@ const routes: Routes = [
     { path: "sign-in", component: SignInComponent },
     { path: "sign-up", component: SignUpComponent },
     { path: "recover-password", component: RecoverPasswordComponent },
-    { path: "consumer/profile", component: UserProfileComponent },
-    { path: "consumer/password-reset", component: ChangePasswordComponent },
+    { path: "user/profile", component: UserProfileComponent },
+    { path: "user/password-reset", component: ChangePasswordComponent },
     {
-        path: "consumer/privacy/manage-account",
+        path: "user/manage-account",
         component: ManageAccountComponent,
     },
     { path: "terms-condition", component: TermsConditionsComponent },
