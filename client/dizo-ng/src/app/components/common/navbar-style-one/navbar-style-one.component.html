@@ -22,7 +22,14 @@
                 exact: true
             }"
             ><i class="bx bx-cart"></i
-        ></a>
+            ><span
+                class="cart-badge-counter position-absolute translate-middle badge rounded-pill bg-danger p-1"
+                [hidden]="false"
+            >
+                10
+                <span class="visually-hidden">cart counter badge</span>
+            </span></a
+        >
     </div>
     <!-- nav mobile end -->
 
@@ -138,18 +145,6 @@
                                     >
                                 </li>
 
-                                <!-- <li class="nav-item">
-                                    <a
-                                        routerLink="/sign-up"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                        >Create Account</a
-                                    >
-                                </li> -->
-
                                 <li class="nav-item">
                                     <a
                                         routerLink="/track"
@@ -159,13 +154,13 @@
                                             exact: true
                                         }"
                                         ><i class="bx bxs-package"></i> Track
-                                        Package</a
+                                        Order</a
                                     >
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item position-relative">
                             <a
                                 routerLink="/cart"
                                 class="nav-link"
@@ -173,17 +168,18 @@
                                 [routerLinkActiveOptions]="{
                                     exact: true
                                 }"
-                                ><i class="bx bx-cart"></i> Cart</a
+                                ><i class="bx bx-cart"></i> Cart<span
+                                    class="cart-badge-counter position-absolute translate-middle badge rounded-pill bg-danger p-1"
+                                    [hidden]="false"
+                                >
+                                    20
+                                    <span class="visually-hidden"
+                                        >cart counter badge</span
+                                    >
+                                </span></a
                             >
                         </li>
                     </ul>
-
-                    <!-- <div class="cart-area">
-                        <a routerLink="/cart" class="mx-4"
-                            ><i class="bx bx-cart"></i
-                        ></a>
-                        <a routerLink="/sign-in"><i class="bx bx-user"></i></a>
-                    </div> -->
                 </div>
             </nav>
         </div>

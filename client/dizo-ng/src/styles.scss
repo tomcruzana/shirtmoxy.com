@@ -369,6 +369,12 @@ Navbar Area
                     }
                 }
             }
+
+            .cart-badge-counter {
+                background-color: $raspberry-color !important;
+                top: 20px;
+                right: -20px;
+            }
         }
     }
 }
@@ -3271,6 +3277,13 @@ Cart Page Style
                                     font-weight: 600;
                                 }
                             }
+
+                            .qty-update-btn {
+                                max-width: 130px;
+                                min-width: 130px;
+                                text-align: center;
+                                position: relative;
+                            }
                         }
                     }
                 }
@@ -3286,12 +3299,12 @@ Cart Page Style
         box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
         border-radius: 0;
         margin: auto;
-        margin-top: 50px;
 
         h3 {
             font-size: 24px;
             margin-bottom: 25px;
         }
+
         ul {
             padding: 0;
             margin: 0 0 25px;
@@ -3333,6 +3346,10 @@ Cart Page Style
                 color: $title-color;
                 padding-bottom: 20px;
             }
+            p {
+                margin-bottom: 8px;
+                padding-bottom: 20px;
+            }
             .form-group {
                 margin-bottom: 20px;
 
@@ -3361,7 +3378,7 @@ Cart Page Style
                     font-size: 16px;
                     border: 1px solid #ffd3d3;
                     color: #6c777d;
-                    padding: 25px 18px;
+                    padding: 12px 9px;
                     font-weight: 400;
 
                     &:focus,

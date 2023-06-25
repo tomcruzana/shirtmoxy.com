@@ -26,6 +26,7 @@ import { ContactComponent } from "./components/pages/contact/contact.component";
 import { UserProfileComponent } from "./components/pages/user-profile/user-profile.component";
 import { ChangePasswordComponent } from "./components/pages/change-password/change-password.component";
 import { ManageAccountComponent } from "./components/pages/manage-account/manage-account.component";
+import { TrackOrderComponent } from "./components/track-order/track-order.component";
 
 const routes: Routes = [
     { path: "", component: HomePageTwoComponent },
@@ -38,6 +39,7 @@ const routes: Routes = [
     { path: "error", component: ErrorComponent },
     { path: "sign-in", component: SignInComponent },
     { path: "sign-up", component: SignUpComponent },
+    { path: "track", component: TrackOrderComponent },
     { path: "recover-password", component: RecoverPasswordComponent },
     { path: "user/profile", component: UserProfileComponent },
     { path: "user/password-reset", component: ChangePasswordComponent },

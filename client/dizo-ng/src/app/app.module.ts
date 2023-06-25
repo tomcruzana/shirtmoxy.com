@@ -38,6 +38,7 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
 import { ProfileNavbarComponent } from './components/common/profile-navbar/profile-navbar.component';
 import { ChangePasswordComponent } from './components/pages/change-password/change-password.component';
 import { ManageAccountComponent } from './components/pages/manage-account/manage-account.component';
+import { TrackOrderComponent } from './components/track-order/track-order.component';
 
 @NgModule({
     declarations: [
@@ -74,6 +75,7 @@ import { ManageAccountComponent } from './components/pages/manage-account/manage
         ProfileNavbarComponent,
         ChangePasswordComponent,
         ManageAccountComponent,
+        TrackOrderComponent,
     ],
     imports: [SweetAlert2Module, BrowserModule, AppRoutingModule, FormsModule],
     providers: [],
