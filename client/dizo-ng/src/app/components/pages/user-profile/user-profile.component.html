@@ -8,21 +8,56 @@
             <!-- nav tabs end -->
 
             <!-- basic info section start -->
-            <form class="row g-3 p-3">
+            <form
+                class="row g-3 p-3"
+                name="form"
+                #f="ngForm"
+                (ngSubmit)="f.form.valid && onSubmit()"
+            >
                 <!-- basic info start -->
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputFirstName" class="form-label fw-bold"
                             >First Name <span class="required">*</span></label
                         >
+                        <!-- first name input start -->
                         <input
                             type="text"
                             class="form-control"
                             placeholder="First name"
                             aria-label="First name"
                             id="inputFirstName"
+                            name="fname"
+                            [(ngModel)]="form.fname"
+                            required
+                            minlength="1"
+                            maxlength="43"
+                            #fname="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && fname.errors
+                            }"
                         />
+                        <!-- first name input validation start -->
+                        <div
+                            *ngIf="f.submitted && fname.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="fname.errors['required']">
+                                First name is required
+                            </div>
+                            <div *ngIf="fname.errors['fname']">
+                                First name invalid
+                            </div>
+                            <div *ngIf="fname.errors['minlength']">
+                                First name must be at least 1 character
+                            </div>
+                            <div *ngIf="fname.errors['maxlength']">
+                                First name must not exceed 43 characters
+                            </div>
+                        </div>
+                        <!-- first name input validation end -->
                     </div>
+                    <!-- first name input end -->
                 </div>
 
                 <div class="col-md-4">
@@ -30,14 +65,44 @@
                         <label for="inputLastName" class="form-label fw-bold"
                             >Last Name <span class="required">*</span></label
                         >
+                        <!-- last name input start -->
                         <input
                             type="text"
                             class="form-control"
                             placeholder="Last name"
                             aria-label="Last name"
                             id="inputLastName"
+                            name="lname"
+                            [(ngModel)]="form.lname"
+                            required
+                            minlength="1"
+                            maxlength="43"
+                            #lname="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && lname.errors
+                            }"
                         />
+                        <!-- last name input validation start -->
+                        <div
+                            *ngIf="f.submitted && lname.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="lname.errors['required']">
+                                Last name is required
+                            </div>
+                            <div *ngIf="lname.errors['lname']">
+                                Last name invalid
+                            </div>
+                            <div *ngIf="lname.errors['minlength']">
+                                Last name must be at least 1 character
+                            </div>
+                            <div *ngIf="lname.errors['maxlength']">
+                                Last name must not exceed 43 characters
+                            </div>
+                        </div>
+                        <!-- last name input validation end -->
                     </div>
+                    <!-- last name input end -->
                 </div>
 
                 <div class="col-md-4">
@@ -45,14 +110,40 @@
                         <label for="inputCompany" class="form-label fw-bold"
                             >Company</label
                         >
+                        <!-- company input start -->
                         <input
                             type="text"
                             class="form-control"
                             placeholder="Company"
                             aria-label="Company"
                             id="inputCompany"
+                            name="company"
+                            [(ngModel)]="form.company"
+                            minlength="1"
+                            maxlength="43"
+                            #company="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && company.errors
+                            }"
                         />
+                        <!-- company input validation start -->
+                        <div
+                            *ngIf="f.submitted && company.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="company.errors['company']">
+                                Company invalid
+                            </div>
+                            <div *ngIf="company.errors['minlength']">
+                                Company must be at least 1 character
+                            </div>
+                            <div *ngIf="company.errors['maxlength']">
+                                Company must not exceed 43 characters
+                            </div>
+                        </div>
+                        <!-- company input validation end -->
                     </div>
+                    <!-- company input end -->
                 </div>
 
                 <div class="col-md-4">
@@ -60,14 +151,37 @@
                         <label for="inputEmail" class="form-label fw-bold"
                             >Email <span class="required">*</span></label
                         >
+                        <!-- email input start -->
                         <input
                             type="email"
                             class="form-control"
                             placeholder="Email"
                             aria-label="Email"
                             id="inputEmail"
+                            name="email"
+                            [(ngModel)]="form.email"
+                            required
+                            email
+                            #email="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && email.errors
+                            }"
                         />
+                        <!-- email input validation start -->
+                        <div
+                            *ngIf="f.submitted && email.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="email.errors['required']">
+                                Email is required
+                            </div>
+                            <div *ngIf="email.errors['email']">
+                                Email is invalid
+                            </div>
+                        </div>
+                        <!-- email input validation end -->
                     </div>
+                    <!-- email input end -->
                 </div>
 
                 <div class="col-sm-2 col-md-2">
@@ -91,39 +205,93 @@
                         <label for="inputPhoneNumber" class="form-label fw-bold"
                             >Phone Number <span class="required">*</span></label
                         >
+                        <!-- phone number input start -->
                         <input
                             type="tel"
                             class="form-control"
                             placeholder="(999) 999-9999"
+                            [(ngModel)]="form.phoneNumber"
                             aria-label="PhoneNumber"
                             id="inputPhoneNumber"
-                            name="phone"
+                            name="phoneNumber"
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             required
+                            #phoneNumber="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && phoneNumber.errors
+                            }"
                         />
+                        <!-- phone number input validation start -->
+                        <div
+                            *ngIf="f.submitted && phoneNumber.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="phoneNumber.errors['required']">
+                                Phone number is required
+                            </div>
+                            <div *ngIf="phoneNumber.errors['pattern']">
+                                Phone number format is invalid (ex:
+                                999-999-1234)
+                            </div>
+                        </div>
+                        <!-- phone number input validation end -->
                     </div>
+                    <!-- phone number input end -->
                 </div>
 
                 <div class="col-12 mt-4">
                     <div class="form-check">
+                        <!-- receive email checkbox start -->
                         <input
                             class="form-check-input"
                             type="checkbox"
                             id="gridCheck"
+                            name="receiveEmail"
+                            [(ngModel)]="form.receiveEmail"
+                            #receiveEmail="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && receiveEmail.errors
+                            }"
                         />
+
                         <label class="form-check-label" for="gridCheck">
                             Receive order status updates via email
                         </label>
+                        <!-- receive email checkbox validation start -->
+                        <div
+                            *ngIf="f.submitted && receiveEmail.errors"
+                            class="invalid-feedback"
+                        >
+                            An error occured
+                        </div>
+                        <!-- receive email checkbox validation end -->
+                        <!-- receive email checkbox end -->
                     </div>
                     <div class="form-check">
+                        <!-- receive text checkbox start -->
                         <input
                             class="form-check-input"
                             type="checkbox"
                             id="gridCheck"
+                            name="receiveText"
+                            [(ngModel)]="form.receiveText"
+                            #receiveText="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && receiveText.errors
+                            }"
                         />
                         <label class="form-check-label" for="gridCheck">
                             Receive order status updates via text
                         </label>
+                        <!-- receive text checkbox validation start -->
+                        <div
+                            *ngIf="f.submitted && receiveText.errors"
+                            class="invalid-feedback"
+                        >
+                            An error occured
+                        </div>
+                        <!-- receive text checkbox validation end -->
+                        <!-- receive text checkbox end -->
                     </div>
                 </div>
                 <!-- basic info end -->
@@ -134,67 +302,156 @@
                         <label for="inputAddress" class="form-label fw-bold"
                             >Address <span class="required">*</span></label
                         >
+                        <!-- address input start -->
                         <input
                             type="text"
                             class="form-control"
                             id="inputAddress"
                             placeholder="Street Address"
+                            name="addressLine1"
+                            [(ngModel)]="form.shippingAddress.addressLine1"
+                            required
+                            #addressLine1="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && addressLine1.errors
+                            }"
                         />
+                        <!-- address input validation start -->
+                        <div
+                            *ngIf="f.submitted && addressLine1.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="addressLine1.errors['required']">
+                                Address is required
+                            </div>
+                        </div>
+                        <!-- address input validation end -->
                     </div>
+                    <!-- address input end -->
                 </div>
                 <div class="col-12">
                     <div class="form-group">
                         <label for="inputAddress2" class="form-label fw-bold"
                             >Address 2</label
                         >
+                        <!-- address 2 input start -->
                         <input
                             type="text"
                             class="form-control"
                             id="inputAddress2"
                             placeholder="Apt, Floor, Suite, etc."
+                            name="addressLine2"
+                            [(ngModel)]="form.shippingAddress.addressLine2"
+                            #addressLine2="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && addressLine2.errors
+                            }"
                         />
+                        <!-- address 2 input validation start -->
+                        <div
+                            *ngIf="f.submitted && addressLine2.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="addressLine2.errors">
+                                An error occured
+                            </div>
+                        </div>
+                        <!-- address 2 input validation end -->
                     </div>
+                    <!-- address 2 input end -->
                 </div>
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputCity" class="form-label fw-bold"
                             >City <span class="required">*</span></label
                         >
+                        <!-- city input start -->
                         <input
                             type="text"
                             class="form-control"
                             id="inputCity"
+                            name="city"
+                            placeholder="City"
+                            [(ngModel)]="form.shippingAddress.city"
+                            required
+                            #city="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && city.errors
+                            }"
                         />
+                        <!-- city input validation start -->
+                        <div
+                            *ngIf="f.submitted && city.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="city.errors['required']">
+                                City is required
+                            </div>
+                        </div>
+                        <!-- city input validation end -->
                     </div>
+                    <!-- city input end -->
                 </div>
+
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="inputState" class="form-label fw-bold"
+                        <label for="inputCountry" class="form-label fw-bold"
                             >State <span class="required">*</span></label
                         >
 
-                        <div id="inputState" class="select-box">
+                        <div id="inputCountry" class="select-box">
                             <select class="form-control">
-                                <option value="DC">DC</option>
-                                <option value="MD">MD</option>
-                                <option value="VA">VA</option>
+                                <option value="">- Select -</option>
+                                <option *ngFor="let state of states">
+                                    {{ state.name | uppercase }}
+                                </option>
                             </select>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="inputZip" class="form-label fw-bold"
                             >Zip <span class="required">*</span></label
                         >
+                        <!-- zipCode input start -->
                         <input
                             type="text"
                             class="form-control"
                             id="inputZip"
+                            name="zipCode"
+                            placeholder="Zip"
+                            minlength="5"
                             maxlength="10"
+                            [(ngModel)]="form.shippingAddress.zipCode"
+                            required
+                            #zipCode="ngModel"
+                            [ngClass]="{
+                                'is-invalid': f.submitted && zipCode.errors
+                            }"
                         />
+                        <!-- zipCode input validation start -->
+                        <div
+                            *ngIf="f.submitted && zipCode.errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="zipCode.errors['required']">
+                                ZIP code is required
+                            </div>
+                            <div *ngIf="zipCode.errors['minlength']">
+                                ZIP code must be at least 5 digits
+                            </div>
+                            <div *ngIf="zipCode.errors['maxlength']">
+                                ZIP code must not exceed 10 digits
+                            </div>
+                        </div>
+                        <!-- zipCode input validation end -->
                     </div>
+                    <!-- zipCode input end -->
                 </div>
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="inputCountry" class="form-label fw-bold"
@@ -208,7 +465,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- address end -->
 
                 <div class="col-12 d-flex justify-content-end">
                     <button
