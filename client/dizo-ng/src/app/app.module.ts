@@ -38,7 +38,7 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
 import { ProfileNavbarComponent } from './components/common/profile-navbar/profile-navbar.component';
 import { ChangePasswordComponent } from './components/pages/change-password/change-password.component';
 import { ManageAccountComponent } from './components/pages/manage-account/manage-account.component';
-import { TrackOrderComponent } from './components/track-order/track-order.component';
+import { TrackOrderComponent } from './components/pages/track-order/track-order.component';
 
 @NgModule({
     declarations: [
