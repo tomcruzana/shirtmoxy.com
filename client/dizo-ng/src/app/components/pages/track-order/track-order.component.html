@@ -2,97 +2,251 @@
 
 <section class="track-order-area pt-100 pb-70">
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-12">
-                <div class="card card-stepper text-black">
-                    <div class="card-body p-5">
-                        <div
-                            class="d-flex justify-content-between align-items-center mb-5"
-                        >
-                            <div>
-                                <h5 class="mb-0 order-number">
-                                    Order Number:
-                                    <span class="text-primary">000000</span>
-                                </h5>
-                            </div>
-                            <div class="text-end ">
-                                <p class="mb-0">
-                                    <span class="fw-bold "
-                                        >Expected Arrival:
-                                    </span>
-                                    <span id="est-date-and-time-arrival"
-                                        >01/01/23</span
-                                    >
-                                </p>
+        <div class="search-input scetion-title mb-5">
+            <span class="text-start">Track Order</span>
 
-                                <a class="link-primary">See all updates</a>
+            <!-- order tracker search start -->
+            <form
+                name="form"
+                #f="ngForm"
+                (ngSubmit)="f.form.valid && onSubmit()"
+            >
+                <div class="row mt-2">
+                    <div class="mx-auto col-12">
+                        <div class="input-group">
+                            <input
+                                type="search"
+                                class="form-control rounded-0"
+                                name="orderNumber"
+                                placeholder="Enter order number"
+                                aria-label="Search"
+                                aria-describedby="search-addon"
+                                minlength="8"
+                                maxlength="8"
+                                [(ngModel)]="form.orderNumber"
+                                required
+                                #orderNumber="ngModel"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        f.submitted && orderNumber.errors
+                                }"
+                            />
+
+                            <button
+                                class="default-btn btn-two sign-btn border"
+                                type="submit"
+                            >
+                                Go
+                            </button>
+
+                            <span
+                                class="input-group-text border-0 search-btn"
+                                id="search-addon"
+                            >
+                                <i class="align-middle bx bx-search"></i>
+                            </span>
+                            <!-- email input validation start -->
+                            <div
+                                *ngIf="f.submitted && orderNumber.errors"
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="orderNumber.errors['required']">
+                                    Order number is required
+                                </div>
+                                <div *ngIf="orderNumber.errors['orderNumber']">
+                                    Order number is invalid
+                                </div>
+                                <div *ngIf="orderNumber.errors['minlength']">
+                                    Order number must be at least 8 characters
+                                </div>
                             </div>
+                            <!-- email input validation end -->
                         </div>
+                    </div>
+                </div>
+            </form>
+            <!-- order tracker search end -->
+        </div>
 
-                        <ul
-                            id="progressbar-2"
-                            class="d-flex justify-content-between mx-0 mt-0 mb-5 px-0 pt-0 pb-2"
-                        >
-                            <li
-                                class="step0 active text-center fw-bold"
-                                id="step1"
-                            ></li>
-                            <li
-                                class="step0 active text-center fw-bold"
-                                id="step2"
-                            ></li>
-                            <li
-                                class="step0 active text-center fw-bold"
-                                id="step3"
-                            ></li>
-                            <li
-                                class="step0 text-muted text-end fw-bold"
-                                id="step4"
-                            ></li>
-                        </ul>
+        <!-- order tracker results start -->
+        <ng-container *ngIf="formSubmitted">
+            <div
+                class="row d-flex justify-content-center align-items-center h-100"
+            >
+                <div class="col-md-12">
+                    <div class="card card-stepper text-black">
+                        <div class="card-body p-5">
+                            <div
+                                *ngIf="
+                                    orderInfo.isValid == true;
+                                    else orderNotFound
+                                "
+                            >
+                                <div
+                                    class="d-flex justify-content-between align-items-center mb-5"
+                                >
+                                    <div>
+                                        <h5 class="mb-0 order-number">
+                                            Order Number:
+                                            <span class="text-primary">{{
+                                                orderInfo.number
+                                            }}</span>
+                                        </h5>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="mb-0">
+                                            <span class="fw-bold"
+                                                >Expected Arrival:
+                                            </span>
+                                            <span id="est-date-and-time-arrival"
+                                                >{{
+                                                    orderInfo.expectedArrival
+                                                        .date
+                                                        | date : "dd/MM/yyyy"
+                                                }}
+                                            </span>
+                                        </p>
 
-                        <div class="d-flex justify-content-between">
-                            <div class="d-lg-flex align-items-center">
-                                <i
-                                    class="bx bxs-check-circle bx-lg me-lg-4 mb-3 mb-lg-0"
-                                ></i>
-                                <div>
-                                    <p class="fw-bold mb-0">Order</p>
-                                    <p class="fw-bold mb-0">Processed</p>
+                                        <a
+                                            class="link-primary"
+                                            href="https://www.ups.com/track?loc=en_US&requester=ST/"
+                                            target="_blank"
+                                            >See all updates</a
+                                        >
+                                    </div>
+                                </div>
+
+                                <ul
+                                    id="progressbar-2"
+                                    class="d-flex justify-content-between mx-0 mt-0 mb-5 px-0 pt-0 pb-2"
+                                >
+                                    <li
+                                        class="step0 text-center fw-bold"
+                                        [ngClass]="
+                                            orderInfo.status >= 0
+                                                ? 'active'
+                                                : 'text-muted'
+                                        "
+                                        id="step1"
+                                    ></li>
+                                    <li
+                                        class="step0 text-center fw-bold"
+                                        [ngClass]="
+                                            orderInfo.status >= 1
+                                                ? 'active'
+                                                : 'text-muted'
+                                        "
+                                        id="step2"
+                                    ></li>
+                                    <li
+                                        class="step0 text-center fw-bold"
+                                        [ngClass]="
+                                            orderInfo.status >= 2
+                                                ? 'active'
+                                                : 'text-muted'
+                                        "
+                                        id="step3"
+                                    ></li>
+                                    <li
+                                        class="step0 text-end fw-bold"
+                                        [ngClass]="
+                                            orderInfo.status >= 3
+                                                ? 'active'
+                                                : 'text-muted'
+                                        "
+                                        id="step4"
+                                    ></li>
+                                </ul>
+
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-lg-flex align-items-center">
+                                        <i
+                                            class="bx bxs-check-circle bx-md me-lg-4 mb-3 mb-lg-0"
+                                        ></i>
+                                        <div>
+                                            <p class="fw-bold mb-0">Order</p>
+                                            <p class="fw-bold mb-0">
+                                                Processed
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-lg-flex align-items-center">
+                                        <i
+                                            class="bx bxs-package bx-md me-lg-4 mb-3 mb-lg-0"
+                                        ></i>
+                                        <div>
+                                            <p class="fw-bold mb-0">Order</p>
+                                            <p class="fw-bold mb-0">Shipped</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-lg-flex align-items-center">
+                                        <i
+                                            class="bx bxs-truck bx-md me-lg-4 mb-3 mb-lg-0"
+                                        ></i>
+                                        <div>
+                                            <p class="fw-bold mb-0">Order</p>
+                                            <p class="fw-bold mb-0">En Route</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-lg-flex align-items-center">
+                                        <i
+                                            class="bx bxs-home bx-md me-lg-4 mb-3 mb-lg-0"
+                                        ></i>
+                                        <div>
+                                            <p class="fw-bold mb-0">Order</p>
+                                            <p class="fw-bold mb-0">Arrived</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="order-notes border-top mt-5"
+                                    *ngIf="orderInfo.notes != ''"
+                                >
+                                    <p class="fw-bold mt-4 mb-0">Notes:</p>
+                                    <p class="order-notes mb-0 pb-0">
+                                        <!-- notes go here -->
+                                        {{ orderInfo.notes }}
+                                    </p>
                                 </div>
                             </div>
-                            <div class="d-lg-flex align-items-center">
-                                <i
-                                    class="bx bxs-package bx-lg me-lg-4 mb-3 mb-lg-0"
-                                ></i>
-                                <div>
-                                    <p class="fw-bold mb-0">Order</p>
-                                    <p class="fw-bold mb-0">Shipped</p>
-                                </div>
-                            </div>
-                            <div class="d-lg-flex align-items-center">
-                                <i
-                                    class="bx bxs-truck bx-lg me-lg-4 mb-3 mb-lg-0"
-                                ></i>
-                                <div>
-                                    <p class="fw-bold mb-0">Order</p>
-                                    <p class="fw-bold mb-0">En Route</p>
-                                </div>
-                            </div>
-                            <div class="d-lg-flex align-items-center">
-                                <i
-                                    class="bx bxs-home bx-lg me-lg-4 mb-3 mb-lg-0"
-                                ></i>
-                                <div>
-                                    <p class="fw-bold mb-0">Order</p>
-                                    <p class="fw-bold mb-0">Arrived</p>
-                                </div>
-                            </div>
+
+                            <ng-template #orderNotFound>
+                                <p class="fw-bold mt-4 mb-2">Notes:</p>
+                                <p
+                                    class="order-notes order-not-found mb-0 align-top"
+                                >
+                                    <i
+                                        class="bx bxs-error bx-sm me-1 align-top"
+                                    ></i>
+                                    Order not found. Please enter a valid order
+                                    number and try again.
+                                </p>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </ng-container>
+
+        <!-- order tracker results end -->
+
+        <!-- shipping and returns notice start -->
+        <section class="contact-section pt-45 pb-70">
+            <div class="text-center">
+                Please take a moment to review our
+                <a routerLink="/coming-soon" class="text-decoration-underline"
+                    >shipping and returns policy</a
+                >
+                for important information. Our policy outlines details regarding
+                shipping, deliveries, cancellation, and returns. If you have any
+                questions or need assistance, please feel free to
+                <a routerLink="/contact" class="text-decoration-underline"
+                    >contact us</a
+                >.
+            </div>
+        </section>
+        <!-- shipping and returns notice end -->
     </div>
 </section>
 
