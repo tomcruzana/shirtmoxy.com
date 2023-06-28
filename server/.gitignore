@@ -4,5 +4,7 @@
 *.log
 *.gz
 
-# ignore properties file
+# ignore properties & yaml files
 *.properties
+*.yaml
+*.yml
