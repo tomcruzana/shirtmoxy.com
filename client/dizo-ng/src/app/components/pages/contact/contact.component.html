@@ -13,71 +13,253 @@
     <div class="container">
         <div class="contact-wrap pt-45">
             <div class="contact-wrap-form">
-                <form id="contactForm">
+                <form
+                    id="contactForm"
+                    name="form"
+                    #f="ngForm"
+                    (ngSubmit)="f.form.valid && onSubmit()"
+                >
                     <div class="row">
                         <div class="col-lg-6 col-sm-6">
+                            <!-- first name input start -->
                             <div class="form-group">
                                 <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
                                     class="form-control"
+                                    type="text"
+                                    name="fname"
+                                    placeholder="First name (Required)"
+                                    [(ngModel)]="form.fname"
                                     required
-                                    placeholder="Your Name"
+                                    minlength="1"
+                                    maxlength="43"
+                                    #fname="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && fname.errors
+                                    }"
                                 />
+                                <!-- first name input validation start -->
+                                <div
+                                    *ngIf="f.submitted && fname.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="fname.errors['required']">
+                                        First name is required
+                                    </div>
+                                    <div *ngIf="fname.errors['fname']">
+                                        First name invalid
+                                    </div>
+                                    <div *ngIf="fname.errors['minlength']">
+                                        First name must be at least 1 character
+                                    </div>
+                                    <div *ngIf="fname.errors['maxlength']">
+                                        First name must not exceed 43 characters
+                                    </div>
+                                </div>
+                                <!-- first name input validation end -->
                             </div>
+                            <!-- first name input end -->
+                        </div>
+
+                        <div class="col-sm-12 col-md-6">
+                            <!-- last name input start -->
+                            <div class="form-group">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="lname"
+                                    placeholder="Last name (Required)"
+                                    [(ngModel)]="form.lname"
+                                    required
+                                    minlength="1"
+                                    maxlength="43"
+                                    #lname="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && lname.errors
+                                    }"
+                                />
+                                <!-- last name input validation start -->
+                                <div
+                                    *ngIf="f.submitted && lname.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="lname.errors['required']">
+                                        Last name is required
+                                    </div>
+                                    <div *ngIf="lname.errors['lname']">
+                                        Last name invalid
+                                    </div>
+                                    <div *ngIf="lname.errors['minlength']">
+                                        Last name must be at least 1 character
+                                    </div>
+                                    <div *ngIf="lname.errors['maxlength']">
+                                        Last name must not exceed 43 characters
+                                    </div>
+                                </div>
+                                <!-- last name input validation end -->
+                            </div>
+                            <!-- last name input end -->
                         </div>
 
                         <div class="col-lg-6 col-sm-6">
+                            <!-- email input start -->
                             <div class="form-group">
                                 <input
+                                    class="form-control"
                                     type="email"
                                     name="email"
-                                    id="email"
-                                    class="form-control"
+                                    placeholder="Email (Required)"
+                                    [(ngModel)]="form.email"
                                     required
-                                    placeholder="Your Email"
+                                    email
+                                    #email="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && email.errors
+                                    }"
                                 />
+
+                                <!-- email input validation start -->
+                                <div
+                                    *ngIf="f.submitted && email.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="email.errors['required']">
+                                        Email is required
+                                    </div>
+                                    <div *ngIf="email.errors['email']">
+                                        Email is invalid
+                                    </div>
+                                </div>
+                                <!-- email input validation end -->
                             </div>
+                            <!-- email input end -->
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <!-- phone number input start -->
+                            <div class="form-group">
+                                <input
+                                    type="tel"
+                                    class="form-control"
+                                    placeholder="Phone"
+                                    [(ngModel)]="form.phoneNumber"
+                                    aria-label="PhoneNumber"
+                                    name="phoneNumber"
+                                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                    #phoneNumber="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && phoneNumber.errors
+                                    }"
+                                />
+                                <!-- phone number input validation start -->
+                                <div
+                                    *ngIf="f.submitted && phoneNumber.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="phoneNumber.errors['pattern']">
+                                        Phone number format is invalid (ex:
+                                        999-999-1234)
+                                    </div>
+                                </div>
+                                <!-- phone number input validation end -->
+                            </div>
+                            <!-- phone number input end -->
+                        </div>
+
+                        <div class="col-lg-6 col-sm-6">
+                            <!-- subject input start -->
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Subject (Required)"
+                                    name="subject"
+                                    [(ngModel)]="form.subject"
+                                    required
+                                    minlength="1"
+                                    maxlength="128"
+                                    #subject="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && subject.errors
+                                    }"
+                                />
+                                <!-- subject name input validation start -->
+                                <div
+                                    *ngIf="f.submitted && subject.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="subject.errors['required']">
+                                        Subject is required
+                                    </div>
+                                    <div *ngIf="subject.errors['subject']">
+                                        Subject invalid
+                                    </div>
+                                    <div *ngIf="subject.errors['minlength']">
+                                        Subject must be at least 1 character
+                                    </div>
+                                    <div *ngIf="subject.errors['maxlength']">
+                                        Subject must not exceed 128 characters
+                                    </div>
+                                </div>
+                                <!-- subject name input validation end -->
+                            </div>
+                            <!-- subject input end -->
                         </div>
 
                         <div class="col-lg-6 col-sm-6">
                             <div class="form-group">
-                                <input
-                                    type="text"
-                                    name="phone_number"
-                                    id="phone_number"
-                                    required
-                                    class="form-control"
-                                    placeholder="Your Phone"
-                                />
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-sm-6">
-                            <div class="form-group">
-                                <input
-                                    type="text"
-                                    name="msg_subject"
-                                    id="msg_subject"
-                                    class="form-control"
-                                    required
-                                    placeholder="Your Subject"
-                                />
+                                <div id="inputCategory" class="select-box">
+                                    <select class="form-control">
+                                        <option value="">
+                                            - Select Category -
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
                                 <textarea
-                                    name="message"
                                     class="form-control"
-                                    id="message"
                                     cols="30"
                                     rows="8"
                                     required
                                     placeholder="Your Message"
+                                    name="message"
+                                    [(ngModel)]="form.message"
+                                    required
+                                    minlength="10"
+                                    maxlength="510"
+                                    #message="ngModel"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            f.submitted && message.errors
+                                    }"
                                 ></textarea>
+                                <!-- message name input validation start -->
+                                <div
+                                    *ngIf="f.submitted && message.errors"
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="message.errors['required']">
+                                        Message is required
+                                    </div>
+                                    <div *ngIf="message.errors['message']">
+                                        Message invalid 
+                                    </div>
+                                    <div *ngIf="message.errors['minlength']">
+                                        Message must be at least 10 characters
+                                    </div>
+                                    <div *ngIf="message.errors['maxlength']">
+                                        Message must not exceed 510 characters
+                                    </div>
+                                </div>
+                                <!-- message name input validation end -->
                             </div>
                         </div>
 
