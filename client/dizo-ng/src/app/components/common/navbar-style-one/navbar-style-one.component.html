@@ -45,7 +45,7 @@
                     id="navbarSupportedContent"
                 >
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a
                                 routerLink="/"
                                 class="nav-link"
@@ -55,7 +55,7 @@
                             >
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a
                                 routerLink="/product"
                                 class="nav-link"
@@ -65,7 +65,7 @@
                             >
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a
                                 routerLink="/about"
                                 class="nav-link"
@@ -75,7 +75,7 @@
                             >
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a
                                 routerLink="/contact"
                                 class="nav-link"
@@ -85,7 +85,7 @@
                             >
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a
                                 routerLink="/faq"
                                 class="nav-link"
@@ -97,7 +97,7 @@
                             >
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a
                                 routerLink="/coming-soon"
                                 class="nav-link"
@@ -118,7 +118,7 @@
                     </ul>
 
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        <li class="nav-item" *ngIf="user.authStatus != 'AUTH'">
                             <a href="javascript:void(0)" class="nav-link"
                                 ><i class="bx bx-user"></i> Account</a
                             >
@@ -133,8 +133,12 @@
                                         member benefits.
                                     </p>
                                 </li>
-                                <li class="nav-item">
+                                <li
+                                    class="nav-item"
+                                    *ngIf="user.authStatus != 'AUTH'"
+                                >
                                     <a
+                                        (click)="signIn()"
                                         routerLink="/sign-in"
                                         class="nav-link"
                                         routerLinkActive="active"
@@ -144,8 +148,26 @@
                                         ><i class="bx bx-log-in"></i> Sign In</a
                                     >
                                 </li>
+                                <li
+                                    class="nav-item"
+                                    *ngIf="user.authStatus == 'AUTH'"
+                                >
+                                    <a
+                                        (click)="signOut()"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                        ><i class="bx bx-log-in"></i> Sign
+                                        Out</a
+                                    >
+                                </li>
 
-                                <li class="nav-item">
+                                <li
+                                    class="nav-item"
+                                    *ngIf="user.authStatus != 'AUTH'"
+                                >
                                     <a
                                         routerLink="/track"
                                         class="nav-link"
@@ -160,7 +182,10 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item position-relative">
+                        <li
+                            class="nav-item position-relative"
+                            *ngIf="user.authStatus != 'AUTH'"
+                        >
                             <a
                                 routerLink="/cart"
                                 class="nav-link"

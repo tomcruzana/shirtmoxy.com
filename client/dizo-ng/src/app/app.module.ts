@@ -1,7 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
+import { environment } from "./../environments/environment.development";
+import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -33,12 +35,31 @@ import { ProductsDetailsComponent } from "./components/pages/products-details/pr
 import { BlogComponent } from "./components/pages/blog/blog.component";
 import { BlogDetailsComponent } from "./components/pages/blog-details/blog-details.component";
 import { ContactComponent } from "./components/pages/contact/contact.component";
-import { MatchPasswordDirective } from './directives/match-password.directive';
-import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
-import { ProfileNavbarComponent } from './components/common/profile-navbar/profile-navbar.component';
-import { ChangePasswordComponent } from './components/pages/change-password/change-password.component';
-import { ManageAccountComponent } from './components/pages/manage-account/manage-account.component';
-import { TrackOrderComponent } from './components/pages/track-order/track-order.component';
+import { MatchPasswordDirective } from "./directives/match-password.directive";
+import { UserProfileComponent } from "./components/pages/user-profile/user-profile.component";
+import { ProfileNavbarComponent } from "./components/common/profile-navbar/profile-navbar.component";
+import { ChangePasswordComponent } from "./components/pages/change-password/change-password.component";
+import { ManageAccountComponent } from "./components/pages/manage-account/manage-account.component";
+import { TrackOrderComponent } from "./components/pages/track-order/track-order.component";
+import { UserProjectsComponent } from "./components/pages/user-projects/user-projects.component";
+import { SignOutComponent } from './components/pages/sign-out/sign-out.component';
+
+// keycloak config
+function initializeKeycloak(keycloak: KeycloakService) {
+    return () =>
+        keycloak.init({
+            config: {
+                url: environment.keycloakConfig.url,
+                realm: environment.keycloakConfig.realm,
+                clientId: environment.keycloakConfig.clientId,
+            },
+            initOptions: {
+                pkceMethod: "S256",
+                redirectUri: environment.keycloakConfig.signInRedirectUri,
+            },
+            loadUserProfileAtStartUp: false,
+        });
+}
 
 @NgModule({
     declarations: [
@@ -76,9 +97,24 @@ import { TrackOrderComponent } from './components/pages/track-order/track-order.
         ChangePasswordComponent,
         ManageAccountComponent,
         TrackOrderComponent,
+        UserProjectsComponent,
+        SignOutComponent,
     ],
-    imports: [SweetAlert2Module, BrowserModule, AppRoutingModule, FormsModule],
-    providers: [],
+    imports: [
+        SweetAlert2Module,
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        KeycloakAngularModule,
+    ],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeKeycloak,
+            multi: true,
+            deps: [KeycloakService],
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

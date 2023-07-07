@@ -27,10 +27,12 @@ import { UserProfileComponent } from "./components/pages/user-profile/user-profi
 import { ChangePasswordComponent } from "./components/pages/change-password/change-password.component";
 import { ManageAccountComponent } from "./components/pages/manage-account/manage-account.component";
 import { TrackOrderComponent } from "./components/pages/track-order/track-order.component";
+import { UserProjectsComponent } from "./components/pages/user-projects/user-projects.component";
+import { SignOutComponent } from "./components/pages/sign-out/sign-out.component";
 
 const routes: Routes = [
-    { path: "", component: HomePageTwoComponent },
-    { path: "home-two", component: HomePageTwoComponent },
+    { path: "", redirectTo: "/home", pathMatch: "full" },
+    { path: "home", component: HomePageTwoComponent },
     { path: "about", component: AboutComponent },
     { path: "pricing", component: PricingComponent },
     { path: "faq", component: FaqComponent },
@@ -38,9 +40,11 @@ const routes: Routes = [
     { path: "testimonials", component: TestimonialsComponent },
     { path: "error", component: ErrorComponent },
     { path: "sign-in", component: SignInComponent },
+    { path: "sign-out", component: SignOutComponent },
     { path: "sign-up", component: SignUpComponent },
     { path: "track", component: TrackOrderComponent },
     { path: "recover-password", component: RecoverPasswordComponent },
+    { path: "user/projects", component: UserProjectsComponent },
     { path: "user/profile", component: UserProfileComponent },
     { path: "user/password-reset", component: ChangePasswordComponent },
     {
