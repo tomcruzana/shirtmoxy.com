@@ -41,11 +41,13 @@ public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 		dto.setDescription(entity.getDescription());
 		dto.setManufacturer(entity.getManufacturer());
 		dto.setWeight(entity.getWeight());
-		dto.setPrice(entity.getPrice());
-		dto.setTax(entity.getTax());
+		dto.setUnitPrice(entity.getUnitPrice());
 		dto.setVariant(convertVariantToDto(entity.getVariant()));
 		dto.setBarcode(convertBarcodeToDto(entity.getBarcode()));
 		dto.setActive(entity.isActive());
+		dto.setUnitsInStock(entity.getUnitsInStock());
+		dto.setDateCreated(entity.getDateCreated());
+		dto.setLastUpdated(entity.getLastUpdated());
 
 		return dto;
 	}

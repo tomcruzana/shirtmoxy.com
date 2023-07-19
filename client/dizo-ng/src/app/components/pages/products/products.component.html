@@ -3,24 +3,18 @@
 <section class="product-area pt-100 pb-70">
     <div class="container">
         <div class="scetion-title text-center">
-            <span>Product</span>
-            <h2>We Have Some Pre-ready Demo Product</h2>
-            <p>
-                What indication best sick be project proposal in attempt, train
-                of the showed some a forth. That homeless, won't many of goals
-                thoughts volumes felt.
-            </p>
+            <span>Products</span>
         </div>
 
         <!-- product search start -->
         <div class="product-search">
-            <div class="row mt-5">
+            <div class="row mt-4">
                 <div class="mx-auto col-12">
                     <div class="input-group">
                         <input
                             type="search"
                             class="form-control rounded-0"
-                            placeholder="Search apparels"
+                            placeholder="Search products"
                             aria-label="Search"
                             aria-describedby="search-addon"
                         />
@@ -48,7 +42,12 @@
                         (click)="toggleSearchFilterCollapse()"
                     >
                         Search filter
-                        <i class="align-middle bx" [ngClass]="isExpanded ? 'bx-chevron-down' : 'bx-chevron-up'"></i>
+                        <i
+                            class="align-middle bx"
+                            [ngClass]="
+                                isExpanded ? 'bx-chevron-down' : 'bx-chevron-up'
+                            "
+                        ></i>
                     </button>
                 </p>
 
@@ -183,21 +182,26 @@
         </div>
         <!-- product search end -->
 
+        <!-- product list start -->
         <div class="row pt-20">
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6" *ngFor="let p of products">
                 <div class="product-card">
                     <a routerLink="/product-details"
                         ><img
-                            src="assets/img/products/products1.jpg"
-                            alt="Products Images"
+                            [src]="p.productMediaSet[0].url"
+                            alt="Products Image"
                     /></a>
 
                     <div class="product-content">
                         <a routerLink="/product-details"
-                            ><h3>Package Design</h3></a
+                            ><h3>{{ p.manufacturer }} - {{ p.name }}</h3></a
                         >
-                        <p><span>$29</span> +vat</p>
-                        <div class="product-cart">
+                        <p>colors here</p>
+                        <p>
+                            1 starting at
+                            <span>{{ p.unitPrice | currency }}</span> / unit
+                        </p>
+                        <!-- <div class="product-cart">
                             <ul>
                                 <li>
                                     <a routerLink="/"
@@ -210,161 +214,12 @@
                                     ></a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6">
-                <div class="product-card">
-                    <a routerLink="/product-details"
-                        ><img
-                            src="assets/img/products/products2.jpg"
-                            alt="Products Images"
-                    /></a>
-
-                    <div class="product-content">
-                        <a routerLink="/product-details"
-                            ><h3>T-shirt Design</h3></a
-                        >
-                        <p><span>$20</span> +vat</p>
-                        <div class="product-cart">
-                            <ul>
-                                <li>
-                                    <a routerLink="/"
-                                        ><i class="bx bx-heart"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a routerLink="/cart"
-                                        ><i class="bx bx-cart"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="product-card">
-                    <a routerLink="/product-details"
-                        ><img
-                            src="assets/img/products/products3.jpg"
-                            alt="Products Images"
-                    /></a>
-
-                    <div class="product-content">
-                        <a routerLink="/product-details"><h3>Cover Van</h3></a>
-                        <p><span>$30</span> +vat</p>
-                        <div class="product-cart">
-                            <ul>
-                                <li>
-                                    <a routerLink="/"
-                                        ><i class="bx bx-heart"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a routerLink="/cart"
-                                        ><i class="bx bx-cart"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="product-card">
-                    <a routerLink="/product-details"
-                        ><img
-                            src="assets/img/products/products4.jpg"
-                            alt="Products Images"
-                    /></a>
-
-                    <div class="product-content">
-                        <a routerLink="/product-details"><h3>Mug Design</h3></a>
-                        <p>Category: hoodies</p>
-                        <p><span>$10</span> +vat</p>
-                        <div class="product-cart">
-                            <ul>
-                                <li>
-                                    <a routerLink="/"
-                                        ><i class="bx bx-heart"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a routerLink="/cart"
-                                        ><i class="bx bx-cart"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="product-card">
-                    <a routerLink="/product-details"
-                        ><img
-                            src="assets/img/products/products5.jpg"
-                            alt="Products Images"
-                    /></a>
-
-                    <div class="product-content">
-                        <a routerLink="/product-details"><h3>Book Cover</h3></a>
-                        <p><span>$15</span> +vat</p>
-                        <div class="product-cart">
-                            <ul>
-                                <li>
-                                    <a routerLink="/"
-                                        ><i class="bx bx-heart"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a routerLink="/cart"
-                                        ><i class="bx bx-cart"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-                <div class="product-card">
-                    <a routerLink="/product-details"
-                        ><img
-                            src="assets/img/products/products6.jpg"
-                            alt="Products Images"
-                    /></a>
-
-                    <div class="product-content">
-                        <a routerLink="/product-details"
-                            ><h3>Astronaut Cover</h3></a
-                        >
-                        <p><span>$35</span> +vat</p>
-                        <div class="product-cart">
-                            <ul>
-                                <li>
-                                    <a routerLink="/"
-                                        ><i class="bx bx-heart"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a routerLink="/cart"
-                                        ><i class="bx bx-cart"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- product pagination start -->
             <div class="col-lg-12">
                 <div class="pagination-area">
                     <nav aria-label="Page navigation example text-center">
@@ -394,7 +249,9 @@
                     </nav>
                 </div>
             </div>
+            <!-- product pagination end -->
         </div>
+        <!-- product list end -->
     </div>
 </section>
 

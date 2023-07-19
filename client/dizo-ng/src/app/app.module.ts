@@ -43,6 +43,8 @@ import { ManageAccountComponent } from "./components/pages/manage-account/manage
 import { TrackOrderComponent } from "./components/pages/track-order/track-order.component";
 import { UserProjectsComponent } from "./components/pages/user-projects/user-projects.component";
 import { SignOutComponent } from './components/pages/sign-out/sign-out.component';
+import { HttpClientModule } from "@angular/common/http";
+import { ProductService } from "./services/product/product.service";
 
 // keycloak config
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -105,9 +107,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
         BrowserModule,
         AppRoutingModule,
         FormsModule,
+        HttpClientModule,
         KeycloakAngularModule,
     ],
     providers: [
+        ProductService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializeKeycloak,

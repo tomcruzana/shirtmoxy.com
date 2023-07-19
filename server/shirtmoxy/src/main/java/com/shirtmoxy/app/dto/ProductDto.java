@@ -1,6 +1,7 @@
 package com.shirtmoxy.app.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Set;
 
 import jakarta.validation.constraints.DecimalMax;
@@ -35,10 +36,7 @@ public class ProductDto {
 	private BigDecimal weight;
 
 	@DecimalMax(value = "999999.99", inclusive = true, message = "Price must be less than or equal to 999999.99")
-	private BigDecimal price;
-
-	@DecimalMax(value = "999999.99", inclusive = true, message = "Tax must be less than or equal to 999999.99")
-	private BigDecimal tax;
+	private BigDecimal unitPrice;
 
 	private VariantDto variant;
 
@@ -46,6 +44,12 @@ public class ProductDto {
 
 	@NotNull(message = "isActive must not be null")
 	private boolean isActive;
+
+	private int unitsInStock;
+
+	private Date dateCreated;
+
+	private Date lastUpdated;
 
 	public ProductDto() {
 	}
@@ -114,20 +118,12 @@ public class ProductDto {
 		this.weight = weight;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public BigDecimal getTax() {
-		return tax;
-	}
-
-	public void setTax(BigDecimal tax) {
-		this.tax = tax;
+	public void setUnitPrice(BigDecimal price) {
+		this.unitPrice = price;
 	}
 
 	public VariantDto getVariant() {
@@ -152,6 +148,30 @@ public class ProductDto {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public int getUnitsInStock() {
+		return unitsInStock;
+	}
+
+	public void setUnitsInStock(int unitsInStock) {
+		this.unitsInStock = unitsInStock;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
 	}
 
 }

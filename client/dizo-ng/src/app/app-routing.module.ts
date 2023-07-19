@@ -11,9 +11,9 @@ import { TermsConditionsComponent } from "./components/pages/terms-conditions/te
 import { PrivacyPolicyComponent } from "./components/pages/privacy-policy/privacy-policy.component";
 import { ComingSoonComponent } from "./components/pages/coming-soon/coming-soon.component";
 import { ProductsComponent } from "./components/pages/products/products.component";
+import { ProductsDetailsComponent } from "./components/pages/products-details/products-details.component";
 import { CartComponent } from "./components/pages/cart/cart.component";
 import { CheckoutComponent } from "./components/pages/checkout/checkout.component";
-import { ProductsDetailsComponent } from "./components/pages/products-details/products-details.component";
 import { ContactComponent } from "./components/pages/contact/contact.component";
 import { UserProfileComponent } from "./components/pages/user-profile/user-profile.component";
 import { ChangePasswordComponent } from "./components/pages/change-password/change-password.component";

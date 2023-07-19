@@ -1,7 +1,11 @@
 package com.shirtmoxy.app.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -64,13 +68,8 @@ public class Product {
 
 	@Digits(integer = 8, fraction = 2, message = "Price must have a maximum of 8 digits, including 2 decimal places")
 	@DecimalMin(value = "0.00", inclusive = true, message = "Price must be greater than or equal to 0.00")
-	@Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
-	private BigDecimal price;
-
-	@Digits(integer = 8, fraction = 2, message = "Tax must have a maximum of 8 digits, including 2 decimal places")
-	@DecimalMin(value = "0.00", inclusive = true, message = "Tax must be greater than or equal to 0.00")
-	@Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
-	private BigDecimal tax;
+	@Column(name = "unit_price", nullable = false, columnDefinition = "DECIMAL(10,2)")
+	private BigDecimal unitPrice;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "variant_id", nullable = false)
@@ -83,6 +82,17 @@ public class Product {
 	@NotNull(message = "isActive must not be null")
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
 	private boolean isActive;
+
+	@Column(name = "units_in_stock")
+	private int unitsInStock;
+
+	@Column(name = "date_created")
+	@CreationTimestamp
+	private Date dateCreated;
+
+	@Column(name = "last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
 
 	public Product() {
 	}
@@ -151,22 +161,6 @@ public class Product {
 		this.weight = weight;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public BigDecimal getTax() {
-		return tax;
-	}
-
-	public void setTax(BigDecimal tax) {
-		this.tax = tax;
-	}
-
 	public Variant getVariant() {
 		return variant;
 	}
@@ -189,6 +183,38 @@ public class Product {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public int getUnitsInStock() {
+		return unitsInStock;
+	}
+
+	public void setUnitsInStock(int unitsInStock) {
+		this.unitsInStock = unitsInStock;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
 	}
 
 }
