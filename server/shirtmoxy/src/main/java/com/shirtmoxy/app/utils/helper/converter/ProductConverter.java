@@ -3,12 +3,14 @@ package com.shirtmoxy.app.utils.helper.converter;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.shirtmoxy.app.dto.BarcodeDto;
 import com.shirtmoxy.app.dto.CategoryDto;
 import com.shirtmoxy.app.dto.ColorDto;
 import com.shirtmoxy.app.dto.GenderDto;
+import com.shirtmoxy.app.dto.ManufacturerDto;
 import com.shirtmoxy.app.dto.MaterialDto;
 import com.shirtmoxy.app.dto.MediaFormatDto;
 import com.shirtmoxy.app.dto.ProductDto;
@@ -19,6 +21,7 @@ import com.shirtmoxy.app.entity.Barcode;
 import com.shirtmoxy.app.entity.Category;
 import com.shirtmoxy.app.entity.Color;
 import com.shirtmoxy.app.entity.Gender;
+import com.shirtmoxy.app.entity.Manufacturer;
 import com.shirtmoxy.app.entity.Material;
 import com.shirtmoxy.app.entity.MediaFormat;
 import com.shirtmoxy.app.entity.Product;
@@ -27,6 +30,7 @@ import com.shirtmoxy.app.entity.Size;
 import com.shirtmoxy.app.entity.Variant;
 
 @Component
+@Qualifier("ProductConverter")
 public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 
 	@Override
@@ -39,7 +43,7 @@ public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 		dto.setCategory(convertCategoryToDto(entity.getCategory()));
 		dto.setName(entity.getName());
 		dto.setDescription(entity.getDescription());
-		dto.setManufacturer(entity.getManufacturer());
+		dto.setManufacturer(convertManufacturerToDto(entity.getManufacturer()));
 		dto.setWeight(entity.getWeight());
 		dto.setUnitPrice(entity.getUnitPrice());
 		dto.setVariant(convertVariantToDto(entity.getVariant()));
@@ -90,6 +94,15 @@ public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 		categoryDto.setName(category.getName());
 
 		return categoryDto;
+	}
+	
+	public ManufacturerDto convertManufacturerToDto(Manufacturer manufacturer) {
+		ManufacturerDto manufacturerDto = new ManufacturerDto();
+
+		manufacturerDto.setId(manufacturer.getId());
+		manufacturerDto.setName(manufacturer.getName());
+
+		return manufacturerDto;
 	}
 
 	private VariantDto convertVariantToDto(Variant variant) {

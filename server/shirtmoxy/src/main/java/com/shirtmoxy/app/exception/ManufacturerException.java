@@ -1,13 +1,13 @@
 package com.shirtmoxy.app.exception;
 
-public class EmailSubscriptionException extends RuntimeException {
+public class ManufacturerException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EmailSubscriptionException(String message) {
+	public ManufacturerException(String message) {
 		super(message);
 	}
 }

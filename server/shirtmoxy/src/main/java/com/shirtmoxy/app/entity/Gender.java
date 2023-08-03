@@ -22,9 +22,9 @@ public class Gender {
 	private int id;
 	
 	@NotEmpty(message = "Type is required and must not be empty")
-	@Size(min = 1, max = 1, message = "Type must have a length of 1")
+	@Size(min = 1, max = 12, message = "Type must have a length of 1")
     @Column(unique = true, nullable = false, length = 1)
-	private char type;
+	private String type;
 
 	@OneToMany(mappedBy = "gender", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Variant> variantList;
@@ -40,11 +40,11 @@ public class Gender {
 		this.id = id;
 	}
 
-	public char getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(char type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

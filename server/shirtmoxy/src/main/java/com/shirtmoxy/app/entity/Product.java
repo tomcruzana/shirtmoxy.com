@@ -47,6 +47,10 @@ public class Product {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "manufacturer_id", nullable = false)
+	private Manufacturer manufacturer;
+
 	@NotEmpty(message = "Name is required and must not be empty")
 	@Size(max = 255, message = "Name cannot exceed 255 characters")
 	@Column(nullable = false, length = 255)
@@ -56,9 +60,6 @@ public class Product {
 	@Size(max = 255, message = "Description cannot exceed 255 characters")
 	@Column(nullable = false, length = 255)
 	private String description;
-
-	@Size(max = 255, message = "Manufacturer cannot exceed 255 characters")
-	private String manufacturer;
 
 	@Digits(integer = 8, fraction = 2, message = "Weight must have a maximum of 8 digits, including 2 decimal places")
 	@DecimalMin(value = "0.00", inclusive = true, message = "Weight must be greater than or equal to 0.00")
@@ -145,14 +146,6 @@ public class Product {
 		this.description = description;
 	}
 
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
 	public BigDecimal getWeight() {
 		return weight;
 	}
@@ -215,6 +208,14 @@ public class Product {
 
 	public BigDecimal getUnitPrice() {
 		return unitPrice;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 }

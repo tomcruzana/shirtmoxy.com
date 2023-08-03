@@ -12,4 +12,10 @@ public interface ProductService {
 	public ProductDto readById(int id) throws ProductException;
 
 	public Page<ProductDto> search(String keyword, int pageNum) throws ProductException;
+	
+	public Page<ProductDto> readByCategoryId(int id, int pageNum) throws ProductException;
+	
+	public Page<ProductDto> readByGenderId(int id, int pageNum) throws ProductException;
+	
+	public Page<ProductDto> readByManufacturerId(int id, int pageNum) throws ProductException;
 }

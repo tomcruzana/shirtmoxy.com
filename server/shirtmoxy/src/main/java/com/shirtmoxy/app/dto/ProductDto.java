@@ -21,6 +21,8 @@ public class ProductDto {
 
 	private CategoryDto category;
 
+	private ManufacturerDto manufacturer;
+
 	@NotEmpty(message = "Name is required and must not be empty")
 	@Size(max = 255, message = "Name cannot exceed 255 characters")
 	private String name;
@@ -28,9 +30,6 @@ public class ProductDto {
 	@NotEmpty(message = "Description is required and must not be empty")
 	@Size(max = 255, message = "Description cannot exceed 255 characters")
 	private String description;
-
-	@Size(max = 255, message = "Manufacturer cannot exceed 255 characters")
-	private String manufacturer;
 
 	@DecimalMax(value = "999999.99", inclusive = true, message = "Weight must be less than or equal to 999999.99")
 	private BigDecimal weight;
@@ -102,11 +101,11 @@ public class ProductDto {
 		this.description = description;
 	}
 
-	public String getManufacturer() {
+	public ManufacturerDto getManufacturer() {
 		return manufacturer;
 	}
 
-	public void setManufacturer(String manufacturer) {
+	public void setManufacturer(ManufacturerDto manufacturer) {
 		this.manufacturer = manufacturer;
 	}
 

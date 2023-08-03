@@ -50,7 +50,7 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/user/password-reset").hasRole("USER")
                         .requestMatchers("/user/manage-account").hasRole("USER")
                         .requestMatchers("/user").authenticated()
-                        .requestMatchers("/home", "/product/*", "/about", "/contact", "/faq", "/shipping-and-returns", "/sign-in", "/sign-up", "/sign-out", "/recover-password", "/track", "/cart", "/checkout", "/subscribe", "/terms-condition", "/privacy-policy", "/coming-soon").permitAll())
+                        .requestMatchers("/home", "/product/**", "/about", "/contact", "/faq", "/shipping-and-returns", "/sign-in", "/sign-up", "/sign-out", "/recover-password", "/track", "/cart", "/checkout", "/subscribe", "/terms-condition", "/privacy-policy", "/coming-soon").permitAll())
                 .oauth2ResourceServer(oauth2ResourceServerCustomizer ->
                         oauth2ResourceServerCustomizer.jwt(jwtCustomizer -> jwtCustomizer.jwtAuthenticationConverter(jwtAuthenticationConverter)));
         return http.build();

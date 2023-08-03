@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -21,18 +25,33 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * application.properties file into the fields.
  **/
 
-@ControllerAdvice
-public class GlobalExceptionHandler {
+@RestControllerAdvice
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
 	@Value(value = "${API.EMAIL_CREATE_ERROR}")
 	private String emailCreationError;
 
 	/**
 	 * Doc:
 	 * https://docs.spring.io/spring-framework/docs/2.0.x/javadoc-api/org/springframework/dao/DataIntegrityViolationException.html
+	 * 
+	 * @throws JsonProcessingException
 	 **/
 	@ExceptionHandler(value = DataIntegrityViolationException.class)
-	public ResponseEntity<String> blogNotFoundException(
-			DataIntegrityViolationException dataIntegrityViolationException) {
-		return new ResponseEntity<String>(emailCreationError, HttpStatus.CONFLICT);
+	public ResponseEntity<String> blogNotFoundException(DataIntegrityViolationException dataIntegrityViolationException)
+			throws JsonProcessingException {
+
+		ErrorResponse errorResponse = new ErrorResponse();
+		errorResponse.addError(new ErrorResponse.ErrorInfo(HttpStatus.CONFLICT.toString(), "DATA_INTEGRITY_ERROR",
+				"Data integrity violation", "There was a violation of data integrity."));
+
+		return new ResponseEntity<String>(convertStrToJson(errorResponse), HttpStatus.CONFLICT);
+	}
+
+	/* Helper methods */
+	public String convertStrToJson(ErrorResponse errorResponse) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String JsonErrorResponse = objectMapper.writeValueAsString(errorResponse);
+		return JsonErrorResponse;
 	}
 }
