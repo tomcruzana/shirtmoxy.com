@@ -1,0 +1,100 @@
+<div class="mt-3">
+    <p class="m-0">
+        <button
+            class="btn btn-sm search-filter-btn"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseWidthExample"
+            [attr.aria-expanded]="isExpanded ? 'true' : 'false'"
+            [attr.aria-controls]="'collapseWidthExample'"
+            (click)="toggleSearchFilterCollapse()"
+        >
+            Search filter
+            <i
+                class="align-middle bx"
+                [ngClass]="isExpanded ? 'bx-chevron-down' : 'bx-chevron-up'"
+            ></i>
+        </button>
+    </p>
+
+    <div class="mt-2 small">
+        <div class="collapse show" id="collapseWidthExample">
+            <div class="card card-body">
+                <!-- filter items start -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-2">
+                        <div>
+                            <p class="fw-bold">Find a fit for everyone</p>
+                        </div>
+                        <ul class="list-unstyled border-start">
+                            <li
+                                class="ps-2"
+                                *ngFor="let productGender of productGenders"
+                            >
+                                <a
+                                    class="link-dark text-underline-hover"
+                                    routerLink="/product/gender/{{
+                                        productGender.id
+                                    }}"
+                                    routerLinkActive="active-link fw-bold"
+                                    >{{ productGender.type | titlecase }}</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-12 col-md-4 col-lg-2">
+                        <div>
+                            <p class="fw-bold">What's your style?</p>
+                        </div>
+                        <ul class="list-unstyled border-start">
+                            <li
+                                class="ps-2"
+                                *ngFor="
+                                    let productCategory of productCategories
+                                "
+                            >
+                                <a
+                                    class="link-dark text-underline-hover"
+                                    routerLink="/product/category/{{
+                                        productCategory.id
+                                    }}"
+                                    routerLinkActive="active-link fw-bold"
+                                >
+                                    {{ productCategory.name | titlecase }}
+                                    <i class="align-top bi bi-r-circle"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-12 col-md-4 col-lg-2">
+                        <div>
+                            <p class="fw-bold">Featured brands</p>
+                        </div>
+                        <ul class="list-unstyled border-start">
+                            <li
+                                class="ps-2"
+                                *ngFor="
+                                    let productManufacturer of productManufacturers
+                                "
+                            >
+                                <a
+                                    class="link-dark text-underline-hover"
+                                    routerLink="/product/manufacturer/{{
+                                        productManufacturer.id
+                                    }}"
+                                    routerLinkActive="active-link fw-bold"
+                                >
+                                    {{ productManufacturer.name | titlecase }}
+                                    <i class="align-top bi bi-r-circle"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- filter items end -->
+            </div>
+        </div>
+    </div>
+</div>
