@@ -117,4 +117,4 @@ CREATE TABLE IF NOT EXISTS `product_and_product_media` (
 ALTER TABLE
   `product`
 ADD
-  FULLTEXT(`SKU`, `name`, `description`, `manufacturer`);
+  FULLTEXT(`SKU`, `name`, `description`); #@TODO - add manufacturer

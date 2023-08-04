@@ -12,6 +12,9 @@ export class ProductsComponent implements OnInit {
     // product list properties
     products: Product[] = [];
 
+    // product search mode toggle
+    searchMode: boolean = false;
+
     // the current product gender id
     currentGenderId: number;
 
@@ -35,6 +38,31 @@ export class ProductsComponent implements OnInit {
     }
 
     loadProducts(): void {
+        // check if query param is available to turn on searchMode
+        this.searchMode = this.route.snapshot.paramMap.has("query");
+        console.log(`searchMode= ${this.searchMode}`);
+
+        if (this.searchMode) {
+            this.handleSearchProducts();
+            return;
+        }
+
+        this.handleLoadProducts();
+    }
+
+    handleSearchProducts(): void {
+        // copy the valiu of the query param
+        const theQuery: string = this.route.snapshot.paramMap.get("query")!;
+
+        // invoke http service & perform a product search using the theQuery string
+        this.productService.searchProducts(theQuery).subscribe((data) => {
+            this.products = data;
+        });
+
+        return;
+    }
+
+    handleLoadProducts(): void {
         // check what type of id param is available
         const hasGenderId: boolean = this.route.snapshot.paramMap.has("gId");
         const hasCategoryId: boolean = this.route.snapshot.paramMap.has("cId");
@@ -43,7 +71,7 @@ export class ProductsComponent implements OnInit {
 
         // check if there's a category id
         if (hasCategoryId) {
-            // convert id to number
+            // convert id to number using the + operator
             this.currentCategoryId = +this.route.snapshot.paramMap.get("cId")!;
 
             // get products by category id
@@ -68,7 +96,8 @@ export class ProductsComponent implements OnInit {
             return;
         } else if (hasManufacturerId) {
             // convert id to number
-            this.currentManufacturerId = +this.route.snapshot.paramMap.get("mId")!;
+            this.currentManufacturerId =
+                +this.route.snapshot.paramMap.get("mId")!;
 
             // get products by category id
             this.productService

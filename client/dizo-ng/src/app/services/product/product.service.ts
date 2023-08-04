@@ -24,9 +24,19 @@ export class ProductService {
             .pipe(map((response) => response.content));
     }
 
+    // search for products
+    searchProducts(theQuery: string): Observable<Product[]> {
+        return this.httpClient
+            .get<GetResponseProductPage>(
+                environment.rooturl +
+                    AppConstants.ALL_PRODUCTS_SEARCH_API_URL +
+                    `?query=${theQuery}&pageNum=1`
+            )
+            .pipe(map((response) => response.content));
+    }
+
     // get all product genders
     getAllProductGenders(): Observable<ProductGender[]> {
-        // @TODO create product-gender model
         return this.httpClient.get<ProductGender[]>(
             environment.rooturl + AppConstants.ALL_PRODUCT_GENDERS_API_URL
         );
@@ -70,7 +80,9 @@ export class ProductService {
     }
 
     // get all products based on manufacturer id
-    getProductByManufacturerId(theManufacturerId: number): Observable<Product[]> {
+    getProductByManufacturerId(
+        theManufacturerId: number
+    ): Observable<Product[]> {
         return this.httpClient
             .get<GetResponseProductPage>(
                 environment.rooturl +

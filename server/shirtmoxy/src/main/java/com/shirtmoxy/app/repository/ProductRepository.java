@@ -12,7 +12,7 @@ import com.shirtmoxy.app.entity.Product;
 @Repository
 public interface ProductRepository extends PagingAndSortingRepository<Product, Integer> {
 
-	@Query(value = "SELECT * FROM product WHERE MATCH(SKU, name, description, manufacturer) AGAINST(?1)", nativeQuery = true)
+	@Query(value = "SELECT * FROM product WHERE MATCH(SKU, name, description) AGAINST(?1)", nativeQuery = true)
 	public Page<Product> search(String keyword, Pageable pageable);
 	
 	public Page<Product> findByCategoryId(@Param("id") int id, Pageable pageable);

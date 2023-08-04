@@ -45,6 +45,8 @@ import { UserProjectsComponent } from "./components/pages/user-projects/user-pro
 import { SignOutComponent } from './components/pages/sign-out/sign-out.component';
 import { HttpClientModule } from "@angular/common/http";
 import { ProductService } from "./services/product/product.service";
+import { SearchFilterComponent } from './components/pages/search-filter/search-filter.component';
+import { ProductSearchBarComponent } from './components/pages/product-search-bar/product-search-bar.component';
 
 // keycloak config
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -101,6 +103,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
         TrackOrderComponent,
         UserProjectsComponent,
         SignOutComponent,
+        SearchFilterComponent,
+        ProductSearchBarComponent,
     ],
     imports: [
         SweetAlert2Module,
