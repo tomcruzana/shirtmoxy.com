@@ -91,6 +91,12 @@ export class ProductService {
             )
             .pipe(map((response) => response.content));
     }
+
+    getProductDetailsById(theProductId: number): Observable<Product> {
+        return this.httpClient.get<Product>(
+            environment.rooturl + AppConstants.PRODUCT_BY_ID + `/${theProductId}`
+        );
+    }
 }
 
 interface GetResponseProductPage {

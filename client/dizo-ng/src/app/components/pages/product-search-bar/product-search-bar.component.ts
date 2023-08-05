@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Product } from "app/models/product.model";
 
 @Component({
     selector: "app-product-search-bar",

@@ -27,6 +27,7 @@ const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", component: HomePageTwoComponent },
     { path: "product", component: ProductsComponent },
+    { path: "product/:id", component: ProductsDetailsComponent },
     { path: "product/search/:query", component: ProductsComponent },
     { path: "product/gender/:gId", component: ProductsComponent },
     { path: "product/category/:cId", component: ProductsComponent },

@@ -2,6 +2,7 @@ package com.shirtmoxy.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepo;
 
 	@Autowired
-    @Qualifier("ProductConverter")
+	@Qualifier("ProductConverter")
 	private ObjectConverter<ProductDto, Product> productConverter;
 
 	@Override
@@ -71,14 +72,14 @@ public class ProductServiceImpl implements ProductService {
 	public Page<ProductDto> readByCategoryId(int id, int pageNum) throws ProductException {
 		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findByCategoryId(id, pageable);
-		
+
 		List<ProductDto> productDtos = new ArrayList<>();
 
 		for (Product product : productsPage.getContent()) {
 			ProductDto productDto = productConverter.convertToDTO(product);
 			productDtos.add(productDto);
 		}
-		
+
 		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
 	}
 
@@ -86,14 +87,14 @@ public class ProductServiceImpl implements ProductService {
 	public Page<ProductDto> readByGenderId(int id, int pageNum) throws ProductException {
 		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findByGenderId(id, pageable);
-		
+
 		List<ProductDto> productDtos = new ArrayList<>();
 
 		for (Product product : productsPage.getContent()) {
 			ProductDto productDto = productConverter.convertToDTO(product);
 			productDtos.add(productDto);
 		}
-		
+
 		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
 	}
 
@@ -101,15 +102,23 @@ public class ProductServiceImpl implements ProductService {
 	public Page<ProductDto> readByManufacturerId(int id, int pageNum) throws ProductException {
 		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findByManufacturerId(id, pageable);
-		
+
 		List<ProductDto> productDtos = new ArrayList<>();
 
 		for (Product product : productsPage.getContent()) {
 			ProductDto productDto = productConverter.convertToDTO(product);
 			productDtos.add(productDto);
 		}
-		
+
 		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
+	}
+
+	@Override
+	public ProductDto readProductDetailsById(int id) throws ProductException {
+		Optional<Product> productOptional = productRepo.findById(id);
+		Product product = productOptional.orElseThrow(() -> new ProductException("No products found"));
+
+		return productConverter.convertToDTO(product);
 	}
 
 }

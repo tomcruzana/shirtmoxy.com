@@ -1,5 +1,7 @@
 package com.shirtmoxy.app.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +26,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	        + "INNER JOIN v.gender g "
 	        + "WHERE g.id = :id")
     public Page<Product> findByGenderId(@Param("id") int id, Pageable pageable);
+	
+	public Optional<Product> findById(int id);
 }

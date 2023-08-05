@@ -18,4 +18,6 @@ public interface ProductService {
 	public Page<ProductDto> readByGenderId(int id, int pageNum) throws ProductException;
 	
 	public Page<ProductDto> readByManufacturerId(int id, int pageNum) throws ProductException;
+
+	public ProductDto readProductDetailsById(int id) throws ProductException;
 }

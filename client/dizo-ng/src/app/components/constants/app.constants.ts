@@ -1,5 +1,6 @@
 export const AppConstants = {
     SIGNIN_API_URL: "/user/projects",
+    PRODUCT_BY_ID: "/product",
     ALL_PRODUCT_GENDERS_API_URL: "/product/gender/all",
     ALL_PRODUCT_CATEGORIES_API_URL: "/product/category/all",
     ALL_PRODUCT_MANUFACTURER_BRANDS_API_URL: "/product/manufacturer/all",

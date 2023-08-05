@@ -1,10 +1,12 @@
+import { ProductManufacturer } from "./product-manufacturer.model";
+
 export class Product {
     public id: number;
     public dateCreated: Date;
     public lastUpdated: Date;
     public name: string;
     public description: string;
-    public manufacturer: string;
+    public manufacturer: ProductManufacturer;
     public sku: string;
     public unitPrice: number;
     public weight: number;
@@ -22,7 +24,7 @@ export class Product {
         lastUpdated?: Date,
         name?: string,
         description?: string,
-        manufacturer?: string,
+        manufacturer?: ProductManufacturer,
         sku?: string,
         unitPrice?: number,
         weight?: number,
@@ -35,7 +37,7 @@ export class Product {
         this.lastUpdated = lastUpdated!;
         this.name = name || "";
         this.description = description || "";
-        this.manufacturer = manufacturer || "";
+        this.manufacturer = manufacturer || new ProductManufacturer();
         this.sku = sku || "";
         this.unitPrice = unitPrice || 0;
         this.weight = weight || 0;

@@ -22,14 +22,14 @@
         <div class="row pt-20">
             <div class="col-lg-4 col-md-6" *ngFor="let p of products">
                 <div class="product-card">
-                    <a routerLink="/product-details"
+                    <a routerLink="/product/{{p.id}}"
                         ><img
                             [src]="p.productMediaSet[0].url"
                             alt="Products Image"
                     /></a>
 
                     <div class="product-content">
-                        <a routerLink="/product-details"
+                        <a routerLink="/product/{{p.id}}"
                             ><h3>
                                 {{ p.manufacturer.name | titlecase }} -
                                 {{ p.name | titlecase }}

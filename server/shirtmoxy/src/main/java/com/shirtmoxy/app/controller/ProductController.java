@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,10 +30,10 @@ public class ProductController {
 
 	@Autowired
 	GenderService genderService;
-	
+
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@Autowired
 	ManufacturerService manufacturerService;
 
@@ -43,8 +44,9 @@ public class ProductController {
 		Page<ProductDto> productPage = productService.readAllProducts(pageNum);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
+
 	/** end of load all products **/
-	
+
 	/** start of search filters **/
 	@GetMapping("/gender/all")
 	public ResponseEntity<List<GenderDto>> getAllGenders() {
@@ -52,7 +54,7 @@ public class ProductController {
 		List<GenderDto> genderList = genderService.readAllGenders();
 		return new ResponseEntity<>(genderList, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/gender")
 	public ResponseEntity<Page<ProductDto>> getProductByGenderId(@RequestParam("gId") int id,
 			@RequestParam("pageNum") int pageNum) {
@@ -75,14 +77,14 @@ public class ProductController {
 		Page<ProductDto> productPage = productService.readByCategoryId(id, pageNum);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/manufacturer/all")
 	public ResponseEntity<List<ManufacturerDto>> getAllManufacturers() {
 
 		List<ManufacturerDto> manufacturerList = manufacturerService.readAllManufacturers();
 		return new ResponseEntity<>(manufacturerList, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/manufacturer")
 	public ResponseEntity<Page<ProductDto>> getProductByManufacturerId(@RequestParam("mId") int id,
 			@RequestParam("pageNum") int pageNum) {
@@ -90,7 +92,7 @@ public class ProductController {
 		Page<ProductDto> productPage = productService.readByManufacturerId(id, pageNum);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
-	
+
 	/** end of search filters **/
 
 	/** start of product search **/
@@ -101,12 +103,14 @@ public class ProductController {
 		Page<ProductDto> searchResult = productService.search(keyword, pageNum);
 		return new ResponseEntity<>(searchResult, HttpStatus.OK);
 	}
+
 	/** end of product search **/
 
-	@GetMapping("/test")
-	public ResponseEntity<String> getProduct() {
+	@GetMapping("/{id}")
+	public ResponseEntity<ProductDto> getProductDetailsById(@PathVariable int id) {
 
-		return new ResponseEntity<>(null, HttpStatus.OK);
+		ProductDto productDetails = productService.readProductDetailsById(id);
+		return new ResponseEntity<>(productDetails, HttpStatus.OK);
 	}
 
 }
