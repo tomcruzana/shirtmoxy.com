@@ -20,8 +20,9 @@
                     </h3>
 
                     <div class="price">
-                        <span class="new-price">$120.00</span>
-                        <span class="old-price">$210.00</span>
+                        <span class="new-price">{{
+                            p?.unitPrice | currency
+                        }}</span>
                     </div>
 
                     <div class="product-review">
@@ -56,13 +57,16 @@
                     </div>
 
                     <div class="product-add">
-                        <button type="submit" class="default-btn m-1">
+                        <button class="default-btn m-1">
                             <i class="bx bx-pencil align-middle"></i> Start
                             Designing
                         </button>
 
-                        <button type="submit" class="default-btn m-1">
-                            Browse Designs
+                        <button class="default-btn m-1">Browse Designs</button>
+
+                        <!-- temp add to cart button -->
+                        <button (click)="addToCart(p)" class="default-btn m-1">
+                            Add to Cart
                         </button>
                     </div>
 

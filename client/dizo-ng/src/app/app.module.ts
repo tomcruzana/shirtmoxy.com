@@ -47,6 +47,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ProductService } from "./services/product/product.service";
 import { SearchFilterComponent } from './components/pages/search-filter/search-filter.component';
 import { ProductSearchBarComponent } from './components/pages/product-search-bar/product-search-bar.component';
+import { CartStatusComponent } from './components/common/navbar/navbar-items/cart-status/cart-status.component';
 
 // keycloak config
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -105,6 +106,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         SignOutComponent,
         SearchFilterComponent,
         ProductSearchBarComponent,
+        CartStatusComponent,
     ],
     imports: [
         SweetAlert2Module,

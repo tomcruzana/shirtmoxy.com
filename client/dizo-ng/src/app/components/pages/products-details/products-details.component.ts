@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { CartItem } from "app/models/cart-item.model";
 import { Product } from "app/models/product.model";
+import { CartService } from "app/services/cart/cart.service";
 import { ProductService } from "app/services/product/product.service";
 
 @Component({
@@ -13,6 +15,7 @@ export class ProductsDetailsComponent implements OnInit {
 
     constructor(
         private productService: ProductService,
+        private cartService: CartService,
         private route: ActivatedRoute
     ) {}
 
@@ -21,7 +24,7 @@ export class ProductsDetailsComponent implements OnInit {
             this.handleLoadProductDetails();
         });
     }
-    handleLoadProductDetails() {
+    handleLoadProductDetails(): void {
         const theProductId: number = +this.route.snapshot.paramMap.get("id")!;
 
         this.productService
@@ -30,5 +33,16 @@ export class ProductsDetailsComponent implements OnInit {
                 this.p = data;
                 console.log(data);
             });
+    }
+
+    addToCart(theProduct: Product): void {
+        console.log(
+            `adding to cart: ${theProduct.name} - ${theProduct.unitPrice}`
+        );
+
+        // @TODO
+        const theCartItem = new CartItem(theProduct);
+
+        this.cartService.addToCart(theCartItem);
     }
 }

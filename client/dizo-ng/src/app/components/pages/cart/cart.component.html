@@ -41,39 +41,31 @@
                             <!-- cart product items start -->
                             <ng-template #cartItems>
                                 <tbody>
-                                    <ng-container *ngFor="let item of cart[1]">
+                                    <ng-container>
                                         <tr>
                                             <td class="product-thumbnail">
                                                 <a routerLink="/product-details"
                                                     ><img
-                                                        [src]="item.productImg"
+                                                        src="https://picsum.photos/200"
                                                         alt="Image"
                                                 /></a>
                                             </td>
 
                                             <td class="product-name">
-                                                <a
-                                                    routerLink="/product-details"
-                                                    >{{ item.name }}</a
+                                                <a routerLink="/product-details"
+                                                    >product name</a
                                                 >
                                             </td>
 
                                             <td class="product-price">
                                                 <span class="unit-amount">{{
-                                                    item.unitPrice | currency
+                                                    0.0 | currency
                                                 }}</span>
                                             </td>
 
                                             <td class="product-quantity">
                                                 <div class="input-counter">
-                                                    <span
-                                                        class="minus-btn"
-                                                        (click)="
-                                                            updateProductItemQty(
-                                                                '-'
-                                                            )
-                                                        "
-                                                    >
+                                                    <span class="minus-btn">
                                                         <i
                                                             class="bx bx-minus"
                                                         ></i>
@@ -82,16 +74,9 @@
                                                         type="text"
                                                         minlength="1"
                                                         maxlength="3"
-                                                        [(value)]="item.qty"
+                                                        value="99"
                                                     />
-                                                    <span
-                                                        class="plus-btn"
-                                                        (click)="
-                                                            updateProductItemQty(
-                                                                '+'
-                                                            )
-                                                        "
-                                                    >
+                                                    <span class="plus-btn">
                                                         <i
                                                             class="bx bx-plus"
                                                         ></i>
@@ -112,7 +97,7 @@
 
                                             <td class="product-subtotal">
                                                 <span class="subtotal-amount">{{
-                                                    item.total | currency
+                                                    0.0 | currency
                                                 }}</span>
                                                 <a
                                                     routerLink="/cart"
@@ -152,29 +137,18 @@
 
                             <ul>
                                 <li>
-                                    Est. Subtotal
-                                    <span>{{
-                                        cart[0].subTotal | currency
-                                    }}</span>
+                                    Subtotal
+                                    <span>{{ totalPrice | currency }}</span>
                                 </li>
-                                <li>
-                                    Est. Shipping
-                                    <span
-                                        *ngIf="
-                                            cart[0].total != 0.0;
-                                            else freeShipping
-                                        "
-                                        >{{ cart[0].shipping | currency }}</span
-                                    ><ng-template #freeShipping>
-                                        <span>FREE</span>
-                                    </ng-template>
-                                </li>
-                                <li>
-                                    Est. Total
-                                    <span
-                                        ><b>{{ cart[0].total | currency }}</b>
-                                    </span>
-                                </li>
+                                <ng-container *ngIf="isCouponValid">
+                                    <li>
+                                        Discount
+                                        <span>
+                                            -
+                                            {{ totalDiscount | currency }}</span
+                                        >
+                                    </li>
+                                </ng-container>
                             </ul>
 
                             <a routerLink="/checkout" class="default-btn w-100"
@@ -214,12 +188,14 @@
                                         type="text"
                                         class="form-control"
                                         placeholder="Enter Coupon"
+                                        #coupon
                                     />
                                 </div>
 
                                 <a
                                     routerLink="/cart"
                                     class="default-btn w-100 small"
+                                    (click)="processCoupon(coupon.value)"
                                     >Apply</a
                                 >
                             </div>

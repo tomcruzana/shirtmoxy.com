@@ -1,0 +1,15 @@
+<a
+    routerLink="/cart"
+    class="nav-link"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{
+        exact: true
+    }"
+    ><i class="bx bx-cart"></i> Cart<span
+        class="cart-badge-counter position-absolute translate-middle badge rounded-pill bg-danger p-1"
+        [hidden]="false"
+    >
+        {{ totalQuantity }}
+        <span class="visually-hidden">cart counter badge</span>
+    </span></a
+>
