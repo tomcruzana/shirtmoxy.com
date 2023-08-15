@@ -15,24 +15,44 @@ import { ProductManufacturer } from "app/models/product-manufacturer.model";
 export class ProductService {
     constructor(private httpClient: HttpClient) {}
 
-    // get all products
-    getAllProducts(): Observable<Product[]> {
+    private getProducts(
+        url: string,
+        thePageNum: number,
+        thePageSize: number
+    ): Observable<GetResponseProductPage> {
         return this.httpClient
             .get<GetResponseProductPage>(
-                environment.rooturl + AppConstants.ALL_PRODUCTS_API_URL
+                environment.rooturl +
+                    `${url}?pageNum=${thePageNum}&pageSize=${thePageSize}`
             )
-            .pipe(map((response) => response.content));
+            .pipe(map((response) => response));
+    }
+
+    // get all products
+    getAllProductsPaginate(
+        thePageNum: number,
+        thePageSize: number
+    ): Observable<GetResponseProductPage> {
+        return this.getProducts(
+            AppConstants.ALL_PRODUCTS_API_URL,
+            thePageNum,
+            thePageSize
+        );
     }
 
     // search for products
-    searchProducts(theQuery: string): Observable<Product[]> {
+    searchProductsPaginate(
+        theQuery: string,
+        thePageNum: number,
+        thePageSize: number
+    ): Observable<GetResponseProductPage> {
         return this.httpClient
             .get<GetResponseProductPage>(
                 environment.rooturl +
                     AppConstants.ALL_PRODUCTS_SEARCH_API_URL +
-                    `?query=${theQuery}&pageNum=1`
+                    `?query=${theQuery}&pageNum=${thePageNum}&pageSize=${thePageSize}`
             )
-            .pipe(map((response) => response.content));
+            .pipe(map((response) => response));
     }
 
     // get all product genders
@@ -58,47 +78,84 @@ export class ProductService {
     }
 
     // get all products based on category id
-    getProductByCategoryId(theCategoryId: number): Observable<Product[]> {
+    getProductByCategoryId(
+        theCategoryId: number,
+        thePageNum: number,
+        thePageSize: number
+    ): Observable<GetResponseProductPage> {
         return this.httpClient
             .get<GetResponseProductPage>(
                 environment.rooturl +
                     AppConstants.ALL_PRODUCTS_BY_CATEGORY_ID_API_URL +
-                    `?cId=${theCategoryId}&pageNum=1`
+                    `?cId=${theCategoryId}&pageNum=${thePageNum}&pageSize=${thePageSize}`
             )
-            .pipe(map((response) => response.content));
+            .pipe(map((response) => response));
     }
 
     // get all products based on gender id
-    getProductByGenderId(theGenderId: number): Observable<Product[]> {
+    getProductByGenderIdPaginate(
+        theGenderId: number,
+        thePageNum: number,
+        thePageSize: number
+    ): Observable<GetResponseProductPage> {
         return this.httpClient
             .get<GetResponseProductPage>(
                 environment.rooturl +
                     AppConstants.ALL_PRODUCTS_BY_GENDER_ID_API_URL +
-                    `?gId=${theGenderId}&pageNum=1`
+                    `?gId=${theGenderId}&pageNum=${thePageNum}&pageSize=${thePageSize}`
             )
-            .pipe(map((response) => response.content));
+            .pipe(map((response) => response));
     }
 
     // get all products based on manufacturer id
-    getProductByManufacturerId(
-        theManufacturerId: number
-    ): Observable<Product[]> {
+    getProductByManufacturerIdPaginate(
+        theManufacturerId: number,
+        thePageNum: number,
+        thePageSize: number
+    ): Observable<GetResponseProductPage> {
         return this.httpClient
             .get<GetResponseProductPage>(
                 environment.rooturl +
                     AppConstants.ALL_PRODUCTS_BY_MANUFACTURER_ID_API_URL +
-                    `?mId=${theManufacturerId}&pageNum=1`
+                    `?mId=${theManufacturerId}&pageNum=${thePageNum}&pageSize=${thePageSize}`
             )
-            .pipe(map((response) => response.content));
+            .pipe(map((response) => response));
     }
 
     getProductDetailsById(theProductId: number): Observable<Product> {
         return this.httpClient.get<Product>(
-            environment.rooturl + AppConstants.PRODUCT_BY_ID + `/${theProductId}`
+            environment.rooturl +
+                AppConstants.PRODUCT_BY_ID +
+                `/${theProductId}`
         );
     }
 }
 
 interface GetResponseProductPage {
     content: Product[];
+    pageable: {
+        sort: {
+            empty: boolean;
+            sorted: boolean;
+            unsorted: boolean;
+        };
+        offset: number;
+        pageNumber: number; // current page number
+        pageSize: number; // size of the page
+        paged: boolean;
+        unpaged: boolean;
+    };
+    last: boolean;
+    totalElements: number; // grand total of all elements
+    totalPages: number; // total pages available
+    size: number;
+    number: number;
+    sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+    };
+    first: boolean;
+    numberOfElements: number;
+    empty: boolean;
 }

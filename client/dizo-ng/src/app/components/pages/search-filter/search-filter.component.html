@@ -92,6 +92,29 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class="col-sm-12 col-md-4 col-lg-2">
+                        <div>
+                            <p class="fw-bold">Page Size</p>
+                        </div>
+                        <ul class="list-unstyled border-start">
+                            <li class="ps-0">
+                                <select
+                                    #pageSizeSelect
+                                    aria-label=".form-select-sm example"
+                                    (change)="
+                                        updatePageSize(pageSizeSelect.value)
+                                    "
+                                >
+                                    <option selected="true">10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                    <option>40</option>
+                                    <option>50</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <!-- filter items end -->
             </div>
