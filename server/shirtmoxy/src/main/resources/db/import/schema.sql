@@ -1,3 +1,12 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS `shirtmoxy_db_dev`;
+
+-- Create the database
+CREATE DATABASE IF NOT EXISTS `shirtmoxy_db_dev`;
+
+-- Use the newly created database
+USE `shirtmoxy_db_dev`;
+
 -- Create the email_subscription table
 CREATE TABLE IF NOT EXISTS `email_subscription` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
