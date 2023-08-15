@@ -1,14 +1,14 @@
 (function($) {
     'use strict';
-    
+
     // Mean Menu JS
-	jQuery('.mean-menu').meanmenu({ 
+	jQuery('.mean-menu').meanmenu({
 		meanScreenWidth: "991"
     });
 
     // Navbar Area
     $(window).on('scroll', function() {
-		if ($(this).scrollTop() >150){  
+		if ($(this).scrollTop() >150){
 			$('.navbar-area').addClass("sticky-nav");
 		}
 		else{
@@ -16,7 +16,7 @@
 		}
 	});
 
-    // Banner Into Slider 
+    // Banner Into Slider
     $('.banner-into-slider').owlCarousel({
         loop: true,
         margin: 30,
@@ -34,7 +34,7 @@
         }
     })
 
-    // Service Slider 
+    // Service Slider
     $('.service-slider').owlCarousel({
         loop: true,
         margin: 30,
@@ -67,9 +67,9 @@
         var activeTab = $(this).attr('href');
         $( activeTab).addClass('active fadeInUp');
         e.preventDefault();
-    });	
+    });
 
-    // Testimonial Slider 
+    // Testimonial Slider
     $('.testimonial-slider').owlCarousel({
         loop: true,
         items: 1,
@@ -84,7 +84,7 @@
         ],
     })
 
-    // Home Slider 
+    // Home Slider
     $('.home-slider').owlCarousel({
         loop: true,
         margin: 0,
@@ -99,7 +99,7 @@
         ],
     })
 
-    // Product Images Slider 
+    // Product Images Slider
     $('.product-images-slider').owlCarousel({
         loop: true,
         margin: 30,
@@ -121,7 +121,7 @@
         }
     })
 
-    // Testimonial Slider 
+    // Testimonial Slider
     $('.testimonial-slider-two').owlCarousel({
         loop: true,
         items: 1,
@@ -139,7 +139,7 @@
     // Tabs Single Page
     $('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
     $('.tab ul.tabs li a').on('click', function (g) {
-        var tab = $(this).closest('.tab'), 
+        var tab = $(this).closest('.tab'),
         index = $(this).closest('li').index();
         tab.find('ul.tabs > li').removeClass('current');
         $(this).closest('li').addClass('current');
@@ -148,7 +148,7 @@
         g.preventDefault();
     });
 
-    // Service Dtls Sliser 
+    // Service Dtls Sliser
     $('.service-dtls-slider').owlCarousel({
         loop: true,
         margin: 30,
@@ -172,12 +172,12 @@
 		// Hide The Other Panels
 		$('.accordion-content').not($(this).next()).slideUp('fast');
 		// Removes Active Class From Other Titles
-		$('.accordion-title').not($(this)).removeClass('active');		
+		$('.accordion-title').not($(this)).removeClass('active');
     });
 
     // Nice Select JS
-    $('select').niceSelect();
-   
+    // $('select').niceSelect();
+
     // Disabled Feature Since it's Conflicting With the cart.component.ts
     // Input Plus & Minus Number JS
     // $('.input-counter').each(function() {
@@ -217,10 +217,10 @@
         } else {
             $('#toTop').fadeOut();
         }
-    }); 
+    });
     $('#toTop').on('click',function(){
         $("html, body").animate({ scrollTop: 0 }, 600);
         return false;
     });
-    
+
 })(jQuery);
