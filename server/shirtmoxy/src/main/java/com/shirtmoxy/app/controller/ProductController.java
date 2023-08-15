@@ -39,9 +39,10 @@ public class ProductController {
 
 	/** start of load all products **/
 	@GetMapping("/all")
-	public ResponseEntity<Page<ProductDto>> getAllProducts(@RequestParam("pageNum") int pageNum) {
+	public ResponseEntity<Page<ProductDto>> getAllProducts(@RequestParam("pageNum") int pageNum,
+			@RequestParam("pageSize") int pageSize) {
 
-		Page<ProductDto> productPage = productService.readAllProducts(pageNum);
+		Page<ProductDto> productPage = productService.readAllProducts(pageNum, pageSize);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
 
@@ -57,9 +58,9 @@ public class ProductController {
 
 	@GetMapping("/gender")
 	public ResponseEntity<Page<ProductDto>> getProductByGenderId(@RequestParam("gId") int id,
-			@RequestParam("pageNum") int pageNum) {
+			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
 
-		Page<ProductDto> productPage = productService.readByGenderId(id, pageNum);
+		Page<ProductDto> productPage = productService.readByGenderId(id, pageNum, pageSize);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
 
@@ -72,9 +73,9 @@ public class ProductController {
 
 	@GetMapping("/category")
 	public ResponseEntity<Page<ProductDto>> getProductByCategoryId(@RequestParam("cId") int id,
-			@RequestParam("pageNum") int pageNum) {
+			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
 
-		Page<ProductDto> productPage = productService.readByCategoryId(id, pageNum);
+		Page<ProductDto> productPage = productService.readByCategoryId(id, pageNum, pageSize);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
 
@@ -87,9 +88,9 @@ public class ProductController {
 
 	@GetMapping("/manufacturer")
 	public ResponseEntity<Page<ProductDto>> getProductByManufacturerId(@RequestParam("mId") int id,
-			@RequestParam("pageNum") int pageNum) {
+			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
 
-		Page<ProductDto> productPage = productService.readByManufacturerId(id, pageNum);
+		Page<ProductDto> productPage = productService.readByManufacturerId(id, pageNum, pageSize);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
 
@@ -98,9 +99,9 @@ public class ProductController {
 	/** start of product search **/
 	@GetMapping("/search")
 	public ResponseEntity<Page<ProductDto>> searchProducts(@RequestParam("query") String keyword,
-			@RequestParam("pageNum") int pageNum) {
+			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
 
-		Page<ProductDto> searchResult = productService.search(keyword, pageNum);
+		Page<ProductDto> searchResult = productService.search(keyword, pageNum, pageSize);
 		return new ResponseEntity<>(searchResult, HttpStatus.OK);
 	}
 

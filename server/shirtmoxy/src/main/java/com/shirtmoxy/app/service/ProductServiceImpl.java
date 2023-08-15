@@ -23,7 +23,7 @@ import com.shirtmoxy.app.utils.helper.converter.ObjectConverter;
 public class ProductServiceImpl implements ProductService {
 
 	// number of product items per page
-	private final int SEARCH_RESULT_PER_PAGE = 5;
+	// private final int SEARCH_RESULT_PER_PAGE = 5;
 
 	@Autowired
 	private ProductRepository productRepo;
@@ -33,8 +33,8 @@ public class ProductServiceImpl implements ProductService {
 	private ObjectConverter<ProductDto, Product> productConverter;
 
 	@Override
-	public Page<ProductDto> readAllProducts(int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
+	public Page<ProductDto> readAllProducts(int pageNum, int pageSize) throws ProductException {
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findAll(pageable);
 
 		List<ProductDto> productDtos = new ArrayList<>();
@@ -54,8 +54,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<ProductDto> search(String keyword, int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("name"));
+	public Page<ProductDto> search(String keyword, int pageNum, int pageSize) throws ProductException {
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("name"));
 		Page<Product> searchResult = productRepo.search(keyword, pageable);
 
 		List<ProductDto> productDtos = new ArrayList<>();
@@ -69,8 +69,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<ProductDto> readByCategoryId(int id, int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
+	public Page<ProductDto> readByCategoryId(int id, int pageNum, int pageSize) throws ProductException {
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findByCategoryId(id, pageable);
 
 		List<ProductDto> productDtos = new ArrayList<>();
@@ -84,8 +84,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<ProductDto> readByGenderId(int id, int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
+	public Page<ProductDto> readByGenderId(int id, int pageNum, int pageSize) throws ProductException {
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findByGenderId(id, pageable);
 
 		List<ProductDto> productDtos = new ArrayList<>();
@@ -99,8 +99,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<ProductDto> readByManufacturerId(int id, int pageNum) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULT_PER_PAGE, Sort.by("id"));
+	public Page<ProductDto> readByManufacturerId(int id, int pageNum, int pageSize) throws ProductException {
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
 		Page<Product> productsPage = productRepo.findByManufacturerId(id, pageable);
 
 		List<ProductDto> productDtos = new ArrayList<>();
