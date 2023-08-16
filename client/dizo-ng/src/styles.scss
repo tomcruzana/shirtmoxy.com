@@ -3110,7 +3110,7 @@ Pagination Area Style
         color: $carrot-orange-color;
         background-color: $color-white;
         box-shadow: 0 0 15px #d0d0d0;
-        width: 40px;
+        width: auto;
         height: 40px;
         border: 1px solid $color-white;
         line-height: 24px;
@@ -3129,12 +3129,14 @@ Pagination Area Style
         &.current,
         &:hover,
         &:focus {
+            cursor: pointer !important;
             color: $color-white;
             background-color: $carrot-orange-color;
             border: 1px solid $carrot-orange-color;
         }
     }
     .page-item {
+
         padding: 0 8px 0;
 
         &:first-child .page-link {
@@ -3148,6 +3150,11 @@ Pagination Area Style
             color: $color-white;
             background-color: $carrot-orange-color;
             border-color: $carrot-orange-color;
+        }
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+            cursor: not-allowed;
         }
     }
 }
@@ -3326,6 +3333,7 @@ Cart Page Style
                                 top: 1px;
                                 -webkit-transition: all 0.5s;
                                 transition: all 0.5s;
+                                cursor: pointer;
 
                                 i {
                                     font-size: 24px;
@@ -4621,7 +4629,7 @@ Single Content Style
     }
 }
 
-/*================================== 
+/*==================================
 Coming Soon Area Style
 ====================================*/
 .coming-soon-area {

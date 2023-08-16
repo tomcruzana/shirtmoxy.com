@@ -6,7 +6,7 @@
             <div class="row">
                 <div
                     class="col-sm-12 cart-wraps pe-5"
-                    [ngClass]="isCartEmpty ? 'col-md-12' : 'col-md-8'"
+                    [ngClass]="cartItems.length == 0 ? 'col-md-12' : 'col-md-8'"
                 >
                     <div class="cart-table table-responsive">
                         <table class="table table-bordered">
@@ -20,8 +20,8 @@
                                 </tr>
                             </thead>
 
-                            <!-- show this if cart is empty -->
-                            <ng-container *ngIf="isCartEmpty; else cartItems">
+                            <!-- cart is empty start -->
+                            <ng-container *ngIf="cartItems.length == 0">
                                 <tbody>
                                     <tr>
                                         <td colspan="5">
@@ -37,78 +37,79 @@
                                     </tr>
                                 </tbody>
                             </ng-container>
+                            <!-- cart is empty end -->
 
                             <!-- cart product items start -->
-                            <ng-template #cartItems>
+                            <ng-container *ngIf="cartItems.length > 0">
                                 <tbody>
-                                    <ng-container>
-                                        <tr>
-                                            <td class="product-thumbnail">
-                                                <a routerLink="/product-details"
-                                                    ><img
-                                                        src="https://picsum.photos/200"
-                                                        alt="Image"
-                                                /></a>
-                                            </td>
+                                    <tr *ngFor="let item of cartItems">
+                                        <td class="product-thumbnail">
+                                            <a routerLink="/product-details"
+                                                ><img
+                                                    [src]="item.imageUrl.url"
+                                                    alt="Image"
+                                            /></a>
+                                        </td>
 
-                                            <td class="product-name">
-                                                <a routerLink="/product-details"
-                                                    >product name</a
+                                        <td class="product-name">
+                                            <a routerLink="/product-details"
+                                                >{{ item.manufacturer }} -
+                                                {{ item.name }}</a
+                                            >
+                                        </td>
+
+                                        <td class="product-price">
+                                            <span class="unit-amount">{{
+                                                item.unitPrice
+                                                    | currency : "USD"
+                                            }}</span>
+                                        </td>
+
+                                        <td class="product-quantity">
+                                            <div class="input-counter">
+                                                <span
+                                                    class="minus-btn"
+                                                    (click)="
+                                                        decrementQuantity(item)
+                                                    "
                                                 >
-                                            </td>
+                                                    <i class="bx bx-minus"></i>
+                                                </span>
 
-                                            <td class="product-price">
-                                                <span class="unit-amount">{{
-                                                    0.0 | currency
-                                                }}</span>
-                                            </td>
+                                                <input
+                                                    type="text"
+                                                    minlength="1"
+                                                    maxlength="3"
+                                                    [value]="item.quantity"
+                                                />
 
-                                            <td class="product-quantity">
-                                                <div class="input-counter">
-                                                    <span class="minus-btn">
-                                                        <i
-                                                            class="bx bx-minus"
-                                                        ></i>
-                                                    </span>
-                                                    <input
-                                                        type="text"
-                                                        minlength="1"
-                                                        maxlength="3"
-                                                        value="99"
-                                                    />
-                                                    <span class="plus-btn">
-                                                        <i
-                                                            class="bx bx-plus"
-                                                        ></i>
-                                                    </span>
-                                                </div>
-
-                                                <!-- qty update button start -->
-                                                <!-- <div class="d-block qty-update-btn">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-link"
+                                                <span
+                                                    class="plus-btn"
+                                                    (click)="
+                                                        incrementQuantity(item)
+                                                    "
                                                 >
-                                                    Update
-                                                </button>
-                                            </div>  -->
-                                                <!-- qty update button end -->
-                                            </td>
+                                                    <i class="bx bx-plus"></i>
+                                                </span>
+                                            </div>
+                                        </td>
 
-                                            <td class="product-subtotal">
-                                                <span class="subtotal-amount">{{
-                                                    0.0 | currency
-                                                }}</span>
-                                                <a
-                                                    routerLink="/cart"
-                                                    class="remove"
-                                                    ><i class="bx bx-trash"></i
-                                                ></a>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
+                                        <td class="product-subtotal">
+                                            <span class="subtotal-amount">{{
+                                                item.quantity * item.unitPrice
+                                                    | currency : "USD"
+                                            }}</span>
+
+                                            <span
+                                                class="remove"
+                                                (click)="remove(item)"
+                                            >
+                                                <i class="bx bx-trash"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
                                 </tbody>
-                            </ng-template>
+                            </ng-container>
                             <!-- cart product items end -->
                         </table>
                     </div>
@@ -116,20 +117,30 @@
                     <div
                         class="cart-buttons d-flex justify-content-between flex-wrap"
                     >
-                        <!-- <div class="update-qty-box" [hidden]="isCartEmpty">
-                            <a routerLink="/cart" class="default-btn small"
-                                >Update Quantities</a
-                            >
-                        </div> -->
-                        <div class="update-qty-box" [hidden]="isCartEmpty">
-                            <a routerLink="/cart" class="default-btn small"
+                        <div class="update-qty-box">
+                            <i
+                                class="bx bx-cart bx-sm align-bottom text-dark"
+                            ></i>
+                            <h6 class="align-middle d-inline">
+                                Your shopping cart ({{ totalQuantity }}
+                                items)
+                            </h6>
+                        </div>
+                        <div
+                            class="update-qty-box"
+                            [hidden]="cartItems.length == 0"
+                        >
+                            <a (click)="removeAll()" class="default-btn small"
                                 >Clear Cart</a
                             >
                         </div>
                     </div>
                 </div>
 
-                <aside class="col-sm-12 col-md-4 ps-5" [hidden]="isCartEmpty">
+                <aside
+                    class="col-sm-12 col-md-4 ps-5"
+                    [hidden]="cartItems.length == 0"
+                >
                     <!-- cart totals start -->
                     <div class="col-lg-12">
                         <div class="cart-totals mt-0">
@@ -138,14 +149,18 @@
                             <ul>
                                 <li>
                                     Subtotal
-                                    <span>{{ totalPrice | currency }}</span>
+                                    <span>{{
+                                        totalPrice | currency : "USD"
+                                    }}</span>
                                 </li>
                                 <ng-container *ngIf="isCouponValid">
                                     <li>
                                         Discount
                                         <span>
                                             -
-                                            {{ totalDiscount | currency }}</span
+                                            {{
+                                                totalDiscount | currency : "USD"
+                                            }}</span
                                         >
                                     </li>
                                 </ng-container>
@@ -193,7 +208,6 @@
                                 </div>
 
                                 <a
-                                    routerLink="/cart"
                                     class="default-btn w-100 small"
                                     (click)="processCoupon(coupon.value)"
                                     >Apply</a
