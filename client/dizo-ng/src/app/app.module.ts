@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { APP_INITIALIZER, NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { environment } from "./../environments/environment.development";
 import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
@@ -42,12 +42,12 @@ import { ChangePasswordComponent } from "./components/pages/change-password/chan
 import { ManageAccountComponent } from "./components/pages/manage-account/manage-account.component";
 import { TrackOrderComponent } from "./components/pages/track-order/track-order.component";
 import { UserProjectsComponent } from "./components/pages/user-projects/user-projects.component";
-import { SignOutComponent } from './components/pages/sign-out/sign-out.component';
+import { SignOutComponent } from "./components/pages/sign-out/sign-out.component";
 import { HttpClientModule } from "@angular/common/http";
 import { ProductService } from "./services/product/product.service";
-import { SearchFilterComponent } from './components/pages/search-filter/search-filter.component';
-import { ProductSearchBarComponent } from './components/pages/product-search-bar/product-search-bar.component';
-import { CartStatusComponent } from './components/common/navbar/navbar-items/cart-status/cart-status.component';
+import { SearchFilterComponent } from "./components/pages/search-filter/search-filter.component";
+import { ProductSearchBarComponent } from "./components/pages/product-search-bar/product-search-bar.component";
+import { CartStatusComponent } from "./components/common/navbar/navbar-items/cart-status/cart-status.component";
 
 // keycloak config
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -106,13 +106,14 @@ function initializeKeycloak(keycloak: KeycloakService) {
         SignOutComponent,
         SearchFilterComponent,
         ProductSearchBarComponent,
-        CartStatusComponent,
+        CartStatusComponent
     ],
     imports: [
         SweetAlert2Module,
         BrowserModule,
         AppRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         KeycloakAngularModule,
     ],

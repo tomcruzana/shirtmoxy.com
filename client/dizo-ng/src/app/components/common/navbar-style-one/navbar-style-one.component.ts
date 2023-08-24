@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { KeycloakService } from "keycloak-angular";
 import { KeycloakProfile } from "keycloak-js";
 import { environment } from "../../../../environments/environment.development";
-import { User } from "app/models/user.model";
+import { Customer } from "app/models/customer.model";
 
 @Component({
     selector: "app-navbar-style-one",
@@ -10,7 +10,7 @@ import { User } from "app/models/user.model";
     styleUrls: ["./navbar-style-one.component.scss"],
 })
 export class NavbarStyleOneComponent implements OnInit {
-    user = new User();
+    user = new Customer();
     public isSignedIn = false;
     public userProfile: KeycloakProfile | null = null;
 

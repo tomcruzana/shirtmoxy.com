@@ -130,6 +130,7 @@ img {
     background-color: $carrot-orange-color;
     padding: 12px 42px;
     color: $color-white;
+    border: none !important;
     border-radius: 5px;
     text-align: center;
     position: relative;
@@ -3643,7 +3644,7 @@ Checkout Page Style
         }
     }
 }
-.billing-details {
+.checkout-details, .shipping-details  {
     margin-bottom: 30px;
     background-color: $color-white;
     padding: 50px 30px 25px 30px;
@@ -3753,10 +3754,10 @@ Checkout Page Style
         }
     }
 }
-.checkout-area .billing-details .form-group .nice-select .option:hover,
-.checkout-area .billing-details .form-group .nice-select .option.focus,
+.checkout-area .checkout-details .form-group .nice-select .option:hover,
+.checkout-area .checkout-details .form-group .nice-select .option.focus,
 .checkout-area
-    .billing-details
+    .checkout-details
     .form-group
     .nice-select
     .option.selected.focus {
@@ -3780,6 +3781,7 @@ Checkout Page Style
             margin-bottom: 0;
 
             thead {
+                display: none !important;
                 tr {
                     th {
                         border-bottom-width: 0;
@@ -3831,7 +3833,13 @@ Checkout Page Style
                         }
                         &.total-price {
                             span {
-                                color: $title-color;
+                                color: $raspberry-color;
+                                font-weight: 700;
+                            }
+                        }
+                        &.total-price-value {
+                            span {
+                                color: $raspberry-color;
                                 font-weight: 700;
                             }
                         }
@@ -3944,9 +3952,9 @@ Checkout Page Style
         }
     }
 }
-.billing-details .form-group .nice-select .option:hover,
-.billing-details .form-group .nice-select .option.focus,
-.billing-details .form-group .nice-select .option.selected.focus {
+.checkout-details .form-group .nice-select .option:hover,
+.checkout-details .form-group .nice-select .option.focus,
+.checkout-details .form-group .nice-select .option.selected.focus {
     background-color: $carrot-orange-color !important;
     color: $color-white !important;
 }
@@ -4059,8 +4067,8 @@ Product Details Page Style
         margin-top: 20px;
 
         .default-btn {
-            border: none;
-            outline: none;
+            border: none !important;
+            outline: none !important;
             margin-right: 20px;
             border-radius: 0;
         }
@@ -4728,8 +4736,8 @@ Coming Soon Area Style
                 }
             }
             .default-btn {
-                border: 0;
-                outline: 0;
+                border: 0 !important;
+                outline: 0 !important;
             }
             button {
                 position: absolute;

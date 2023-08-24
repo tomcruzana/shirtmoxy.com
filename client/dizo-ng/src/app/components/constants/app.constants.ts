@@ -9,4 +9,7 @@ export const AppConstants = {
     ALL_PRODUCTS_BY_CATEGORY_ID_API_URL: "/product/category",
     ALL_PRODUCTS_BY_GENDER_ID_API_URL: "/product/gender",
     ALL_PRODUCTS_BY_MANUFACTURER_ID_API_URL: "/product/manufacturer",
+    ALL_COUNTRIES: "/storeform/country/all",
+    ALL_STATES_BY_COUNTRY_CODE: "/storeform/state/all",
+    CHECKOUT_PURCHASE_URL: "/checkout/purchase",
 };

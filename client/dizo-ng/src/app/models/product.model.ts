@@ -12,7 +12,6 @@ export class Product {
     public weight: number;
     public unitsInStock: number;
     public isActive: boolean;
-
     public productMediaSet: string;
     // public barcode: string;
     // public category: string;

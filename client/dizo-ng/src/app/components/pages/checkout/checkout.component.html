@@ -3,190 +3,657 @@
 <section class="checkout-area pt-100 pb-70">
     <div class="container">
         <div class="checkout-user">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Returning customer? <a routerLink="/sign-in">Click here to Sign In</a></span>
+            <span>Checkout ({{ totalQuantity }} items)</span>
         </div>
 
-        <form>
+        <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
-                    <div class="billing-details">
-                        <h3 class="title">Billing Details</h3>
+                    <!-- shipping address start -->
+                    <div
+                        formGroupName="shippingAddress"
+                        class="checkout-details shipping-details mb-0"
+                    >
+                        <h3 class="title">Shipping Address</h3>
 
                         <div class="row">
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        >Full Name (First and Last name)
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="fullName"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            shippingAddressFullName.invalid &&
+                                            (shippingAddressFullName.dirty ||
+                                                shippingAddressFullName.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                shippingAddressFullName.errors
+                                                    .required ||
+                                                shippingAddressFullName.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            Full name is required
+                                        </div>
+
+                                        <div
+                                            *ngIf="
+                                                shippingAddressFullName.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            Full name must be at least 2
+                                            characters long
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Country <span class="required">*</span></label>
-                                
+                                    <label
+                                        >Country
+                                        <span class="required">*</span></label
+                                    >
+
                                     <div class="select-box">
-                                        <select class="form-control">
-                                            <option value="5">United Arab Emirates</option>
-                                            <option value="1">China</option>
-                                            <option value="2">United Kingdom</option>
-                                            <option value="0">Germany</option>
-                                            <option value="3">France</option>
-                                            <option value="4">Japan</option>
+                                        <select
+                                            class="form-control"
+                                            formControlName="country"
+                                            (change)="
+                                                getStates('shippingAddress')
+                                            "
+                                        >
+                                            <option
+                                                *ngFor="
+                                                    let country of countries
+                                                "
+                                                [ngValue]="country"
+                                            >
+                                                {{ country.name }}
+                                            </option>
                                         </select>
+                                        <div
+                                            *ngIf="
+                                                shippingAddressCountry.invalid &&
+                                                (shippingAddressCountry.dirty ||
+                                                    shippingAddressCountry.touched)
+                                            "
+                                            class="alert alert-danger mt-1 small"
+                                        >
+                                            <div
+                                                *ngIf="
+                                                    shippingAddressCountry
+                                                        .errors.required
+                                                "
+                                            >
+                                                Country is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        >Address
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control mb-2"
+                                        formControlName="street"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            shippingAddressStreet.invalid &&
+                                            (shippingAddressStreet.dirty ||
+                                                shippingAddressStreet.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                shippingAddressStreet.errors
+                                                    .required ||
+                                                shippingAddressStreet.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            Street is required
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                shippingAddressStreet.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            Street must be at least 2 characters
+                                            long
+                                        </div>
+                                    </div>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="line2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        >City
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="city"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            shippingAddressCity.invalid &&
+                                            (shippingAddressCity.dirty ||
+                                                shippingAddressCity.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                shippingAddressCity.errors
+                                                    .required ||
+                                                shippingAddressCity.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            City is required
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                shippingAddressCity.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            City must be at least 2 characters
+                                            long
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>First Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
+                                    <label
+                                        >State
+                                        <span class="required">*</span></label
+                                    >
+
+                                    <div class="select-box">
+                                        <select
+                                            class="form-control"
+                                            formControlName="state"
+                                        >
+                                            <option
+                                                *ngFor="
+                                                    let state of shippingAddressStates
+                                                "
+                                                [ngValue]="state"
+                                            >
+                                                {{ state.name }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                shippingAddressState.invalid &&
+                                                (shippingAddressState.dirty ||
+                                                    shippingAddressState.touched)
+                                            "
+                                            class="alert alert-danger mt-1 small"
+                                        >
+                                            <div
+                                                *ngIf="
+                                                    shippingAddressState.errors
+                                                        .required
+                                                "
+                                            >
+                                                State is required
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>Last Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
+                                    <label
+                                        >Zip Code
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="zipCode"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            shippingAddressZipCode.invalid &&
+                                            (shippingAddressZipCode.dirty ||
+                                                shippingAddressZipCode.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                shippingAddressZipCode.errors
+                                                    .required ||
+                                                shippingAddressZipCode.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            Zip code is required
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                shippingAddressZipCode.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            Zip code must be at least 2
+                                            characters long
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- same as shipping address checkbox start -->
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-check">
+                                    <input
+                                        type="checkbox"
+                                        class="form-check-input"
+                                        id="same-as-shipping-address"
+                                        (change)="
+                                            copyShippingAddressToBillingAddress(
+                                                $event
+                                            )
+                                        "
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="same-as-shipping-address"
+                                        >Billing addess same as shipping
+                                        address?</label
+                                    >
+                                </div>
+                            </div>
+                            <!-- same as shipping address checkbox end -->
+
+                            <!-- delivery instructions notes start -->
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        >Delivery instructions (Optional)</label
+                                    >
+                                    <textarea
+                                        name="notes"
+                                        id="notes"
+                                        cols="30"
+                                        rows="5"
+                                        placeholder="Add preferences, notes, access codes and more"
+                                        class="form-message"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <!-- delivery instructions notes end -->
+                        </div>
+                    </div>
+                    <!-- shipping address end -->
+
+                    <!-- billing address start -->
+                    <div
+                        formGroupName="billingAddress"
+                        class="checkout-details billing-details pt-0"
+                    >
+                        <h3 class="title">Billing Address</h3>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        >Full Name (First and Last name)
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="fullName"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            billingAddressFullName.invalid &&
+                                            (billingAddressFullName.dirty ||
+                                                billingAddressFullName.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                billingAddressFullName.errors
+                                                    .required ||
+                                                billingAddressFullName.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            Full name is required
+                                        </div>
+
+                                        <div
+                                            *ngIf="
+                                                billingAddressFullName.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            Full name must be at least 2
+                                            characters long
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <label>Company Name</label>
-                                    <input type="text" class="form-control">
+                                    <label
+                                        >Country
+                                        <span class="required">*</span></label
+                                    >
+
+                                    <div class="select-box">
+                                        <select
+                                            class="form-control"
+                                            formControlName="country"
+                                            (change)="
+                                                getStates('billingAddress')
+                                            "
+                                        >
+                                            <option
+                                                *ngFor="
+                                                    let country of countries
+                                                "
+                                                [ngValue]="country"
+                                            >
+                                                {{ country.name }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                billingAddressCountry.invalid &&
+                                                (billingAddressCountry.dirty ||
+                                                    billingAddressCountry.touched)
+                                            "
+                                            class="alert alert-danger mt-1 small"
+                                        >
+                                            <div
+                                                *ngIf="
+                                                    billingAddressCountry.errors
+                                                        .required
+                                                "
+                                            >
+                                                Country is required
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-12 col-md-6">
                                 <div class="form-group">
-                                    <label>Address <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
+                                    <label
+                                        >Address
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control mb-2"
+                                        formControlName="street"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            billingAddressStreet.invalid &&
+                                            (billingAddressStreet.dirty ||
+                                                billingAddressStreet.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                billingAddressStreet.errors
+                                                    .required ||
+                                                billingAddressStreet.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            Street is required
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                billingAddressStreet.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            Street must be at least 2 characters
+                                            long
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="line2"
+                                    />
                                 </div>
                             </div>
 
                             <div class="col-lg-12 col-md-6">
                                 <div class="form-group">
-                                    <label>Town / City <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
+                                    <label
+                                        >City
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="city"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            billingAddressCity.invalid &&
+                                            (billingAddressCity.dirty ||
+                                                billingAddressCity.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                billingAddressCity.errors
+                                                    .required ||
+                                                billingAddressCity.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            City is required
+                                        </div>
+                                        <div
+                                            *ngIf="
+                                                billingAddressCity.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            City must be at least 2 characters
+                                            long
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>State / County <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
+                                    <label
+                                        >State
+                                        <span class="required">*</span></label
+                                    >
+
+                                    <div class="select-box">
+                                        <select
+                                            class="form-control"
+                                            formControlName="state"
+                                        >
+                                            <option
+                                                *ngFor="
+                                                    let state of billingAddressStates
+                                                "
+                                                [ngValue]="state"
+                                            >
+                                                {{ state.name }}
+                                            </option>
+                                        </select>
+                                        <div
+                                            *ngIf="
+                                                billingAddressState.invalid &&
+                                                (billingAddressState.dirty ||
+                                                    billingAddressState.touched)
+                                            "
+                                            class="alert alert-danger mt-1 small"
+                                        >
+                                            <div
+                                                *ngIf="
+                                                    billingAddressState.errors
+                                                        .required
+                                                "
+                                            >
+                                                State is required
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>Postcode / Zip <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
+                                    <label
+                                        >Zip Code
+                                        <span class="required">*</span></label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="zipCode"
+                                    />
+                                    <div
+                                        *ngIf="
+                                            billingAddressZipCode.invalid &&
+                                            (billingAddressZipCode.dirty ||
+                                                billingAddressZipCode.touched)
+                                        "
+                                        class="alert alert-danger mt-1 small"
+                                    >
+                                        <div
+                                            *ngIf="
+                                                billingAddressZipCode.errors
+                                                    .required ||
+                                                billingAddressZipCode.errors
+                                                    .notOnlyWhiteSpace
+                                            "
+                                        >
+                                            Zip code is required
+                                        </div>
 
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Email Address <span class="required">*</span></label>
-                                    <input type="email" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Phone <span class="required">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="create-an-account">
-                                    <label class="form-check-label" for="create-an-account">Create an account?</label>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="ship-different-address">
-                                    <label class="form-check-label" for="ship-different-address">Ship to a different address?</label>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <textarea name="notes" id="notes" cols="30" rows="5" placeholder="Order Notes" class="form-message"></textarea>
+                                        <div
+                                            *ngIf="
+                                                billingAddressZipCode.errors
+                                                    .minlength
+                                            "
+                                        >
+                                            Zip code must be at least 2
+                                            characters long
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- billing address end -->
                 </div>
 
                 <div class="col-lg-6 col-md-12">
                     <div class="order-details">
                         <div class="order-table table-responsive">
-                            <h3>Your Order</h3>
-                            <table class="table table-bordered">
+                            <h3 id="orderSummary">Order Summary</h3>
+                            <table
+                                class="table table-bordered"
+                                aria-describedby="orderSummary"
+                            >
                                 <thead>
                                     <tr>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Total</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     <tr>
-                                        <td class="product-name">
-                                            <a routerLink="/product-details">T-shirt Design</a>
-                                        </td>
+                                        <td class="product-name">Items</td>
 
                                         <td class="product-total">
-                                            <span class="subtotal-amount">$35.00</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product-name">
-                                            <a routerLink="/product-details">Cover Van</a>
-                                        </td>
-
-                                        <td class="product-total">
-                                            <span class="subtotal-amount">$30.00</span>
+                                            <span class="subtotal-amount">{{
+                                                totalPrice | currency : "USD"
+                                            }}</span>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td class="product-name">
-                                            <a routerLink="/product-details">Design Mug</a>
+                                            Shipping & handling
                                         </td>
 
                                         <td class="product-total">
-                                            <span class="subtotal-amount">$75.00</span>
+                                            <span class="subtotal-amount">{{
+                                                0.0 | currency : "USD"
+                                            }}</span>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td class="product-name">
-                                            <a routerLink="/product-details">Book Cover</a>
+                                            Total before tax
                                         </td>
 
                                         <td class="product-total">
-                                            <span class="subtotal-amount">$25.00</span>
+                                            <span class="subtotal-amount">{{
+                                                0.0 | currency : "USD"
+                                            }}</span>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td class="order-subtotal">
-                                            <span>Cart Subtotal</span>
+                                        <td class="product-name">
+                                            Estimated tax to be collected
                                         </td>
 
-                                        <td class="order-subtotal-price">
-                                            <span class="order-subtotal-amount">$165.00</span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="order-shipping">
-                                            <span>Shipping</span>
-                                        </td>
-
-                                        <td class="shipping-price">
-                                            <span>$5.00</span>
+                                        <td class="product-total">
+                                            <span class="subtotal-amount">{{
+                                                0.0 | currency : "USD"
+                                            }}</span>
                                         </td>
                                     </tr>
 
@@ -195,33 +662,257 @@
                                             <span>Order Total</span>
                                         </td>
 
-                                        <td class="product-subtotal">
-                                            <span class="subtotal-amount">$170.00</span>
+                                        <td class="total-price-value">
+                                            <span class="subtotal-amount">{{
+                                                0.0 | currency : "USD"
+                                            }}</span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="payment-box">
-                            <div class="payment-method">
-                                <p>
-                                    <input type="radio" id="direct-bank-transfer" name="radio-group" checked>
-                                    <label for="direct-bank-transfer">Direct Bank Transfer</label>
-                                    Make your payment directly into our bank account. Please use your Order
-                                    ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-                                </p>
-                                <p>
-                                    <input type="radio" id="paypal" name="radio-group">
-                                    <label for="paypal">PayPal</label>
-                                </p>
-                                <p>
-                                    <input type="radio" id="cash-on-delivery" name="radio-group">
-                                    <label for="cash-on-delivery">Cash On Delivery</label>
-                                </p>
-                            </div>
+                        <!-- payment info start -->
+                        <div class="payment-box checkout-details">
+                            <div
+                                class="payment-method"
+                                formGroupName="paymentCard"
+                            >
+                                <h3 class="title">Payment Information</h3>
 
-                            <a routerLink="/checkout" class="default-btn three">Place to Order</a>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label
+                                                >Card Type
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+
+                                            <div class="select-box">
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="cardType"
+                                                >
+                                                    <option>Visa</option>
+                                                    <option>Mastercard</option>
+                                                </select>
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardType.invalid &&
+                                                        (paymentCardType.dirty ||
+                                                            paymentCardType.touched)
+                                                    "
+                                                    class="alert alert-danger mt-1 small"
+                                                >
+                                                    <div
+                                                        *ngIf="
+                                                            paymentCardType
+                                                                .errors.required
+                                                        "
+                                                    >
+                                                        Credit card type is
+                                                        required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label
+                                                >Name on card
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                formControlName="nameOnCard"
+                                            />
+                                            <div
+                                                *ngIf="
+                                                    paymentCardNameOnCard.invalid &&
+                                                    (paymentCardNameOnCard.dirty ||
+                                                        paymentCardNameOnCard.touched)
+                                                "
+                                                class="alert alert-danger mt-1 small"
+                                            >
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardNameOnCard
+                                                            .errors.required ||
+                                                        paymentCardNameOnCard
+                                                            .errors
+                                                            .notOnlyWhitespace
+                                                    "
+                                                >
+                                                    Name is required
+                                                </div>
+
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardNameOnCard
+                                                            .errors.minlength
+                                                    "
+                                                >
+                                                    Name must be at least 2
+                                                    characters long
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
+                                            <label
+                                                >Card number
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                formControlName="cardNumber"
+                                            />
+                                            <div
+                                                *ngIf="
+                                                    paymentCardNumber.invalid &&
+                                                    (paymentCardNumber.dirty ||
+                                                        paymentCardNumber.touched)
+                                                "
+                                                class="alert alert-danger mt-1 small"
+                                            >
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardNumber.errors
+                                                            .required
+                                                    "
+                                                >
+                                                    Card number is required
+                                                </div>
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardNumber.errors
+                                                            .pattern
+                                                    "
+                                                >
+                                                    Card number must be 16
+                                                    digits long
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="form-group">
+                                            <label
+                                                >Exp month
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+
+                                            <div class="select-box">
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="expirationMonth"
+                                                >
+                                                    <option
+                                                        *ngFor="
+                                                            let month of creditCardMonths
+                                                        "
+                                                    >
+                                                        {{ month }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="form-group">
+                                            <label
+                                                >Exp year
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+
+                                            <div class="select-box">
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="expirationYear"
+                                                    (change)="
+                                                        handleMonthsAndYears()
+                                                    "
+                                                >
+                                                    <option
+                                                        *ngFor="
+                                                            let year of creditCardYears
+                                                        "
+                                                    >
+                                                        {{ year }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="form-group">
+                                            <label
+                                                >Security code
+                                                <span class="required"
+                                                    >*</span
+                                                ></label
+                                            >
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                formControlName="securityCode"
+                                            />
+                                            <div
+                                                *ngIf="
+                                                    paymentCardSecurityCode.invalid &&
+                                                    (paymentCardSecurityCode.dirty ||
+                                                        paymentCardSecurityCode.touched)
+                                                "
+                                                class="alert alert-danger mt-1 small"
+                                            >
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardSecurityCode
+                                                            .errors.required
+                                                    "
+                                                >
+                                                    Security code is required
+                                                </div>
+                                                <div
+                                                    *ngIf="
+                                                        paymentCardSecurityCode
+                                                            .errors.pattern
+                                                    "
+                                                >
+                                                    Security code must be 3
+                                                    digits long
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- payment info end -->
+
+                            <!-- submit order start -->
+                            <button type="submit" class="default-btn three">
+                                Place your order
+                            </button>
+                            <!-- submit order end -->
                         </div>
                     </div>
                 </div>
