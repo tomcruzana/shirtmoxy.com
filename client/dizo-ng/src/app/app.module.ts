@@ -1,9 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { APP_INITIALIZER, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { environment } from "./../environments/environment.development";
-import { KeycloakAngularModule, KeycloakService } from "keycloak-angular";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -43,28 +42,20 @@ import { ManageAccountComponent } from "./components/pages/manage-account/manage
 import { TrackOrderComponent } from "./components/pages/track-order/track-order.component";
 import { UserProjectsComponent } from "./components/pages/user-projects/user-projects.component";
 import { SignOutComponent } from "./components/pages/sign-out/sign-out.component";
-import { HttpClientModule } from "@angular/common/http";
+import {
+    HttpClientModule,
+    HttpClientXsrfModule,
+    HTTP_INTERCEPTORS,
+} from "@angular/common/http";
 import { ProductService } from "./services/product/product.service";
 import { SearchFilterComponent } from "./components/pages/search-filter/search-filter.component";
 import { ProductSearchBarComponent } from "./components/pages/product-search-bar/product-search-bar.component";
 import { CartStatusComponent } from "./components/common/navbar/navbar-items/cart-status/cart-status.component";
-
-// keycloak config
-function initializeKeycloak(keycloak: KeycloakService) {
-    return () =>
-        keycloak.init({
-            config: {
-                url: environment.keycloakConfig.url,
-                realm: environment.keycloakConfig.realm,
-                clientId: environment.keycloakConfig.clientId,
-            },
-            initOptions: {
-                pkceMethod: "S256",
-                redirectUri: environment.keycloakConfig.signInRedirectUri,
-            },
-            loadUserProfileAtStartUp: false,
-        });
-}
+import { XhrInterceptor } from "./interceptors/app.request.interceptor";
+import { AuthActivateRouteGuard } from "./routeguards/auth.guard";
+import { OrderDetailsComponent } from './components/pages/orders/order-details/order-details.component';
+import { OrdersComponent } from './components/pages/orders/orders/orders.component';
+import { OrderConfirmationComponent } from './components/pages/orders/order-confirmation/order-confirmation.component';
 
 @NgModule({
     declarations: [
@@ -106,25 +97,30 @@ function initializeKeycloak(keycloak: KeycloakService) {
         SignOutComponent,
         SearchFilterComponent,
         ProductSearchBarComponent,
-        CartStatusComponent
+        CartStatusComponent,
+        OrderDetailsComponent,
+        OrdersComponent,
+        OrderConfirmationComponent,
     ],
     imports: [
         SweetAlert2Module,
         BrowserModule,
-        AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        KeycloakAngularModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: "XSRF-TOKEN",
+            headerName: "X-XSRF-TOKEN",
+        }),
+        AppRoutingModule,
     ],
     providers: [
-        ProductService,
         {
-            provide: APP_INITIALIZER,
-            useFactory: initializeKeycloak,
+            provide: HTTP_INTERCEPTORS,
+            useClass: XhrInterceptor,
             multi: true,
-            deps: [KeycloakService],
         },
+        AuthActivateRouteGuard,
     ],
     bootstrap: [AppComponent],
 })

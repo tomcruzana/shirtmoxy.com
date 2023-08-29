@@ -21,7 +21,10 @@ import { ManageAccountComponent } from "./components/pages/manage-account/manage
 import { TrackOrderComponent } from "./components/pages/track-order/track-order.component";
 import { UserProjectsComponent } from "./components/pages/user-projects/user-projects.component";
 import { SignOutComponent } from "./components/pages/sign-out/sign-out.component";
-import { AuthKeyClockGuard } from "./routeguards/auth.guard";
+import { AuthActivateRouteGuard } from "./routeguards/auth.guard";
+import { OrderDetailsComponent } from "./components/pages/orders/order-details/order-details.component";
+import { OrdersComponent } from "./components/pages/orders/orders/orders.component";
+import { OrderConfirmationComponent } from "./components/pages/orders/order-confirmation/order-confirmation.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -44,32 +47,47 @@ const routes: Routes = [
     {
         path: "user/projects",
         component: UserProjectsComponent,
-        canActivate: [AuthKeyClockGuard],
-        data: { roles: ["USER"] },
+        canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/profile",
         component: UserProfileComponent,
-        canActivate: [AuthKeyClockGuard],
-        data: { roles: ["USER"] },
+        // canActivate: [AuthActivateRouteGuard],
+    },
+    {
+        path: "user/orders",
+        component: OrdersComponent,
+        // ,canActivate: [AuthActivateRouteGuard],
+    },
+    {
+        path: "user/orders/details",
+        component: OrderDetailsComponent,
+        // ,canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/password-reset",
         component: ChangePasswordComponent,
-        canActivate: [AuthKeyClockGuard],
-        data: { roles: ["USER"] },
+        canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/manage-account",
         component: ManageAccountComponent,
-        canActivate: [AuthKeyClockGuard],
-        data: { roles: ["USER"] },
+        canActivate: [AuthActivateRouteGuard],
+    },
+    {
+        path: "checkout",
+        component: CheckoutComponent,
+        // canActivate: [AuthActivateRouteGuard],
+    },
+    {
+        path: "order-confirmation",
+        component: OrderConfirmationComponent,
+        // canActivate: [AuthActivateRouteGuard],
     },
     { path: "terms-condition", component: TermsConditionsComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
     { path: "coming-soon", component: ComingSoonComponent },
     { path: "cart", component: CartComponent },
-    { path: "checkout", component: CheckoutComponent },
     { path: "error", component: ErrorComponent },
     { path: "**", component: ErrorComponent },
 ];

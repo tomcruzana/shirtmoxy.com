@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "../../../models/user.model";
-import { NgForm } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Customer } from "../../../models/customer.model";
 import { SigninService } from "app/services/signin/signin.service";
-import { getCookie } from "typescript-cookie";
+import { NgForm } from "@angular/forms";
 import { environment } from "../../../../environments/environment.development";
+import { Router } from "@angular/router";
+import { getCookie } from "typescript-cookie";
 
 @Component({
     selector: "app-sign-in",
@@ -12,53 +12,50 @@ import { environment } from "../../../../environments/environment.development";
     styleUrls: ["./sign-in.component.scss"],
 })
 export class SignInComponent implements OnInit {
-    inputFieldType: boolean;
     authStatus: string = "";
-    model = new User();
+    user = new Customer();
 
-    // dummy form obj
-    form = {
-        email: "",
-        password: "",
-        rememberMe: false,
-    };
+    // TEMP
+
 
     constructor(private signinService: SigninService, private router: Router) {}
 
-    ngOnInit(): void {}
-
-    toggleInputFieldType() {
-        this.inputFieldType = !this.inputFieldType;
+    ngOnInit(): void {
+        this.user.password = "password123";
+        this.user.email = "test_user@shirtmoxy.com"
     }
 
-    onSignIn(): void {
-        // TODO : implement this on using a POST service
-        console.log(JSON.stringify(this.form, null, 2));
+    validateUser(signinForm: NgForm) {
+        console.log("validateUser() start");
 
-        this.validateUser();
-    }
-
-    // resetForm(form: NgForm): void {
-    //     form.reset();
-    // }
-
-    validateUser() {
         this.signinService
-            .validateLoginDetails(this.model)
+            .validateSigninDetails(this.user)
             .subscribe((responseData) => {
+                console.log("subscribe() start");
+
                 window.sessionStorage.setItem(
                     "Authorization",
                     responseData.headers.get("Authorization")!
                 );
-                this.model = <any>responseData.body;
-                this.model.authStatus = "AUTH";
+
+                this.user = <any>responseData.body;
+                this.user.authStatus = "AUTH";
+
+                console.log(JSON.stringify(this.user));
+
                 window.sessionStorage.setItem(
                     "userdetails",
-                    JSON.stringify(this.model)
+                    JSON.stringify(this.user)
                 );
+
+                console.log("XSRF TOKEN start");
+
                 let xsrf = getCookie("XSRF-TOKEN")!;
                 window.sessionStorage.setItem("XSRF-TOKEN", xsrf);
-                this.router.navigate(["user/projects"]);
+
+                console.log("navigate");
+
+                this.router.navigate(["/user/projects"]);
             });
     }
 }

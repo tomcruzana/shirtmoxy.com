@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { User } from "app/models/user.model";
+import { Customer } from "app/models/customer.model";
 
 @Component({
     selector: "app-sign-out",
@@ -8,13 +8,13 @@ import { User } from "app/models/user.model";
     styleUrls: ["./sign-out.component.scss"],
 })
 export class SignOutComponent implements OnInit {
-    user = new User();
+    user = new Customer();
 
-    constructor(private router: Router) {}
+    constructor() {}
 
     ngOnInit(): void {
         window.sessionStorage.setItem("userdetails", "");
         window.sessionStorage.setItem("XSRF-TOKEN", "");
-        this.router.navigate(["/sign-in"]);
+        // this.router.navigate(["/sign-in"]);
     }
 }

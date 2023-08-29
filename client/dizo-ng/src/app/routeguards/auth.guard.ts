@@ -1,57 +1,36 @@
 import { Injectable } from "@angular/core";
 import {
     ActivatedRouteSnapshot,
-    Router,
     RouterStateSnapshot,
+    Router,
+    UrlTree,
 } from "@angular/router";
-import { KeycloakAuthGuard, KeycloakService } from "keycloak-angular";
-import { User } from "../../app/models/user.model";
-import { KeycloakProfile } from "keycloak-js";
+import { Customer } from "app/models/customer.model";
+import { Observable } from "rxjs";
 
-@Injectable({
-    providedIn: "root",
-})
-export class AuthKeyClockGuard extends KeycloakAuthGuard {
-    user = new User();
-    public userProfile: KeycloakProfile | null = null;
+@Injectable()
+export class AuthActivateRouteGuard {
+    user = new Customer();
 
-    constructor(
-        protected override readonly router: Router,
-        protected readonly keycloak: KeycloakService
-    ) {
-        super(router, keycloak);
-    }
+    constructor(private router: Router) {}
 
-    public async isAccessAllowed(
+    canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
-    ) {
-        // Force the user to log in if currently unauthenticated.
-        if (!this.authenticated) {
-            await this.keycloak.login({
-                redirectUri: window.location.origin + state.url,
-            });
-        } else {
-            // else load user details ...
-            this.userProfile = await this.keycloak.loadUserProfile();
-            this.user.authStatus = "AUTH";
-            this.user.firstName = this.userProfile.firstName || "";
-            this.user.email = this.userProfile.email || "";
-            window.sessionStorage.setItem(
-                "userdetails",
-                JSON.stringify(this.user)
-            );
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        // if userdetails session obj doesn't exist, reroute to signin page
+        if (sessionStorage.getItem("userdetails") === null) {
+            // reroute to /signin page
+            this.router.navigate(["sign-in"]);
+            return false;
         }
 
-        // Get the roles required from the route.
-        const requiredRoles = route.data["roles"];
-
-        // Allow the user to to proceed if no additional roles are required to access the route.
-        if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
-            return true;
-        }
-
-        // Allow the user to proceed if all the required roles are present.
-        return requiredRoles.some((role) => this.roles.includes(role));
+        // if userdetails session obj exists, map to user model
+        this.user = JSON.parse(sessionStorage.getItem("userdetails")!);
+        return true;
     }
 }

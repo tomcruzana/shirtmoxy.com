@@ -1,4 +1,4 @@
-package com.shirtmoxy.app.config.security;
+package com.shirtmoxy.app.config.security.filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
