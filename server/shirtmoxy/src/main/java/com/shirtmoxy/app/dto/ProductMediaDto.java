@@ -7,8 +7,6 @@ public class ProductMediaDto {
 
 	private int id;
 
-	private MediaFormatDto mediaFormat;
-
 	@NotEmpty(message = "Name is required and must not be empty")
 	@Size(max = 255, message = "Name must not exceed 255 characters")
 	private String name;
@@ -26,14 +24,6 @@ public class ProductMediaDto {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public MediaFormatDto getMediaFormat() {
-		return mediaFormat;
-	}
-
-	public void setMediaFormat(MediaFormatDto mediaFormat) {
-		this.mediaFormat = mediaFormat;
 	}
 
 	public String getName() {

@@ -36,6 +36,8 @@ export class CheckoutComponent implements OnInit {
     shippingAddressStates: State[] = [];
     billingAddressStates: State[] = [];
 
+    storage: Storage = sessionStorage;
+
     constructor(
         private formBuilder: FormBuilder,
         private storeFormService: StoreFormService,
@@ -47,6 +49,11 @@ export class CheckoutComponent implements OnInit {
     ngOnInit(): void {
         // update cart details
         this.reviewCartDetails();
+
+        // TODO: read the customer's email from browser storage
+        // refactor, and create a Customer model outside and get all values.
+        // then prepopulate emaill on checkout submit and names on init !!
+        // const theEmail = JSON.parse(this.storage.getItem("userEmail"));
 
         // check out reactive formgroup
         this.checkoutFormGroup = this.formBuilder.group({
@@ -288,12 +295,13 @@ export class CheckoutComponent implements OnInit {
         // populate purchase - customer
         //@TODO
         // purchase.customer = this.checkoutFormGroup.controls["customer"].value;
+
         // TEMP CODE START
         let customer = new Customer();
         customer.firstName = "Donald";
         customer.lastName = "Trump";
         customer.company = "";
-        customer.email = "donald.trump@shirtmoxy.com";
+        customer.email = "test_user@shirtmoxy.com";
         purchase.customer = customer;
         // TEMP CODE END
 
@@ -325,15 +333,19 @@ export class CheckoutComponent implements OnInit {
         purchase.order = order;
         purchase.orderItems = orderItems;
 
+        //TEMP LOG
+        console.log(JSON.stringify(purchase));
+
         // invoke REST api from checkoutService
         this.checkoutService.placeOrder(purchase).subscribe({
             next: (response) => {
-                alert(
-                    `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`
-                );
+                const trackingNumber = String(response.orderTrackingNumber);
 
                 // reset cart
                 this.resetCart();
+
+                // show tracking number on order confirmation page
+                this.showTrackingNumberPage(trackingNumber);
             },
             error: (err) => {
                 alert(`There was an error: ${err.message}`);
@@ -349,8 +361,12 @@ export class CheckoutComponent implements OnInit {
 
         // reset the form
         this.checkoutFormGroup.reset();
+    }
 
-        // navigate back to the products page
-        this.router.navigateByUrl("/order-confimation");
+    showTrackingNumberPage(orderTrackingNumber: string) {
+        // navigate to the order confirmation page
+        this.router.navigate(["/order-confirmation"], {
+            queryParams: { orderTrackingNumber: orderTrackingNumber },
+        });
     }
 }

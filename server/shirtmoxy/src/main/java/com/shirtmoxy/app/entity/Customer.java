@@ -1,11 +1,19 @@
 package com.shirtmoxy.app.entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,6 +50,25 @@ public class Customer {
 	@Size(max = 255, message = "Email cannot exceed 255 characters")
 	@Column(name = "email", unique = true, nullable = false, length = 255)
 	private String email;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private String password;
+
+	@Size(max = 255, message = "Role cannot exceed 255 characters")
+	@Column(name = "role", nullable = true, length = 255)
+	private String role;
+
+	@Column(name = "date_created")
+	@CreationTimestamp
+	private Date dateCreated;
+
+	@Column(name = "last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+	private Set<Authority> authorities;
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Set<Order> orders = new HashSet<>();
@@ -96,6 +123,46 @@ public class Customer {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 	public void add(Order order) {

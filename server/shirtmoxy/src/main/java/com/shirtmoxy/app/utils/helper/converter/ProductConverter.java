@@ -12,7 +12,6 @@ import com.shirtmoxy.app.dto.ColorDto;
 import com.shirtmoxy.app.dto.GenderDto;
 import com.shirtmoxy.app.dto.ManufacturerDto;
 import com.shirtmoxy.app.dto.MaterialDto;
-import com.shirtmoxy.app.dto.MediaFormatDto;
 import com.shirtmoxy.app.dto.ProductDto;
 import com.shirtmoxy.app.dto.ProductMediaDto;
 import com.shirtmoxy.app.dto.SizeDto;
@@ -23,7 +22,6 @@ import com.shirtmoxy.app.entity.Color;
 import com.shirtmoxy.app.entity.Gender;
 import com.shirtmoxy.app.entity.Manufacturer;
 import com.shirtmoxy.app.entity.Material;
-import com.shirtmoxy.app.entity.MediaFormat;
 import com.shirtmoxy.app.entity.Product;
 import com.shirtmoxy.app.entity.ProductMedia;
 import com.shirtmoxy.app.entity.Size;
@@ -68,7 +66,6 @@ public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 			ProductMediaDto productMediaDto = new ProductMediaDto();
 
 			productMediaDto.setId(productMedia.getId());
-			productMediaDto.setMediaFormat(convertMediaFormatToDto(productMedia.getMediaFormat()));
 			productMediaDto.setName(productMedia.getName());
 			productMediaDto.setUrl(productMedia.getUrl());
 
@@ -76,15 +73,6 @@ public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 		}
 
 		return productMediaDtoSet;
-	}
-
-	public MediaFormatDto convertMediaFormatToDto(MediaFormat mediaFormat) {
-		MediaFormatDto mediaFormatDto = new MediaFormatDto();
-
-		mediaFormatDto.setId(mediaFormat.getId());
-		mediaFormatDto.setType(mediaFormat.getType());
-
-		return mediaFormatDto;
 	}
 
 	public CategoryDto convertCategoryToDto(Category category) {
@@ -95,7 +83,7 @@ public class ProductConverter implements ObjectConverter<ProductDto, Product> {
 
 		return categoryDto;
 	}
-	
+
 	public ManufacturerDto convertManufacturerToDto(Manufacturer manufacturer) {
 		ManufacturerDto manufacturerDto = new ManufacturerDto();
 

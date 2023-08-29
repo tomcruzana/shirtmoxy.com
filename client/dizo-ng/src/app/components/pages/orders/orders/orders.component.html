@@ -1,0 +1,128 @@
+<app-navbar-style-one></app-navbar-style-one>
+
+<section class="product-area pt-100 pb-70">
+    <div class="container">
+        <div class="contact-wrap-form">
+            <!-- order list start -->
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr class="text-secondary">
+                            <th scope="col">DATE</th>
+                            <th scope="col">TRACKING NUMBER</th>
+                            <th scope="col">INVOICE NUMBER</th>
+                            <th scope="col">TOTAL QUANTITY</th>
+                            <th scope="col">TOTAL PRICE</th>
+                            <th scope="col">STATUS</th>
+                        </tr>
+                    </thead>
+                    <!-- order history is empty start -->
+                    <ng-container *ngIf="orderHistoryList.length == 0">
+                        <tbody>
+                            <tr>
+                                <td colspan="6">
+                                    <p class="text-start my-2">
+                                        No orders found.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-container>
+                    <!--  order history is empty end -->
+                    <tbody *ngIf="orderHistoryList.length > 0">
+                        <tr
+                            [id]="order.id"
+                            *ngFor="let order of orderHistoryList"
+                        >
+                            <td scope="row">
+                                {{ order.dateCreated | date }}
+                            </td>
+                            <td>{{ order.orderTrackingNumber }}</td>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.totalQuantity }}</td>
+                            <td>{{ order.totalPrice }}</td>
+                            <td>{{ order.status }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- product pagination start -->
+        <!-- <div class="col-lg-12">
+                <div class="pagination-area">
+                    <nav aria-label="Page navigation example text-center">
+                        <ul class="pagination">
+                            <li
+                                class="page-item"
+                                [class.disabled]="pageNumber === 1"
+                            >
+                                <a
+                                    class="page-link page-links"
+                                    (click)="goToPage(pageNumber - 1)"
+                                >
+                                    <i
+                                        class="bx bx-chevron-left align-middle fw-bold"
+                                    ></i>
+                                    Previous
+                                </a>
+                            </li>
+                            <li
+                                class="page-item"
+                                [class.current]="pageNumber === 1"
+                            >
+                                <a class="page-link" (click)="goToPage(1)">1</a>
+                            </li>
+                            <li class="page-item" *ngIf="pageNumber > 3">
+                                <span class="page-link">...</span>
+                            </li>
+                            <li
+                                class="page-item"
+                                *ngFor="let page of getPagesArray()"
+                                [class.current]="pageNumber === page"
+                            >
+                                <a class="page-link" (click)="goToPage(page)">{{
+                                    page
+                                }}</a>
+                            </li>
+                            <li
+                                class="page-item"
+                                *ngIf="pageNumber < totalPages - 2"
+                            >
+                                <span class="page-link">...</span>
+                            </li>
+                            <li
+                                class="page-item"
+                                *ngIf="totalPages > 1"
+                                [class.current]="pageNumber === totalPages"
+                            >
+                                <a
+                                    class="page-link"
+                                    (click)="goToPage(totalPages)"
+                                    >{{ totalPages }}</a
+                                >
+                            </li>
+                            <li
+                                class="page-item"
+                                [class.disabled]="pageNumber === totalPages"
+                            >
+                                <a
+                                    class="page-link page-links"
+                                    (click)="goToPage(pageNumber + 1)"
+                                >
+                                    Next
+                                    <i
+                                        class="bx bx-chevron-right align-middle fw-bold"
+                                    ></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div> -->
+        <!-- product pagination end -->
+
+        <!-- order list end -->
+    </div>
+</section>

@@ -1,4 +1,5 @@
 import { ProductManufacturer } from "./product-manufacturer.model";
+import { ProductMedia } from "./product-media.model";
 
 export class Product {
     public id: number;
@@ -12,7 +13,7 @@ export class Product {
     public weight: number;
     public unitsInStock: number;
     public isActive: boolean;
-    public productMediaSet: string;
+    public productMediaSet: ProductMedia;
     // public barcode: string;
     // public category: string;
     // public variant: string;
@@ -29,7 +30,7 @@ export class Product {
         weight?: number,
         unitsInStock?: number,
         isActive?: boolean,
-        productMediaSet?: string
+        productMediaSet?: ProductMedia
     ) {
         this.id = id || 0;
         this.dateCreated = dateCreated!;
@@ -42,6 +43,6 @@ export class Product {
         this.weight = weight || 0;
         this.unitsInStock = unitsInStock || 0;
         this.isActive = isActive!;
-        this.productMediaSet = productMediaSet || "";
+        this.productMediaSet = productMediaSet || new ProductMedia();
     }
 }

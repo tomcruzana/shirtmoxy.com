@@ -1,0 +1,125 @@
+<app-navbar-style-one></app-navbar-style-one>
+
+<section class="product-area pt-100 pb-70">
+    <div class="container">
+        <!-- invoice start -->
+        <div class="contact-wrap-form">
+            <div class="row">
+                <div class="col-12">
+                    <p class="text-end">Date: ???????</p>
+                    <p class="text-end">Order No: ???????</p>
+                </div>
+                <div class="col-12">
+                    <h4 class="text-center">INVOICE: ???????</h4>
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-borderless small">
+                            <thead>
+                                <tr>
+                                    <th scope="col">CLIENT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Fernando Fatecha</th>
+                                </tr>
+                                <tr>
+                                    <td>(703)-479-3663</td>
+                                </tr>
+                                <tr>
+                                    <td>CURA STRATEGIES</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="text-start">
+                                            2011 Crystal Dr
+                                        </p>
+                                        <p class="text-start">Ste 1005</p>
+                                        <p class="text-start">
+                                            Arlington, VA 22202
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-borderless small">
+                            <thead>
+                                <tr>
+                                    <th scope="col">LEAD TIME</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Production</th>
+                                    <td>7-12 Business Days</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Shipping</th>
+                                    <td>5 Business Days</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr class="text-secondary">
+                            <th scope="col">SKU</th>
+                            <th scope="col">DESCRIPTION</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">QTY</th>
+                            <th scope="col">TOTAL PRICE</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td scope="row">473001031</td>
+                            <td>
+                                <p class="fw-bold text-start">
+                                    Bella+Canvas 3/4 Sleeve Baseball T-Shirt
+                                </p>
+                                <p class="text-start">
+                                    Triblend, 50 Poly 25 Ctn 25 Rayon
+                                </p>
+                                <p class="text-start">XS</p>
+                                <p class="text-start">Top Left Print</p>
+                                <p class="text-start">DTG 16.3k colors</p>
+                                <p class="text-start">Bulk packaging</p>
+                            </td>
+                            <td>{{ 35.97 | currency : "USD" }}</td>
+                            <td>5</td>
+                            <td>{{ 179.85 | currency : "USD" }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- contact us start -->
+            <section class="contact-section pb-70">
+                <div class="container">
+                    <div class="scetion-title text-center">
+                        <span>Didn't see what you're looking for?</span>
+                        <h2>Ask Any Questions</h2>
+                    </div>
+
+                    <div class="slider-btn text-center mt-3">
+                        <a routerLink="/contact" class="default-btn"
+                            >Contact Us</a
+                        >
+                    </div>
+                </div>
+            </section>
+            <!-- contact us end -->
+        </div>
+        <!-- invoice end -->
+    </div>
+</section>

@@ -15,19 +15,19 @@ export class TrackOrderComponent implements OnInit {
     //** dummy code **//
 
     // scenario 1 - with 'invalid order #' shows order not found
-    orderInfo = {
-        isValid: false,
-        number: "",
-        expectedArrival: {
-            date: "",
-        },
-        courierInfo: {
-            link: "",
-            trackingNumber: "",
-        },
-        status: -1,
-        notes: "",
-    };
+    // orderInfo = {
+    //     isValid: false,
+    //     number: "",
+    //     expectedArrival: {
+    //         date: "",
+    //     },
+    //     courierInfo: {
+    //         link: "",
+    //         trackingNumber: "",
+    //     },
+    //     status: -1,
+    //     notes: "",
+    // };
 
     // scenario 1 - with 'valid order # but no progress yet'
     // orderInfo = {
@@ -55,24 +55,24 @@ export class TrackOrderComponent implements OnInit {
     //         link: "",
     //         trackingNumber: "",
     //     },
-    //     status: 1,
+    //     status: 2,
     //     notes: "",
     // };
 
     // // scenario 3 - with custom notes
-    // orderInfo = {
-    //     isValid: true,
-    //     number: "00000001",
-    //     expectedArrival: {
-    //         date: "01/01/24",
-    //     },
-    //     courierInfo: {
-    //         link: "",
-    //         trackingNumber: "",
-    //     },
-    //     status: 0,
-    //     notes: "Dear Customer, You are amazing!",
-    // };
+    orderInfo = {
+        isValid: true,
+        number: "00000001",
+        expectedArrival: {
+            date: "01/01/24",
+        },
+        courierInfo: {
+            link: "",
+            trackingNumber: "",
+        },
+        status: 4,
+        notes: "Dear Customer, You are amazing!",
+    };
 
     ngOnInit(): void {}
 

@@ -29,6 +29,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 		// retrieve the order info from dto
 		Order order = purchase.getOrder();
 
+		// set order initial status
+		order.setStatus("order processed");
+
 		// generate tracking number string
 		String orderTrackingNumber = generateOrderTrackingNumber();
 		order.setOrderTrackingNumber(orderTrackingNumber);
@@ -43,6 +46,15 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 		// populate customer with order
 		Customer customer = purchase.getCustomer();
+
+		// check if the customer exists already
+		String theEmail = customer.getEmail();
+
+		Customer customerFormDb = customerRepository.findByEmail(theEmail);
+		if (customerFormDb != null) {
+			customer = customerFormDb;
+		}
+
 		customer.add(order);
 
 		// save to the database

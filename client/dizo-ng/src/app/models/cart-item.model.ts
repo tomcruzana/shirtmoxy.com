@@ -12,7 +12,7 @@ export class CartItem {
         this.id = product.id || 0;
         this.manufacturer = product.manufacturer.name || "";
         this.name = product.name || "";
-        this.imageUrl = product.productMediaSet[0] || "";
+        this.imageUrl = product.productMediaSet[0].url || "";
         this.unitPrice = product.unitPrice || 0;
         this.quantity = 1;
     }

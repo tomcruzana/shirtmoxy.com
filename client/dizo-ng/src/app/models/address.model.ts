@@ -1,4 +1,5 @@
 export class Address {
+    public fullName: string;
     public street: string;
     public line2: string;
     public state: string;
@@ -7,6 +8,7 @@ export class Address {
     public zipCode: string;
 
     constructor(
+        fullName?: string,
         street?: string,
         line2?: string,
         state?: string,
@@ -14,6 +16,7 @@ export class Address {
         country?: string,
         zipCode?: string
     ) {
+        this.fullName = fullName || "";
         this.street = street || "";
         this.line2 = line2 || "";
         this.state = state || "";

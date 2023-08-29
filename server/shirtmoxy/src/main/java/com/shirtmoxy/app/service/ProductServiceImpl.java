@@ -48,12 +48,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDto readById(int id) throws ProductException {
-
-		return null;
-	}
-
-	@Override
 	public Page<ProductDto> search(String keyword, int pageNum, int pageSize) throws ProductException {
 		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("name"));
 		Page<Product> searchResult = productRepo.search(keyword, pageable);

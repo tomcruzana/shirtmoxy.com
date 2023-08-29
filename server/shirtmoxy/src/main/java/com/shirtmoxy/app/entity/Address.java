@@ -20,6 +20,11 @@ public class Address {
 	@Column(name = "id")
 	private Long id;
 
+	@NotEmpty(message = "Full name is required")
+	@Size(max = 255, message = "Full name cannot exceed 255 characters")
+	@Column(name = "full_name", nullable = false, length = 255)
+	private String fullName;
+
 	@NotEmpty(message = "Street is required")
 	@Size(max = 255, message = "Street cannot exceed 255 characters")
 	@Column(name = "street", nullable = false, length = 255)
@@ -63,6 +68,14 @@ public class Address {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getStreet() {

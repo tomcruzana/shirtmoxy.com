@@ -17,19 +17,11 @@ CREATE TABLE IF NOT EXISTS `email_subscription` (
   `email` VARCHAR(255) UNIQUE NOT NULL
 ) ENGINE = INNODB;
 
--- Create the media_format table
-CREATE TABLE IF NOT EXISTS `media_format` (
-  `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `type` CHAR(50) UNIQUE NOT NULL
-) ENGINE = INNODB;
-
 -- Create the product_media table
 CREATE TABLE IF NOT EXISTS `product_media` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `media_format_id` INT NOT NULL,
   `name` VARCHAR(255) UNIQUE NOT NULL,
-  `url` VARCHAR(255) NOT NULL,
-  FOREIGN KEY (`media_format_id`) REFERENCES `media_format` (`id`)
+  `url` VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB;
 
 -- Create the Category table

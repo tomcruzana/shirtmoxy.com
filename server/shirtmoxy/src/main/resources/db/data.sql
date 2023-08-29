@@ -1,18 +1,11 @@
 ### TEST DATA ###
 
--- Inserting data into the `media_format` table
-INSERT INTO `media_format` (`type`)
-VALUES 
-  ('png'),
-  ('jpeg'),
-  ('jpg');
-
 -- Inserting data into the `product_media` table
-INSERT INTO `product_media` (`media_format_id`, `name`, `url`)
+INSERT INTO `product_media` (`name`, `url`)
 VALUES 
-  (1, 'media 1', 'assets/img/products/products1.jpg'),
-  (2, 'media 2', 'assets/img/products/products1.jpg'),
-  (1, 'media 3', 'assets/img/products/products1.jpg');
+  ('media 1', 'assets/img/products/products1.jpg'),
+  ('media 2', 'assets/img/products/products1.jpg'),
+  ('media 3', 'assets/img/products/products1.jpg');
 
 -- Inserting data into the `category` table
 INSERT INTO `category` (`name`)
