@@ -12,5 +12,6 @@ export const AppConstants = {
     ALL_COUNTRIES: "/storeform/country/all",
     ALL_STATES_BY_COUNTRY_CODE: "/storeform/state/all",
     CHECKOUT_PURCHASE_URL: "/checkout/purchase",
-    ALL_ORDERS_BY_CUSTOMER_ID: "/user/orders/all"
+    CHECKOUT_PAYMENT_INTENT_URL: "/checkout/payment-intent",
+    ALL_ORDERS_BY_CUSTOMER_ID: "/user/orders/all",
 };

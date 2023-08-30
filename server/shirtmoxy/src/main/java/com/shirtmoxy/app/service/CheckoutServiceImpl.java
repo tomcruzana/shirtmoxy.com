@@ -1,11 +1,18 @@
 package com.shirtmoxy.app.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.shirtmoxy.app.dto.PaymentInfoDto;
 import com.shirtmoxy.app.dto.PurchaseDto;
 import com.shirtmoxy.app.dto.PurchaseResponseDto;
 import com.shirtmoxy.app.entity.Customer;
@@ -13,6 +20,9 @@ import com.shirtmoxy.app.entity.Order;
 import com.shirtmoxy.app.entity.OrderItem;
 import com.shirtmoxy.app.exception.PurchaseException;
 import com.shirtmoxy.app.repository.CustomerRepository;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
 
 import jakarta.transaction.Transactional;
 
@@ -21,6 +31,14 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+
+	@Autowired
+	private Environment environment;
+
+	public CheckoutServiceImpl(@Value("${stripe.key.secret}") String stripeSecretKey) {
+		// initialize the Stripe API key with the secret key
+		Stripe.apiKey = stripeSecretKey;
+	}
 
 	@Override
 	@Transactional
@@ -71,6 +89,22 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 		// @TODO : add a unique validation filter
 		return UUID.randomUUID().toString();
+	}
+
+	@Override
+	public PaymentIntent createPaymentIntent(PaymentInfoDto paymentInfo) throws StripeException {
+		// create the stripe payment type & properties
+		List<String> paymentMethodTypes = new ArrayList<>();
+		paymentMethodTypes.add("card");
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("amount", paymentInfo.getAmount());
+		params.put("currency", paymentInfo.getCurrency());
+		params.put("payment_method_types", paymentMethodTypes);
+		params.put("description", environment.getProperty("stripe.payment.intent.description"));
+		params.put("receipt_email", paymentInfo.getEmailReceipt());
+
+		return PaymentIntent.create(params);
 	}
 
 }

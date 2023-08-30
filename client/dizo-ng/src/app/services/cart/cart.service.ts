@@ -11,6 +11,9 @@ export class CartService {
     totalPrice: Subject<number> = new BehaviorSubject<number>(0);
     totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
+    storage: Storage = sessionStorage;
+    // storage: Storage = localStorage;
+
     constructor() {}
 
     addToCart(theCartItem: CartItem): void {
@@ -48,15 +51,24 @@ export class CartService {
         for (let currentCartItem of this.cartItems) {
             totalPriceValue +=
                 currentCartItem.quantity * currentCartItem.unitPrice;
+
             totalQuantityValue += currentCartItem.quantity;
         }
 
         // publish the new values & all subscribers to these subject will receive the new data
-        this.totalPrice.next(totalPriceValue);
+        // original  this.totalPrice.next(totalPriceValue);
+        this.totalPrice.next(parseFloat(totalPriceValue.toFixed(2)));
         this.totalQuantity.next(totalQuantityValue);
 
         // temp log cart data method call
         this.logCartData(totalPriceValue, totalQuantityValue);
+
+        // persist cart data
+        this.persistCartItems();
+    }
+
+    persistCartItems() {
+        this.storage.setItem("cartItems", JSON.stringify(this.cartItems));
     }
 
     // decrement item qty
@@ -99,6 +111,9 @@ export class CartService {
 
             console.log(
                 `name: ${tempCartItem.name}, qty=${tempCartItem.quantity}, unitPrice=${tempCartItem.unitPrice}, subTotalPrice=${subTotalPrice} `
+            );
+            console.log(
+                `subTotalPrice=${parseFloat(subTotalPrice.toFixed(2))} `
             );
         }
 
