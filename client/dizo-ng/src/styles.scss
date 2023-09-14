@@ -198,6 +198,80 @@ img {
         background-color: transparent;
     }
 }
+/*Smoxy Btn Style*/
+/* @TODO - refactor by inheriting defaul btn style*/
+.smoxy-btn {
+    background-color: $raspberry-color;
+    padding: 12px 42px;
+    color: $color-white;
+    border: none !important;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        width: 50%;
+        height: 50%;
+        background-color: $raspberry-color;
+        z-index: -1;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 50%;
+        right: 0%;
+        width: 50%;
+        height: 50%;
+        background-color: $raspberry-color;
+        z-index: -1;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    &:hover {
+        color: $color-white;
+    }
+    &:hover::before {
+        top: 0;
+        background-color: $title-color;
+        color: $color-white;
+    }
+
+    &:hover::after {
+        bottom: 0;
+        background-color: $title-color;
+        color: $color-white;
+    }
+    &.active {
+        margin-left: 20px;
+        color: #232350;
+        background-color: transparent;
+        border: 1px solid $title-color;
+        overflow: hidden;
+
+        &:hover {
+            color: $color-white;
+            background-color: $title-color;
+        }
+    }
+    &.active::before {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+    &.active::after {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+}
 /*Section Title Style*/
 .scetion-title {
     span {
@@ -206,6 +280,7 @@ img {
         line-height: 0;
     }
     h2 {
+        // color: $raspberry-color;
         font-size: 35px;
         margin: auto;
     }
@@ -1063,6 +1138,83 @@ Service Area Style
 }
 
 /*=================================
+Search Btn Style
+====================================*/
+.search-btn {
+    background-color: $raspberry-color;
+    position: relative;
+
+    color: $color-white;
+    border: none !important;
+    border-radius: 0px !important;
+    text-align: center;
+    // position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        width: 50%;
+        height: 50%;
+        background-color: $raspberry-color;
+        z-index: -1;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 50%;
+        right: 0%;
+        width: 50%;
+        height: 50%;
+        background-color: $raspberry-color;
+        z-index: -1;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+    }
+    &:hover {
+        color: $color-white;
+    }
+    &:hover::before {
+        top: 0;
+        background-color: $title-color;
+        color: $color-white;
+    }
+
+    &:hover::after {
+        bottom: 0;
+        background-color: $title-color;
+        color: $color-white;
+    }
+    &.active {
+        margin-left: 20px;
+        color: #232350;
+        background-color: transparent;
+        border: 1px solid $title-color;
+        overflow: hidden;
+
+        &:hover {
+            color: $color-white;
+            background-color: $title-color;
+        }
+    }
+    &.active::before {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+    &.active::after {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+    }
+}
+
+/*=================================
 Product Area Style
 ====================================*/
 .product-area {
@@ -1071,6 +1223,50 @@ Product Area Style
 }
 $white-smoke-color-hover: #d8d8d8;
 $white-smoke-color-focus: #e0e0e0;
+
+/*=================================
+Product Color Icons Style
+====================================*/
+$tertiary-colors: rgb(255, 102, 0),
+    // Orange (Red + Yellow)
+    rgb(255, 170, 0),
+    // Orange-Yellow (Yellow + Orange)
+    rgb(170, 255, 0),
+    // Yellow-Green (Yellow + Green)
+    rgb(0, 255, 85),
+    // Green-Yellow (Green + Yellow)
+    rgb(0, 170, 127),
+    // Blue-Green (Green + Blue)
+    rgb(0, 85, 170),
+    // Blue-Violet (Blue + Purple)
+    rgb(85, 0, 170),
+    // Red-Violet (Red + Purple)
+    rgb(170, 0, 127); // Red-Orange (Red + Orange)
+
+.product-content,
+.product-search-filter {
+    .product-color-icons {
+        .r16 {
+            width: 16px;
+            height: 16px;
+        }
+
+        .r36 {
+            width: 36px;
+            height: 36px;
+        }
+
+        .round {
+            border-radius: 50%;
+            margin: 8px; // Adjust margin as needed
+            border: 1px solid $dim-gray;
+
+            &.multi-color {
+                background: radial-gradient(circle, $tertiary-colors);
+            }
+        }
+    }
+}
 
 // Override button styles
 .search-filter-btn {
@@ -1110,11 +1306,16 @@ $white-smoke-color-focus: #e0e0e0;
                 font-size: 24px;
                 line-height: 1;
             }
+            h2 {
+                font-size: 18px;
+                line-height: 1;
+            }
         }
         p {
             color: $title-color;
             margin: 0;
             font-weight: 600;
+            font-size: 15px;
             span {
                 color: $carrot-orange-color;
                 font-size: 20px;
@@ -1615,7 +1816,8 @@ Footer Area CSS
     position: relative;
 }
 .footer-card {
-    background-color: $title-color;
+    background-color: $prussian-blue-color;
+    border: 1px solid $dim-gray;
     border-radius: 15px;
     text-align: center;
     padding: 50px 15px 45px 15px;
@@ -1699,7 +1901,7 @@ Footer Area CSS
 }
 .footer-side-list {
     margin-bottom: 30px;
-    float: right;
+    float: left;
 
     h3 {
         font-size: 24px;
@@ -1974,6 +2176,7 @@ Choose Area Style
     position: relative;
     transition: 0.4s;
     z-index: 1;
+    cursor: default;
 
     &::before {
         content: "";
@@ -2004,12 +2207,70 @@ Choose Area Style
         font-size: 45px;
         margin-bottom: 10px;
         transition: 0.4s;
-        color: $carrot-orange-color;
+        color: $raspberry-color;
     }
     h3 {
         font-size: 20px;
         transition: 0.4s;
         color: $title-color;
+    }
+    p {
+        color: $title-color;
+    }
+}
+
+/*=================================
+Features Area 
+====================================*/
+.features-area {
+    .list-wrapper {
+        position: relative;
+
+        .list-item-wrapper {
+            margin-top: 10px;
+            position: relative;
+
+            .list-bullet {
+                float: left;
+                margin-right: 20px;
+                background: $raspberry-color;
+                height: 30px;
+                width: 30px;
+                line-height: 30px;
+                border-radius: 100px;
+                font-weight: 700;
+                color: $color-white;
+                text-align: center;
+            }
+
+            .list-item {
+                display: table-row;
+                vertical-align: middle;
+
+                .list-title {
+                    font-weight: 700;
+                }
+
+                .list-text {
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .red-line,
+        .white-line {
+            background: $raspberry-color;
+            z-index: -1;
+            width: 1px;
+            height: 100%;
+            position: absolute;
+            left: 15px;
+        }
+
+        .white-line {
+            background: $color-white;
+            top: 0px;
+        }
     }
 }
 
@@ -2246,42 +2507,54 @@ Inner Banner Style
         left: 0;
         right: 0;
         background-color: #000000;
-        opacity: 0.8;
+        opacity: 0;
     }
-    .inner-title {
-        padding-top: 150px;
-        padding-bottom: 150px;
-        position: relative;
 
-        h3 {
-            font-size: 32px;
-            color: $color-white;
-            font-weight: 700;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+    h2 {
+        font-size: 32px;
+        color: $color-white;
+        font-weight: 700;
+    }
 
-            li {
-                font-size: 15px;
-                color: $carrot-orange-color;
-                display: inline-block;
-                margin-right: 10px;
+    p {
+        color: $color-white;
+    }
+}
 
-                &:last-child {
-                    margin-right: 0;
-                }
-                i {
-                    font-size: 16px;
-                    color: $color-white;
-                }
-                a {
-                    color: $color-white;
+/*================================
+Breadcrumbs Style
+==================================*/
+.page-breadcrumbs {
+    position: relative;
 
-                    &:hover {
-                        color: $carrot-orange-color;
-                    }
+    h3 {
+        font-size: 32px;
+        color: $licorice-color;
+        font-weight: 700;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            font-size: 15px;
+            color: $carrot-orange-color;
+            display: inline-block;
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+            i {
+                font-size: 16px;
+                color: $licorice-color;
+            }
+            a {
+                color: $licorice-color;
+
+                &:hover {
+                    color: $carrot-orange-color;
                 }
             }
         }
@@ -2323,6 +2596,9 @@ Inner Banner Style
 .inner-bg12 {
     background-image: url(assets/img/inner-banner/12.jpg);
 }
+.inner-bg-product-banner {
+    background-image: url(assets/img/inner-banner/product-banner.png);
+}
 
 /*================================
 Contact Pages Style
@@ -2339,6 +2615,17 @@ Contact Pages Style
     }
     .form-group {
         margin-bottom: 25px;
+
+        label {
+            color: $title-color;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+
+            span {
+                color: $carrot-orange-color;
+            }
+        }
 
         .form-control {
             height: 50px;
@@ -3137,7 +3424,6 @@ Pagination Area Style
         }
     }
     .page-item {
-
         padding: 0 8px 0;
 
         &:first-child .page-link {
@@ -3246,15 +3532,6 @@ Track Order Page Style
     .search-input {
         input[type="search"] {
             text-indent: 1.5rem;
-        }
-
-        .search-btn {
-            background: none;
-            position: absolute;
-            top: 13px;
-            left: 5px;
-            z-index: 9999;
-            color: #000;
         }
 
         .text-underline-hover {
@@ -3644,7 +3921,8 @@ Checkout Page Style
         }
     }
 }
-.checkout-details, .shipping-details  {
+.checkout-details,
+.shipping-details {
     margin-bottom: 30px;
     background-color: $color-white;
     padding: 50px 30px 25px 30px;
