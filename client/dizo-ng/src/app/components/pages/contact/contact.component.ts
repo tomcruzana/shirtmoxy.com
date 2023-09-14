@@ -139,7 +139,11 @@ export class ContactComponent implements OnInit {
                         this.isDisabled = false;
                     },
                     error: (err) => {
-                        alert(`There was an error: ${err.message}`);
+                        Swal.fire(
+                            `${err.message}`,
+                            "An error occured. Please try again later.",
+                            "error"
+                        );
                         this.isDisabled = false;
                     },
                 });

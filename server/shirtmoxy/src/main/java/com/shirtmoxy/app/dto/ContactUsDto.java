@@ -25,7 +25,7 @@ public class ContactUsDto {
 	private String email;
 
 	@Size(max = 255, message = "Phone number cannot exceed 255 characters")
-	private String phone;
+	private String phone;	
 
 	private ContactUsCategoryDto category;
 

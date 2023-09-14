@@ -24,10 +24,10 @@ CREATE TABLE `contact_us` (
   `first_name` VARCHAR(255) NOT NULL,
   `last_name` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `phone` VARCHAR(255),
+  `phone` VARCHAR(15),
   `subject` VARCHAR(255) NOT NULL,
   `category_id` INT NOT NULL,
-  `message` VARCHAR(255) NOT NULL,
+  `message` VARCHAR(1000) NOT NULL,
   `date_created` DATETIME(6) NOT NULL,
   `last_updated` DATETIME(6) NOT NULL,
   
@@ -37,8 +37,8 @@ CREATE TABLE `contact_us` (
 -- Insert dummy data into the Contact Us table
 INSERT INTO `contact_us` (`first_name`, `last_name`, `email`, `phone`, `subject`, `category_id`, `message`, `date_created`, `last_updated`)
 VALUES
-  ('John', 'Doe', 'john.doe@example.com', '+1 (123) 456-7890', 'Question about a product', 2, 'I have a question about one of your products.', NOW(), NOW()),
-  ('Jane', 'Smith', 'jane.smith@example.com', '+1 (234) 567-8901', 'Technical Issue', 3, 'Im experiencing technical problems with your website.', NOW(), NOW());
+  ('John', 'Doe', 'john.doe@example.com', '1234567890', 'Question about a product', 2, 'I have a question about one of your products.', NOW(), NOW()),
+  ('Jane', 'Smith', 'jane.smith@example.com', '3609324555', 'Technical Issue', 3, 'Im experiencing technical problems with your website.', NOW(), NOW());
 
 -- Check all contact us messages
 SELECT * FROM	`contact_us`;
