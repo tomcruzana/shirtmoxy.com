@@ -25,17 +25,28 @@ import { AuthActivateRouteGuard } from "./routeguards/auth.guard";
 import { OrderDetailsComponent } from "./components/pages/orders/order-details/order-details.component";
 import { OrdersComponent } from "./components/pages/orders/orders/orders.component";
 import { OrderConfirmationComponent } from "./components/pages/orders/order-confirmation/order-confirmation.component";
+import { ProductEditorComponent } from "./components/pages/product-editor/product-editor.component";
+import { ShippingAndReturnsComponent } from "./components/pages/shipping-and-returns/shipping-and-returns.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", component: HomePageTwoComponent },
-    { path: "product", component: ProductsComponent },
+    {
+        path: "product/clothing/all",
+        component: ProductsComponent,
+    },
+    {
+        path: "product/clothing/all/filteredList",
+        component: ProductsComponent,
+    },
     { path: "product/:id", component: ProductsDetailsComponent },
     { path: "product/search/:query", component: ProductsComponent },
-    { path: "product/gender/:gId", component: ProductsComponent },
-    { path: "product/category/:cId", component: ProductsComponent },
-    { path: "product/manufacturer/:mId", component: ProductsComponent },
     { path: "product-details", component: ProductsDetailsComponent },
+    {
+        path: "product-editor",
+        component: ProductEditorComponent,
+        // canActivate: [AuthActivateRouteGuard],
+    },
     { path: "about", component: AboutComponent },
     { path: "contact", component: ContactComponent },
     { path: "faq", component: FaqComponent },
@@ -84,6 +95,7 @@ const routes: Routes = [
         component: OrderConfirmationComponent,
         // canActivate: [AuthActivateRouteGuard],
     },
+    { path: "shipping-and-returns", component: ShippingAndReturnsComponent },
     { path: "terms-condition", component: TermsConditionsComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
     { path: "coming-soon", component: ComingSoonComponent },
