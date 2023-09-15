@@ -5,7 +5,7 @@
         <form>
             <div class="row">
                 <div
-                    class="col-sm-12 cart-wraps pe-5"
+                    class="col-sm-12 cart-wraps"
                     [ngClass]="cartItems.length == 0 ? 'col-md-12' : 'col-md-8'"
                 >
                     <div class="cart-table table-responsive">
@@ -29,7 +29,7 @@
                                                 Your cart is empty
                                                 <a
                                                     class="text-decoration-underline"
-                                                    routerLink="/product"
+                                                    routerLink="/product/clothing/all"
                                                     >Start Shopping</a
                                                 >
                                             </p>
@@ -44,18 +44,24 @@
                                 <tbody>
                                     <tr *ngFor="let item of cartItems">
                                         <td class="product-thumbnail">
-                                            <a routerLink="/product-details"
+                                            <a
+                                                routerLink="/product-details/{{
+                                                    item.id
+                                                }}"
                                                 ><img
-                                                    [src]="item.imageUrl.url"
+                                                    [attr.src]="item.imageUrl"
                                                     alt="Image"
                                             /></a>
                                         </td>
 
                                         <td class="product-name">
-                                            <a routerLink="/product-details"
+                                            <a
+                                                routerLink="/product-details/{{
+                                                    item.id
+                                                }}"
                                                 >{{ item.manufacturer }} -
-                                                {{ item.name }}</a
-                                            >
+                                                {{ item.name }}
+                                            </a>
                                         </td>
 
                                         <td class="product-price">
@@ -80,7 +86,17 @@
                                                     type="text"
                                                     minlength="1"
                                                     maxlength="3"
-                                                    [value]="item.quantity"
+                                                    appNumericInputOnly
+                                                    [(ngModel)]="item.quantity"
+                                                    [ngModelOptions]="{
+                                                        standalone: true
+                                                    }"
+                                                    (ngModelChange)="
+                                                        updateQuantity(
+                                                            item,
+                                                            item.quantity
+                                                        )
+                                                    "
                                                 />
 
                                                 <span
@@ -138,7 +154,7 @@
                 </div>
 
                 <aside
-                    class="col-sm-12 col-md-4 ps-5"
+                    class="col-sm-12 col-md-4"
                     [hidden]="cartItems.length == 0"
                 >
                     <!-- cart totals start -->
@@ -173,7 +189,7 @@
                                 You can review your order before it's final or
                                 <a
                                     class="text-decoration-underline"
-                                    routerLink="/product"
+                                    routerLink="/product/clothing/all"
                                     >Continue Shopping</a
                                 >
                             </p>

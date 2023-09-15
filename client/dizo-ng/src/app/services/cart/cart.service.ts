@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { CartItem } from "app/models/cart-item.model";
 import { Subject, BehaviorSubject } from "rxjs";
+import Swal from "sweetalert2";
 
 @Injectable({
     providedIn: "root",
@@ -8,13 +10,23 @@ import { Subject, BehaviorSubject } from "rxjs";
 export class CartService {
     cartItems: CartItem[] = [];
 
+    // maximum cart capacity
+    readonly MAX_CART_CAPACITY: number = 5;
+
+    // set to max qty (This should come from the current available stock in the backend inventory)
+    readonly MAX_STOCK_QTY: number = 999;
+
     totalPrice: Subject<number> = new BehaviorSubject<number>(0);
     totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
     storage: Storage = sessionStorage;
     // storage: Storage = localStorage;
 
-    constructor() {}
+    constructor(private router: Router) {}
+
+    persistCartItems() {
+        this.storage.setItem("cartItems", JSON.stringify(this.cartItems));
+    }
 
     addToCart(theCartItem: CartItem): void {
         // check if item already exists in the cart
@@ -34,12 +46,78 @@ export class CartService {
         if (alreadyExistsInCart) {
             // increment the qty
             existingCartItem.quantity++;
+
+            if (existingCartItem.quantity > this.MAX_STOCK_QTY) {
+                existingCartItem.quantity = this.MAX_STOCK_QTY;
+            }
         } else {
-            // just add the item to the cart
-            this.cartItems.push(theCartItem);
+            // check if cart is full
+            if (this.cartItems.length >= this.MAX_CART_CAPACITY) {
+                Swal.fire({
+                    title: "Oops! Your Cart is Full",
+                    text: "To continue shopping, remove items or proceed to checkout.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#e61c5d",
+                    confirmButtonText: `<p class="align-middle m-0 text-light"><i class="bx bx-cart bx-sm align-middle"></i> Go to Cart</p>`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.router.navigate(["/cart"]);
+                    }
+                });
+            } else {
+                // add the new item into the cart
+                this.cartItems.push(theCartItem);
+            }
         }
 
-        // comput the new cart items total price & qty
+        // compute the new cart items total price & qty
+        this.computeCartTotals();
+
+        console.log(`cart length : ${this.cartItems.length}`);
+    }
+
+    // decrement item qty
+    decrementQuantity(item: CartItem): void {
+        item.quantity--;
+
+        if (item.quantity <= 0) {
+            // set to min qty
+            item.quantity = 1;
+        } else {
+            this.computeCartTotals();
+        }
+    }
+
+    updateQuantity(item: CartItem, updatedQty: string): void {
+        // convert to numeric type
+        item.quantity = +updatedQty;
+
+        if (item.quantity <= 0) {
+            // set to min qty
+            item.quantity = 1;
+        }
+
+        this.computeCartTotals();
+    }
+
+    remove(item: CartItem): void {
+        // get the index of the item in the array
+        const itemIndex = this.cartItems.findIndex(
+            (cartItem) => cartItem.id === item.id
+        );
+
+        // if found, remove the item from the array at the given index
+        if (itemIndex > -1) {
+            this.cartItems.splice(itemIndex, 1);
+
+            this.computeCartTotals();
+        }
+    }
+
+    removeAll(): void {
+        // clear cart items array
+        this.cartItems.splice(0);
         this.computeCartTotals();
     }
 
@@ -65,41 +143,6 @@ export class CartService {
 
         // persist cart data
         this.persistCartItems();
-    }
-
-    persistCartItems() {
-        this.storage.setItem("cartItems", JSON.stringify(this.cartItems));
-    }
-
-    // decrement item qty
-    decrementQuantity(item: CartItem): void {
-        item.quantity--;
-
-        if (item.quantity === 0) {
-            this.remove(item);
-        } else {
-            this.computeCartTotals();
-        }
-    }
-
-    remove(item: CartItem): void {
-        // get the index of the item in the array
-        const itemIndex = this.cartItems.findIndex(
-            (cartItem) => cartItem.id === item.id
-        );
-
-        // if found, remove the item from the array at the given index
-        if (itemIndex > -1) {
-            this.cartItems.splice(itemIndex, 1);
-
-            this.computeCartTotals();
-        }
-    }
-
-    removeAll(): void {
-        // clear cart items array
-        this.cartItems.splice(0);
-        this.computeCartTotals();
     }
 
     // temp method

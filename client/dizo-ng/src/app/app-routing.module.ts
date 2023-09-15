@@ -39,9 +39,9 @@ const routes: Routes = [
         path: "product/clothing/all/filteredList",
         component: ProductsComponent,
     },
-    { path: "product/:id", component: ProductsDetailsComponent },
+    { path: "product-details/:id", component: ProductsDetailsComponent },
     { path: "product/search/:query", component: ProductsComponent },
-    { path: "product-details", component: ProductsDetailsComponent },
+    
     {
         path: "product-editor",
         component: ProductEditorComponent,

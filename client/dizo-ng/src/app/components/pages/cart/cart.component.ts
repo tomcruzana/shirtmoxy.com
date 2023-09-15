@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CartItem } from "app/models/cart-item.model";
 import { CartService } from "app/services/cart/cart.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector: "app-cart",
@@ -15,8 +16,6 @@ export class CartComponent implements OnInit {
 
     isCouponValid: boolean = false;
     hidePromotion: boolean;
-    readonly MAX_QTY: number = 999;
-    readonly MIN_QTY: number = 0;
 
     constructor(private cartService: CartService) {}
 
@@ -52,12 +51,38 @@ export class CartComponent implements OnInit {
         this.cartService.decrementQuantity(item);
     }
 
+    updateQuantity(item: CartItem, updatedQty: string): void {
+        this.cartService.updateQuantity(item, updatedQty);
+    }
+
     remove(item: CartItem): void {
-        this.cartService.remove(item);
+        Swal.fire({
+            title: "Confirmation",
+            text: "Are you sure you want to remove this item from your cart?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            confirmButtonText: "Remove",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.cartService.remove(item);
+            }
+        });
     }
 
     removeAll(): void {
-        this.cartService.removeAll();
+        Swal.fire({
+            title: "Confirmation",
+            text: "Are you sure you want to remove all items from your cart?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            confirmButtonText: "Remove All",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.cartService.removeAll();
+            }
+        });
     }
 
     toggleHidePromotion(): void {

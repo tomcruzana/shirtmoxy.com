@@ -47,15 +47,19 @@ import {
     HttpClientXsrfModule,
     HTTP_INTERCEPTORS,
 } from "@angular/common/http";
-import { ProductService } from "./services/product/product.service";
-import { SearchFilterComponent } from "./components/pages/search-filter/search-filter.component";
 import { ProductSearchBarComponent } from "./components/pages/product-search-bar/product-search-bar.component";
+import { ProductResultFilterComponent } from "./components/pages/product-result-filter/product-result-filter.component";
+import { ProductSearchFilterComponent } from "./components/pages/product-search-filter/product-search-filter.component";
 import { CartStatusComponent } from "./components/common/navbar/navbar-items/cart-status/cart-status.component";
 import { XhrInterceptor } from "./interceptors/app.request.interceptor";
 import { AuthActivateRouteGuard } from "./routeguards/auth.guard";
-import { OrderDetailsComponent } from './components/pages/orders/order-details/order-details.component';
-import { OrdersComponent } from './components/pages/orders/orders/orders.component';
-import { OrderConfirmationComponent } from './components/pages/orders/order-confirmation/order-confirmation.component';
+import { OrderDetailsComponent } from "./components/pages/orders/order-details/order-details.component";
+import { OrdersComponent } from "./components/pages/orders/orders/orders.component";
+import { OrderConfirmationComponent } from "./components/pages/orders/order-confirmation/order-confirmation.component";
+import { ProductEditorComponent } from "./components/pages/product-editor/product-editor.component";
+import { ShippingAndReturnsComponent } from './components/pages/shipping-and-returns/shipping-and-returns.component';
+import { PriceQuantityCalculatorComponent } from './components/common/price-quantity-calculator/price-quantity-calculator.component';
+import { NumericInputOnlyDirective } from './directives/numeric-input-only.directive';
 
 @NgModule({
     declarations: [
@@ -95,12 +99,17 @@ import { OrderConfirmationComponent } from './components/pages/orders/order-conf
         TrackOrderComponent,
         UserProjectsComponent,
         SignOutComponent,
-        SearchFilterComponent,
         ProductSearchBarComponent,
         CartStatusComponent,
         OrderDetailsComponent,
         OrdersComponent,
         OrderConfirmationComponent,
+        ProductEditorComponent,
+        ProductResultFilterComponent,
+        ProductSearchFilterComponent,
+        ShippingAndReturnsComponent,
+        PriceQuantityCalculatorComponent,
+        NumericInputOnlyDirective,
     ],
     imports: [
         SweetAlert2Module,
