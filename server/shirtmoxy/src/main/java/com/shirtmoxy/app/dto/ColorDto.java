@@ -9,11 +9,23 @@ public class ColorDto {
 
 	private int id;
 
-	@NotBlank(message = "Color is required")
-	@Size(max = 255, message = "Color cannot exceed 255 characters")
-	private String color;
+	@NotBlank(message = "Name is required")
+	@Size(max = 255, message = "Name cannot exceed 255 characters")
+	private String name;
 
-	private List<VariantDto> variantList;
+	@NotBlank(message = "Red is required")
+	@Size(min = 1, max = 3, message = "Red cannot exceed 3 characters")
+	private String red;
+
+	@NotBlank(message = "Green is required")
+	@Size(min = 1, max = 3, message = "Green cannot exceed 3 characters")
+	private String green;
+
+	@NotBlank(message = "Blue is required")
+	@Size(min = 1, max = 3, message = "Blue cannot exceed 3 characters")
+	private String blue;
+
+	private List<ProductDto> productList;
 
 	public ColorDto() {
 	}
@@ -26,20 +38,44 @@ public class ColorDto {
 		this.id = id;
 	}
 
-	public String getColor() {
-		return color;
+	public String getName() {
+		return name;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public List<VariantDto> getVariantList() {
-		return variantList;
+	public String getRed() {
+		return red;
 	}
 
-	public void setVariantList(List<VariantDto> variantList) {
-		this.variantList = variantList;
+	public void setRed(String red) {
+		this.red = red;
+	}
+
+	public String getGreen() {
+		return green;
+	}
+
+	public void setGreen(String green) {
+		this.green = green;
+	}
+
+	public String getBlue() {
+		return blue;
+	}
+
+	public void setBlue(String blue) {
+		this.blue = blue;
+	}
+
+	public List<ProductDto> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<ProductDto> productList) {
+		this.productList = productList;
 	}
 
 }
