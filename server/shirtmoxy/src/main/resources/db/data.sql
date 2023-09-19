@@ -1,5 +1,9 @@
 ### TEST DATA ###
 
+-- Inserting data into the `product_type` table
+INSERT INTO `product_type` (`id`, `name`)
+VALUES (1, 'clothing');
+
 -- Inserting data into the `product_media` table
 INSERT INTO `product_media` (`name`, `url`)
 VALUES 
@@ -14,17 +18,26 @@ VALUES
   ('v-neck'),
   ('tank top'),
   ('sweatshirt'),
-    ('hoodie'),
+  ('hoodie'),
   ('long sleeve');
 
 -- Inserting data into the `color` table
-INSERT INTO `color` (`color`)
+INSERT INTO `color` (`name`, `red`, `green`, `blue`)
 VALUES 
-  ('red'),
-  ('blue'),
-  ('yellow'),
-  ('orange'),
-  ('green');
+   ('beige', 249, 238, 214),
+   ('black', 0, 17, 26),
+   ('blue', 0, 28, 245),
+   ('brown', 130, 72, 32),
+   ('gold', 255, 254, 84),
+   ('gray', 128, 128, 128),
+   ('green', 53, 125, 34),
+   ('orange', 241, 134, 51),
+   ('pink', 246, 195, 203),
+   ('purple', 117, 31, 192),
+   ('red', 236, 51, 35),
+   ('white', 255, 255, 255),
+   ('yellow', 255, 254, 84);
+
 
 -- Inserting data into the size table
 INSERT INTO `size` (`type`, `length`, `width`)
@@ -47,28 +60,11 @@ VALUES
   ('unisex');
 
 -- Inserting data into the `material` table
-INSERT INTO `material` (`material`)
+INSERT INTO `material` (`type`)
 VALUES 
   ('Cotton'),
   ('Polyester'),
   ('Nylon');
-  
--- Inserting data into the `variant` table
-INSERT INTO `variant` (`inventory_count`, `color_id`, `size_id`, `gender_id`, `material_id`)
-SELECT 
-  FLOOR(RAND() * 1001), -- Random inventory count between 0 and 1000
-  `c`.`id`, -- Color ID
-  `s`.`id`, -- Size ID
-  `g`.`id`, -- Gender ID
-  `m`.`id` -- Material ID
-FROM
-  `color` `c`
-CROSS JOIN
-  `size` `s`
-CROSS JOIN
-  `gender` `g`
-CROSS JOIN
-  `material` `m`;
 
 -- Inserting data into the barcode table
 INSERT INTO `barcode` (`type`) VALUES
@@ -86,34 +82,64 @@ INSERT INTO `barcode` (`type`) VALUES
   ('fruit of the loom'),
   ('anvil');
 
--- Inserting data into the product table
+-- Inserting 20 dummy products into the `product` table
 INSERT INTO `product` (
-    `SKU`, `product_media_id`, `category_id`, `name`, `description`, `manufacturer_id`, 
-    `weight`, `unit_price`, `variant_id`, `barcode_id`, `is_active`, `units_in_stock`, 
-    `date_created`, `last_updated`
-) VALUES
-    ('SKU001', 1, 2, 'Product 1', 'Description 1', 1, 1.5, 19.99, 2, 2, true, 10, NOW(), NOW()),
-    ('SKU002', 2, 1, 'Product 2', 'Description 2', 2, 2.0, 29.99, 3, 1, true, 5, NOW(), NOW()),
-    ('SKU003', 3, 1, 'Product 3', 'Description 3', 3, 12.8, 24.99, 2, 4, true, 15, NOW(), NOW()),
-    ('SKU004', 1, 3, 'Product 4', 'Description 4', 4, 0.9, 14.99, 1, 3, true, 20, NOW(), NOW()),
-    ('SKU005', 2, 2, 'Product 5', 'Description 5', 5, 2.5, 39.99, 4, 4, true, 8, NOW(), NOW()),
-    ('SKU006', 3, 1, 'Product 6', 'Description 6', 6, 1.2, 9.99, 1, 4, true, 12, NOW(), NOW()),
-    ('SKU007', 1, 3, 'Product 7', 'Description 7', 1, 5.7, 54.99, 5, 4, true, 18, NOW(), NOW()),
-    ('SKU008', 1, 2, 'Product 8', 'Description 8', 2, 0.8, 12.99, 1, 4, true, 7, NOW(), NOW()),
-    ('SKU009', 1, 1, 'Product 9', 'Description 9', 3, 3.1, 49.99, 4, 4, true, 9, NOW(), NOW()),
-    ('SKU010', 2, 2, 'Product 10', 'Description 10', 4, 1.7, 24.99, 2, 1, true, 14, NOW(), NOW()),
-    ('SKU011', 3, 3, 'Product 11', 'Description 11', 5, 2.3, 34.99, 3, 1, true, 6, NOW(), NOW()),
-    ('SKU012', 3, 1, 'Product 12', 'Description 12', 6, 1.4, 17.99, 1, 1, true, 11, NOW(), NOW()),
-    ('SKU013', 1, 2, 'Product 13', 'Description 13', 1, 1.9, 27.99, 2, 1, true, 13, NOW(), NOW()),
-    ('SKU014', 2, 3, 'Product 14', 'Description 14', 2, 0.6, 9.99, 1, 3, true, 4, NOW(), NOW()),
-    ('SKU015', 2, 1, 'Product 15', 'Description 15', 3, 2.8, 64.99, 6, 4, true, 21, NOW(), NOW()),
-    ('SKU016', 2, 2, 'Product 16', 'Description 16', 4, 1.1, 14.99, 1, 1, true, 6, NOW(), NOW()),
-    ('SKU017', 3, 3, 'Product 17', 'Description 17', 5, 3.5, 44.99, 4, 2, true, 11, NOW(), NOW()),
-    ('SKU018', 1, 1, 'Product 18', 'Description 18', 6, 2.2, 19.99, 2, 2, true, 9, NOW(), NOW()),
-    ('SKU019', 2, 2, 'Product 19', 'Description 19', 1, 0.7, 11.99, 1, 3, true, 5, NOW(), NOW()),
-    ('SKU020', 2, 3, 'Product 20', 'Description 20', 2, 4.0, 79.99, 8, 3, true, 15, NOW(), NOW());
-
-
+    `SKU`,
+    `name`,
+    `description`,
+    `unit_price`,
+    `weight`,
+    `units_in_stock`,
+    `is_active`,
+    `date_created`,
+    `last_updated`,
+    `product_media_id`,
+    `product_type_id`,
+    `category_id`,
+    `manufacturer_id`,
+    `gender_id`,
+    `color_id`,
+    `size_id`,
+    `material_id`,
+    `barcode_id`
+)
+VALUES
+	-- ATTENTION! CREATE AN ENTRY IN product_and_product_media table for media ids too! This is temporary & will be fixed soon!!!!!!!!!!!!!!!!!!!!!!
+    ('SKU001', 'Product 1', 'Lorem ipsum dolor text', 7.99, 1.0, 0, TRUE, NOW(), NOW(), 1, 1, 1, 1, 1, 1, 1, 1, 1),
+    ('SKU002', 'Product 2', 'Lorem ipsum dolor text', 17.99, 2.0, 10, TRUE, NOW(), NOW(), 2, 1, 2, 2, 2, 2, 2, 2, 2),
+    ('SKU003', 'Product 3', 'Lorem ipsum dolor text', 29.99, 3.0, 20, TRUE, NOW(), NOW(), 3, 1, 3, 3, 3, 3, 3, 3, 3),
+    ('SKU004', 'Product 4', 'Lorem ipsum dolor text', 39.99, 4.0, 30, TRUE, NOW(), NOW(), 1, 1, 4, 4, 4, 4, 4, 1, 4),
+    ('SKU005', 'Product 5', 'Lorem ipsum dolor text', 49.99, 5.0, 40, TRUE, NOW(), NOW(), 2, 1, 5, 5, 5, 5, 5, 1, 4),
+    ('SKU006', 'Product 6', 'Lorem ipsum dolor text', 29.99, 3.0, 50, TRUE, NOW(), NOW(), 3, 1, 6, 6, 1, 6, 1, 1, 2),
+    ('SKU007', 'Product 7', 'Lorem ipsum dolor text', 19.99, 2.5, 60, TRUE, NOW(), NOW(), 1, 1, 1, 1, 2, 2, 2, 2, 1),
+    ('SKU008', 'Product 8', 'Lorem ipsum dolor text', 12.99, 1.5, 70, TRUE, NOW(), NOW(), 2, 1, 2, 2, 3, 3, 3, 2, 4),
+    ('SKU009', 'Product 9', 'Lorem ipsum dolor text', 24.99, 4.5, 80, TRUE, NOW(), NOW(), 3, 1, 3, 3, 4, 4, 4, 2, 3),
+    ('SKU010', 'Product 10', 'Lorem ipsum dolor text', 34.99, 3.2, 90, TRUE, NOW(), NOW(), 1, 1, 4, 4, 5, 5, 5, 1, 2),
+    ('SKU011', 'Product 11', 'Lorem ipsum dolor text', 9.99, 1.8, 0, TRUE, NOW(), NOW(), 2, 1, 5, 5, 1, 6, 1, 3, 1),
+    ('SKU012', 'Product 12', 'Lorem ipsum dolor text', 22.99, 2.7, 10, TRUE, NOW(), NOW(), 3, 1, 1, 6, 2, 2, 2, 2, 4),
+    ('SKU013', 'Product 13', 'Lorem ipsum dolor text', 42.99, 4.2, 20, TRUE, NOW(), NOW(), 1, 1, 2, 1, 3, 3, 3, 3, 3),
+    ('SKU014', 'Product 14', 'Lorem ipsum dolor text', 31.99, 3.9, 30, TRUE, NOW(), NOW(), 2, 1, 3, 2, 4, 4, 4, 1, 2),
+    ('SKU015', 'Product 15', 'Lorem ipsum dolor text', 15.99, 2.3, 40, TRUE, NOW(), NOW(), 3, 1, 4, 3, 5, 5, 5, 2, 1),
+    ('SKU016', 'Product 16', 'Lorem ipsum dolor text', 27.99, 4.0, 50, TRUE, NOW(), NOW(), 1, 1, 5, 4, 1, 6, 1, 3, 4),
+    ('SKU017', 'Product 17', 'Lorem ipsum dolor text', 8.99, 1.2, 60, TRUE, NOW(), NOW(), 2, 1, 1, 5, 2, 2, 2, 2, 3),
+    ('SKU018', 'Product 18', 'Lorem ipsum dolor text', 36.99, 3.5, 70, TRUE, NOW(), NOW(), 3, 1, 2, 6, 3, 3, 3, 3, 2),
+    ('SKU019', 'Product 19', 'Lorem ipsum dolor text', 19.99, 2.1, 80, TRUE, NOW(), NOW(), 1, 1, 3, 1, 4, 4, 4, 2, 1),
+    ('SKU020', 'Product 20', 'Lorem ipsum dolor text', 19.99, 2.1, 80, TRUE, NOW(), NOW(), 1, 1, 3, 1, 4, 4, 4, 2, 1),
+    ('SKU021', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 80, TRUE, NOW(), NOW(), 1, 1, 3, 1, 4, 4, 1, 2, 1),
+    ('SKU022', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 0, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 4, 2, 2, 1),
+    ('SKU023', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 21, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 4, 3, 2, 1),
+    ('SKU024', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 10, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 4, 4, 2, 1),
+    ('SKU025', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 5, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 4, 5, 2, 1),
+    ('SKU026', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 4, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 4, 6, 2, 1),
+    ('SKU027', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 0, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 4, 7, 2, 1),
+    
+    ('SKU028', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 80, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 1, 2, 1),
+    ('SKU029', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 0, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 2, 2, 1),
+    ('SKU030', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 21, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 3, 2, 1),
+    ('SKU031', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 10, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 4, 2, 1),
+    ('SKU032', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 5, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 5, 2, 1),
+    ('SKU033', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 4, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 6, 2, 1),
+    ('SKU034', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 0, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 7, 2, 1);
 
 -- Insert statements for the product_and_product_media table
 INSERT INTO `product_and_product_media` (`product_id`, `product_media_id`)
@@ -137,7 +163,21 @@ VALUES
   (17, 2),
   (18, 3),
   (19, 1),
-  (20, 2);
+  (20, 1),
+  (21, 1),
+  (22, 2),
+  (23, 2),
+  (24, 2),
+  (25, 2),
+  (26, 2),
+  (27, 2),
+  (28, 2),
+  (29, 2),
+  (30, 2),
+  (31, 2),
+  (32, 2),
+  (33, 2),
+  (34, 2);
 
 -- Inserting data into the country table
 INSERT INTO `country` VALUES 
