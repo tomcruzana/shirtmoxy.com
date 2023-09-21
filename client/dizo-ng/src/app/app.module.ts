@@ -57,9 +57,10 @@ import { OrderDetailsComponent } from "./components/pages/orders/order-details/o
 import { OrdersComponent } from "./components/pages/orders/orders/orders.component";
 import { OrderConfirmationComponent } from "./components/pages/orders/order-confirmation/order-confirmation.component";
 import { ProductEditorComponent } from "./components/pages/product-editor/product-editor.component";
-import { ShippingAndReturnsComponent } from './components/pages/shipping-and-returns/shipping-and-returns.component';
-import { PriceQuantityCalculatorComponent } from './components/common/price-quantity-calculator/price-quantity-calculator.component';
-import { NumericInputOnlyDirective } from './directives/numeric-input-only.directive';
+import { ShippingAndReturnsComponent } from "./components/pages/shipping-and-returns/shipping-and-returns.component";
+import { PriceQuantityCalculatorComponent } from "./components/common/price-quantity-calculator/price-quantity-calculator.component";
+import { NumericInputOnlyDirective } from "./directives/numeric-input-only.directive";
+import { JoinPipe } from './pipes/join.pipe';
 
 @NgModule({
     declarations: [
@@ -110,6 +111,7 @@ import { NumericInputOnlyDirective } from './directives/numeric-input-only.direc
         ShippingAndReturnsComponent,
         PriceQuantityCalculatorComponent,
         NumericInputOnlyDirective,
+        JoinPipe,
     ],
     imports: [
         SweetAlert2Module,

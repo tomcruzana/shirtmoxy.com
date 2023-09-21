@@ -2,7 +2,6 @@ package com.shirtmoxy.app.entity;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,13 +20,13 @@ public class Material {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = "Material is required")
-	@Size(max = 255, message = "Material must not exceed 255 characters")
+	@NotBlank(message = "Material type is required")
+	@Size(max = 255, message = "Material type must not exceed 255 characters")
 	@Column(unique = true, nullable = false, length = 255)
-	private String material;
+	private String type;
 
-	@OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Variant> variantList;
+	@OneToMany(mappedBy = "material")
+	private List<Product> productList;
 
 	public Material() {
 	}
@@ -40,20 +39,20 @@ public class Material {
 		this.id = id;
 	}
 
-	public String getMaterial() {
-		return material;
+	public String getType() {
+		return type;
 	}
 
-	public void setMaterial(String material) {
-		this.material = material;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public List<Variant> getVariantList() {
-		return variantList;
+	public List<Product> getProductList() {
+		return productList;
 	}
 
-	public void setVariantList(List<Variant> variantList) {
-		this.variantList = variantList;
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
 	}
 
 }

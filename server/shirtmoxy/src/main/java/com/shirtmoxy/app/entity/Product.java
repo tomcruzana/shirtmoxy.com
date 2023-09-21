@@ -39,9 +39,49 @@ public class Product {
 	@Column(unique = true, nullable = false, length = 255)
 	private String sku;
 
+	@NotEmpty(message = "Name is required and must not be empty")
+	@Size(max = 255, message = "Name cannot exceed 255 characters")
+	@Column(nullable = false, length = 255)
+	private String name;
+
+	@NotEmpty(message = "Description is required and must not be empty")
+	@Size(max = 512, message = "Description cannot exceed 255 characters")
+	@Column(nullable = false, length = 512)
+	private String description;
+
+	@Digits(integer = 8, fraction = 2, message = "Price must have a maximum of 8 digits, including 2 decimal places")
+	@DecimalMin(value = "0.00", inclusive = true, message = "Price must be greater than or equal to 0.00")
+	@Column(name = "unit_price", nullable = false, columnDefinition = "DECIMAL(10,2)")
+	private BigDecimal unitPrice;
+
+	@Digits(integer = 8, fraction = 2, message = "Weight must have a maximum of 8 digits, including 2 decimal places")
+	@DecimalMin(value = "0.00", inclusive = true, message = "Weight must be greater than or equal to 0.00")
+	@DecimalMax(value = "999999.99", inclusive = true, message = "Weight must be less than or equal to 999999.99")
+	@Column(name = "weight", columnDefinition = "DECIMAL(10,2)")
+	private BigDecimal weight;
+
+	@Column(name = "units_in_stock")
+	private int unitsInStock;
+
+	@NotNull(message = "isActive must not be null")
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+	private boolean isActive;
+
+	@Column(name = "date_created")
+	@CreationTimestamp
+	private Date dateCreated;
+
+	@Column(name = "last_updated")
+	@UpdateTimestamp
+	private Date lastUpdated;
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "product_and_product_media", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "product_media_id"))
 	private Set<ProductMedia> productMediaSet;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_type_id", nullable = false)
+	private ProductType productType;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = false)
@@ -51,49 +91,25 @@ public class Product {
 	@JoinColumn(name = "manufacturer_id", nullable = false)
 	private Manufacturer manufacturer;
 
-	@NotEmpty(message = "Name is required and must not be empty")
-	@Size(max = 255, message = "Name cannot exceed 255 characters")
-	@Column(nullable = false, length = 255)
-	private String name;
-
-	@NotEmpty(message = "Description is required and must not be empty")
-	@Size(max = 255, message = "Description cannot exceed 255 characters")
-	@Column(nullable = false, length = 255)
-	private String description;
-
-	@Digits(integer = 8, fraction = 2, message = "Weight must have a maximum of 8 digits, including 2 decimal places")
-	@DecimalMin(value = "0.00", inclusive = true, message = "Weight must be greater than or equal to 0.00")
-	@DecimalMax(value = "999999.99", inclusive = true, message = "Weight must be less than or equal to 999999.99")
-	@Column(name = "weight", columnDefinition = "DECIMAL(10,2)")
-	private BigDecimal weight;
-
-	@Digits(integer = 8, fraction = 2, message = "Price must have a maximum of 8 digits, including 2 decimal places")
-	@DecimalMin(value = "0.00", inclusive = true, message = "Price must be greater than or equal to 0.00")
-	@Column(name = "unit_price", nullable = false, columnDefinition = "DECIMAL(10,2)")
-	private BigDecimal unitPrice;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "gender_id", nullable = false)
+	private Gender gender;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "variant_id", nullable = false)
-	private Variant variant;
+	@JoinColumn(name = "color_id", nullable = false)
+	private Color color;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "size_id", nullable = false)
+	private com.shirtmoxy.app.entity.Size size;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "material_id", nullable = false)
+	private Material material;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "barcode_id")
 	private Barcode barcode;
-
-	@NotNull(message = "isActive must not be null")
-	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-	private boolean isActive;
-
-	@Column(name = "units_in_stock")
-	private int unitsInStock;
-
-	@Column(name = "date_created")
-	@CreationTimestamp
-	private Date dateCreated;
-
-	@Column(name = "last_updated")
-	@UpdateTimestamp
-	private Date lastUpdated;
 
 	public Product() {
 	}
@@ -154,14 +170,6 @@ public class Product {
 		this.weight = weight;
 	}
 
-	public Variant getVariant() {
-		return variant;
-	}
-
-	public void setVariant(Variant variant) {
-		this.variant = variant;
-	}
-
 	public Barcode getBarcode() {
 		return barcode;
 	}
@@ -216,6 +224,46 @@ public class Product {
 
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
+	}
+
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public com.shirtmoxy.app.entity.Size getSize() {
+		return size;
+	}
+
+	public void setSize(com.shirtmoxy.app.entity.Size size) {
+		this.size = size;
+	}
+
+	public Material getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 }

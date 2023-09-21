@@ -3,7 +3,6 @@ package com.shirtmoxy.app.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,8 +39,8 @@ public class Size {
 	@Column(nullable = false, columnDefinition = "DECIMAL(4,1)")
 	private BigDecimal width;;
 
-	@OneToMany(mappedBy = "size", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Variant> variantList;
+	@OneToMany(mappedBy = "size")
+	private List<Product> productList;
 
 	public Size() {
 	}
@@ -78,12 +77,12 @@ public class Size {
 		this.width = width;
 	}
 
-	public List<Variant> getVariantList() {
-		return variantList;
+	public List<Product> getProductList() {
+		return productList;
 	}
 
-	public void setVariantList(List<Variant> variantList) {
-		this.variantList = variantList;
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
 	}
 
 }

@@ -13,22 +13,22 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "gender")
-public class Gender {
+@Table(name = "product_type")
+public class ProductType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotEmpty(message = "Name is required")
+    @Size(max = 255, message = "Name cannot exceed 255 characters")
+    @Column(unique = true, nullable = false, length = 255)
+	private String name;
 
-	@NotEmpty(message = "Type is required and must not be empty")
-	@Size(min = 1, max = 12, message = "Type must have a length of 1")
-	@Column(unique = true, nullable = false, length = 12)
-	private String type;
-
-	@OneToMany(mappedBy = "gender")
+	@OneToMany(mappedBy = "productType")
 	private List<Product> productList;
 
-	public Gender() {
+	public ProductType() {
 	}
 
 	public int getId() {
@@ -39,12 +39,12 @@ public class Gender {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getName() {
+		return name;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Product> getProductList() {

@@ -1146,7 +1146,6 @@ Search Btn Style
 
     color: $color-white;
     border: none !important;
-    border-radius: 0px !important;
     text-align: center;
     // position: relative;
     overflow: hidden;
@@ -1246,14 +1245,26 @@ $tertiary-colors: rgb(255, 102, 0),
 .product-content,
 .product-search-filter {
     .product-color-icons {
-        .r16 {
-            width: 16px;
-            height: 16px;
+        .r18 {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
         }
 
         .r36 {
+            cursor: pointer;
             width: 36px;
             height: 36px;
+        }
+
+        .active-color-36 {
+            border: 5px solid #fff !important;
+            outline:1px solid $title-color;
+        }
+
+        .active-color-18 {
+            border: 3px solid #fff !important;
+            outline:1px solid $title-color;
         }
 
         .round {
@@ -2538,7 +2549,7 @@ Breadcrumbs Style
         margin: 0;
 
         li {
-            font-size: 15px;
+            font-size: 14px;
             color: $carrot-orange-color;
             display: inline-block;
             margin-right: 10px;
@@ -4245,34 +4256,42 @@ Product Details Page Style
 }
 .product-desc {
     h3 {
+        color: $title-color;
         margin-bottom: 12px;
         font-size: 24px;
         font-weight: 600;
     }
     .price {
+        color: $title-color;
         margin-bottom: 10px;
-        font-size: 15px;
-        font-weight: 600;
+        font-size: 24px;
+        font-weight: 500;
 
         .old-price {
             text-decoration: line-through;
             color: $title-color;
             margin-left: 10px;
         }
+
+        .per-unit-text {
+            font-size: 18px;
+            font-weight: 400;
+        }
     }
     .product-review {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
 
         .rating {
             display: inline-block;
             padding-right: 5px;
-            font-size: 14px;
 
             i {
+                font-size: 20px;
                 color: $carrot-orange-color;
             }
         }
         .rating-count {
+            font-size: 14px;
             margin-left: 5px;
             display: inline-block;
             color: $title-color;
@@ -4339,16 +4358,6 @@ Product Details Page Style
                 font-size: 18px;
                 font-weight: 500;
             }
-        }
-    }
-    .product-add {
-        margin-top: 20px;
-
-        .default-btn {
-            border: none !important;
-            outline: none !important;
-            margin-right: 20px;
-            border-radius: 0;
         }
     }
     .product-share {

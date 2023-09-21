@@ -1,6 +1,12 @@
 export const AppConstants = {
     SIGNIN_API_URL: "/user",
-    PRODUCT_BY_ID: "/product",
+
+    PRODUCT_DETAILS: "/product/details",
+    ALL_AVAILABLE_COLORS_BY_PRODUCT_NAME: "/product/details/available-colors",
+    ALL_AVAILABLE_SIZES_BY_PRODUCT_NAME: "/product/details/available-sizes",
+    ALL_PRODUCT_IN_STOCK_SIZES: "/product/details/in-stock-sizes",
+    ALL_PRODUCT_OUT_OF_STOCK_SIZES: "/product/details/out-of-stock-sizes",
+
     ALL_PRODUCT_GENDERS_API_URL: "/product/gender/all",
     ALL_PRODUCT_CATEGORIES_API_URL: "/product/category/all",
     ALL_PRODUCT_COLORS_API_URL: "/product/color/all",
@@ -8,7 +14,7 @@ export const AppConstants = {
     ALL_PRODUCT_SIZES_API_URL: "/product/size/all",
     ALL_PRODUCT_MATERIALS_API_URL: "/product/material/all",
 
-    ALL_PRODUCTS_API_URL: "/product/all",
+    // ALL_PRODUCTS_API_URL: "/product/all",
     ALL_CLOTHING_PRODUCTS_BY_FILTERS_API_URL: "/product/clothing/all",
 
     ALL_PRODUCTS_SEARCH_API_URL: "/product/search",

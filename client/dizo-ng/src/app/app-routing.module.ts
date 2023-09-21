@@ -39,7 +39,7 @@ const routes: Routes = [
         path: "product/clothing/all/filteredList",
         component: ProductsComponent,
     },
-    { path: "product-details/:id", component: ProductsDetailsComponent },
+    { path: "product-details/:sku", component: ProductsDetailsComponent },
     { path: "product/search/:query", component: ProductsComponent },
     
     {

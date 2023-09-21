@@ -2,6 +2,23 @@
 
 <section class="product-detls ptb-100">
     <div class="container">
+        <!-- page breadcrumbs start -->
+        <div class="page-breadcrumbs">
+            <ul>
+                <li class="align-middle"><a routerLink="/home">Home</a></li>
+                <li><i class="bx bxs-chevrons-right align-middle"></i></li>
+                <li class="align-middle">
+                    <a routerLink="/product/clothing/all">All Products</a>
+                </li>
+                <li><i class="bx bxs-chevrons-right align-middle"></i></li>
+                <li class="align-middle">
+                    {{ p?.manufacturer.name | titlecase }} -
+                    {{ p?.name | titlecase }}
+                </li>
+            </ul>
+        </div>
+        <!-- page breadcrumbs end -->
+
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="product-detls-image">
@@ -14,99 +31,183 @@
 
             <div class="col-lg-6 col-md-12">
                 <div class="product-desc">
-                    <h3>
+                    <div class="product-review">
+                        <div class="rating">
+                            <i class="bx bxs-star align-middle"></i>
+                            <i class="bx bxs-star align-middle"></i>
+                            <i class="bx bxs-star align-middle"></i>
+                            <i class="bx bxs-star align-middle"></i>
+                            <i class="bx bxs-star-half align-middle"></i>
+                        </div>
+                        <a
+                            routerLink="/product-details"
+                            class="rating-count align-middle"
+                            >3 Reviews</a
+                        >
+                    </div>
+
+                    <h3 class="mb-0">
                         {{ p?.manufacturer.name | titlecase }} -
                         {{ p?.name | titlecase }}
                     </h3>
 
-                    <div class="price">
-                        <span class="new-price">{{
-                            p?.unitPrice | currency
-                        }}</span>
-                    </div>
+                    <!-- quantity pricing container start -->
 
-                    <div class="product-review">
-                        <div class="rating">
-                            <i class="bx bxs-star"></i>
-                            <i class="bx bxs-star"></i>
-                            <i class="bx bxs-star"></i>
-                            <i class="bx bxs-star"></i>
-                            <i class="bx bxs-star-half"></i>
+                    <div
+                        class="product-quantity-pricing-container d-flex flex-nowrap flex-column mb-3"
+                    >
+                        <div class="price mb-0">
+                            <span class="original-price">{{
+                                p?.unitPrice | currency
+                            }}</span>
+                            <!-- <span> - </span>
+                                <span class="highest-price">{{
+                                    p?.unitPrice | currency
+                                }}</span> -->
+                            <span class="per-unit-text"> / unit </span>
                         </div>
-                        <a routerLink="/product-details" class="rating-count"
-                            >3 reviews</a
-                        >
-                    </div>
 
-                    <p>
+                        <div class="input-count-area">
+                            <div class="input-counter">
+                                <span
+                                    class="minus-btn"
+                                    (click)="decrementQuantity()"
+                                >
+                                    <i class="bx bx-minus"></i>
+                                </span>
+
+                                <input
+                                    type="text"
+                                    minlength="1"
+                                    maxlength="3"
+                                    appNumericInputOnly
+                                    [(ngModel)]="quantity"
+                                    [ngModelOptions]="{
+                                        standalone: true
+                                    }"
+                                />
+
+                                <span
+                                    class="plus-btn"
+                                    (click)="incrementQuantity()"
+                                >
+                                    <i class="bx bx-plus"></i>
+                                </span>
+                            </div>
+
+                            <p class="text-dark small">
+                                Buy more, save more.
+                                <span class="current-quantity">{{
+                                    quantity
+                                }}</span>
+                                starting at
+                                <span
+                                    class="original-price text-decoration-line-through"
+                                    >{{
+                                        quantity * p?.unitPrice
+                                            | currency : "USD"
+                                    }}</span
+                                >
+
+                                <span class="discounted-price fw-bold">
+                                    {{
+                                        quantity * p?.unitPrice * (1 - 0.15)
+                                            | currency : "USD"
+                                    }}</span
+                                >
+                            </p>
+                        </div>
+                    </div>
+                    <!-- quantity pricing container end -->
+
+                    <p class="text-dark product-shorter-details">
                         {{ p?.description }}
                     </p>
 
-                    <div class="input-count-area">
-                        <h3>Quantity</h3>
+                    <button
+                        type="button"
+                        class="btn btn-link text-dark m-0 p-0 border-0"
+                        (click)="scrollTo(productLongerDetails)"
+                    >
+                        Read more
+                    </button>
 
-                        <div class="input-counter">
-                            <span class="minus-btn"
-                                ><i class="bx bx-minus"></i
-                            ></span>
-                            <input type="text" min="1" value="1" />
-                            <span class="plus-btn"
-                                ><i class="bx bx-plus"></i
-                            ></span>
+                    <div class="product-content available-colors my-3">
+                        <div class="color-name text-dark small">
+                            <span class="fw-bold">Color: </span>
+                            <span>{{ p?.color.name | titlecase }}</span>
+                        </div>
+
+                        <!-- available colors start -->
+                        <div class="product-color-icons d-flex flex-wrap">
+                            <div *ngFor="let color of productColors">
+                                <div
+                                    [attr.id]="color.name"
+                                    [class.active-color-18]="
+                                        color.name === activeColorName
+                                    "
+                                    (click)="
+                                        changeProductColorAndReloadDetails(
+                                            color.id
+                                        )
+                                    "
+                                    class="round r18"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    [attr.title]="color.name"
+                                    [style.background-color]="
+                                        'rgb(' +
+                                        color.red +
+                                        ',' +
+                                        color.green +
+                                        ',' +
+                                        color.blue +
+                                        ')'
+                                    "
+                                ></div>
+                            </div>
+                        </div>
+                        <!-- available colors end -->
+                    </div>
+
+                    <div class="product-content available-sizes my-3">
+                        <div class="color-name text-dark small">
+                            <span class="fw-bold">Sizes: </span>
+                        </div>
+
+                        <div class="product-size-icons d-flex flex-wrap">
+                            <p class="small text-success me-2">In stock:</p>
+                            <span class="small text-dark">{{
+                                inStockSizes | join : "type"
+                            }}</span>
+                        </div>
+                        <div class="product-size-icons d-flex flex-wrap">
+                            <p class="small text-danger me-2">Out of stock:</p>
+                            <span class="small text-dark">{{
+                                outOfStockSizes | join : "type"
+                            }}</span>
                         </div>
                     </div>
 
-                    <div class="product-add">
-                        <button class="default-btn m-1">
+                    <div class="slider-btn">
+                        <a routerLink="/sign-up" class="smoxy-btn"
+                            ><i class="bx bx-pencil align-middle"></i> Start
+                            Designing</a
+                        >
+                    </div>
+
+                    <!-- <div class="product-add">
+                         <button class="default-btn m-1">
                             <i class="bx bx-pencil align-middle"></i> Start
                             Designing
                         </button>
 
-                        <button class="default-btn m-1">Browse Designs</button>
+                        <button class="default-btn m-1">Browse Designs</button> 
 
-                        <!-- temp add to cart button -->
                         <button (click)="addToCart(p)" class="default-btn m-1">
                             Add to Cart
                         </button>
-                    </div>
-
-                    <div class="product-share">
-                        <ul>
-                            <li><span>Share:</span></li>
-                            <li>
-                                <a href="#" target="_blank" class="facebook-ico"
-                                    ><i class="bx bxl-facebook"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" class="tiktok-ico"
-                                    ><i class="bx bxl-tiktok"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    target="_blank"
-                                    class="instagram-ico"
-                                    ><i class="bx bxl-instagram"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" class="twitter-ico"
-                                    ><i class="bx bxl-twitter"></i
-                                ></a>
-                            </li>
-                            <!-- TODO - change to printerest -->
-                            <li>
-                                <a
-                                    href="#"
-                                    target="_blank"
-                                    class="printerest-ico"
-                                    ><i class="bx bxs-cube"></i
-                                ></a>
-                            </li>
-                        </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -115,7 +216,9 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <ul class="tabs">
-                                <li><a href="#">Description</a></li>
+                                <li>
+                                    <a href="#">Description</a>
+                                </li>
                                 <li><a href="#">Pricing</a></li>
                                 <li><a href="#">Size Chart</a></li>
                                 <li><a href="#">FAQ</a></li>
@@ -126,39 +229,121 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="tab_content current active">
                                 <div class="tabs_item current">
-                                    <div class="product-detls-tab-content">
-                                        <p>
-                                            Design inspiration lorem ipsum dolor
-                                            sit amet, consectetuer adipiscing
-                                            elit. Morbi commodo, ipsum sed
-                                            pharetra gravida, orci magna rhoncus
-                                            neque, id pulvinar odio lorem non
-                                            turpis. Nullam sit amet enim.
-                                            Suspendisse id velit vitae ligula
-                                            volutpat condimentum. Aliquam erat
-                                            volutpat. Sed quis velit. Nulla
-                                            facilisi. Nulla libero. Vivamus
-                                            pharetra posuere sapien. Nam
-                                            consectetuer. Sed aliquam, nunc eget
-                                            euismod ullamcorper, lectus nunc
-                                            ullamcorper orci, fermentum bibendum
-                                            enim nibh eget ipsum. Nam
-                                            consectetuer. Sed aliquam, nunc eget
-                                            euismod ullamcorper, lectus nunc
-                                            ullamcorper orci, fermentum bibendum
-                                            enim nibh eget ipsum. Nulla libero.
-                                            Vivamus pharetra posuere sapien.
+                                    <div
+                                        class="product-detls-tab-content"
+                                        #productLongerDetails
+                                    >
+                                        <p class="product-longer-details">
+                                            {{ p?.description }}
                                         </p>
                                         <ul class="additional-information">
-                                            <li><span>SKU:</span>12</li>
                                             <li>
-                                                <span>Category:</span>Business
+                                                <span>SKU:</span
+                                                >{{ p?.sku | uppercase }}
                                             </li>
                                             <li>
-                                                <span>Size:</span> Large, Medium
+                                                <span>Brand:</span
+                                                >{{
+                                                    p?.manufacturer.name
+                                                        | titlecase
+                                                }}
                                             </li>
-                                            <li><span>Tag:</span>Book Cover</li>
+                                            <li>
+                                                <span>Name:</span
+                                                >{{ p?.name | titlecase }}
+                                            </li>
+                                            <li>
+                                                <span>Type:</span
+                                                >{{
+                                                    p?.productType.name
+                                                        | titlecase
+                                                }}
+                                            </li>
+                                            <li>
+                                                <span>Barcode:</span
+                                                >{{
+                                                    p?.barcode.type | uppercase
+                                                }}
+                                            </li>
+                                            <li>
+                                                <span>Category:</span
+                                                >{{
+                                                    p?.category.name | titlecase
+                                                }}
+                                            </li>
+
+                                            <li>
+                                                <span>Weight:</span
+                                                >{{ p?.weight }} oz
+                                            </li>
+                                            <li>
+                                                <span>Color:</span
+                                                >{{ p?.color.name | titlecase }}
+                                            </li>
+                                            <li>
+                                                <span>Sizes:</span
+                                                >{{
+                                                    productSizes | join : "type"
+                                                }}
+                                            </li>
+                                            <li>
+                                                <span>Gender:</span
+                                                >{{
+                                                    p?.gender.type | titlecase
+                                                }}
+                                            </li>
+                                            <li>
+                                                <span>Material:</span
+                                                >{{
+                                                    p?.material.type | titlecase
+                                                }}
+                                            </li>
                                         </ul>
+                                        <div
+                                            class="product-content available-social-media my-3"
+                                        >
+                                            <div class="social-icons text-dark">
+                                                <span class="fw-bold"
+                                                    >Share:
+                                                </span>
+                                            </div>
+
+                                            <div
+                                                class="product-color-icons d-flex flex-wrap"
+                                            >
+                                                <span
+                                                    class="badge text-bg-light me-3"
+                                                    ><a
+                                                        href="#"
+                                                        target="_blank"
+                                                        class="facebook-ico text-secondary"
+                                                        ><i
+                                                            class="bx bx-sm bxl-facebook"
+                                                        ></i></a
+                                                ></span>
+                                                <span
+                                                    class="badge text-bg-light me-3"
+                                                    ><a
+                                                        href="#"
+                                                        target="_blank"
+                                                        class="tiktok-ico text-secondary"
+                                                        ><i
+                                                            class="bx bx-sm bxl-tiktok"
+                                                        ></i></a
+                                                ></span>
+
+                                                <span
+                                                    class="badge text-bg-light me-3"
+                                                    ><a
+                                                        href="#"
+                                                        target="_blank"
+                                                        class="twitter-ico text-secondary"
+                                                        ><i
+                                                            class="bx bx-sm bxl-twitter"
+                                                        ></i></a
+                                                ></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -246,6 +431,12 @@
                                 <div class="tabs_item">
                                     <div class="product-detls-tab-content">
                                         <h2>Size Chart</h2>
+                                        <img
+                                            class="mb-3"
+                                            src="assets/img/size-chart/clothing/tshirt/tshirt-size-chart.jpg"
+                                            alt="Products Size Chart"
+                                        />
+
                                         <p>Lorem ipsum dolor amet.</p>
                                         <table class="table text-center">
                                             <thead>
@@ -260,40 +451,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">XS</th>
+                                                <tr
+                                                    *ngFor="
+                                                        let size of productSizes
+                                                    "
+                                                >
+                                                    <th scope="row">
+                                                        {{
+                                                            size.type
+                                                                | uppercase
+                                                        }}
+                                                    </th>
                                                     <td>24.4</td>
                                                     <td>16.5</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">S</th>
-                                                    <td>25.6</td>
-                                                    <td>17.7</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">M</th>
-                                                    <td>26.4</td>
-                                                    <td>18.1</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">L</th>
-                                                    <td>27.2</td>
-                                                    <td>19.3</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">XL</th>
-                                                    <td>28.3</td>
-                                                    <td>23.2</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2XL</th>
-                                                    <td>29.1</td>
-                                                    <td>27.2</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3XL</th>
-                                                    <td>29.5</td>
-                                                    <td>28</td>
                                                 </tr>
                                             </tbody>
                                         </table>

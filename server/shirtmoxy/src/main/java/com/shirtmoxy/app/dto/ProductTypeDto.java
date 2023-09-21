@@ -2,20 +2,20 @@ package com.shirtmoxy.app.dto;
 
 import java.util.List;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class MaterialDto {
+public class ProductTypeDto {
 
 	private int id;
 
-	@NotBlank(message = "Material type is required")
-	@Size(max = 255, message = "Material type must not exceed 255 characters")
-	private String type;
+	@NotEmpty(message = "Name is required")
+	@Size(max = 255, message = "Name cannot exceed 255 characters")
+	private String name;
 
 	private List<ProductDto> productList;
 
-	public MaterialDto() {
+	public ProductTypeDto() {
 	}
 
 	public int getId() {
@@ -26,12 +26,12 @@ public class MaterialDto {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getName() {
+		return name;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<ProductDto> getProductList() {

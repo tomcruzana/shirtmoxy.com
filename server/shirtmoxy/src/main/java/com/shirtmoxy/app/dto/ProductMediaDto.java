@@ -42,4 +42,11 @@ public class ProductMediaDto {
 		this.url = url;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductMediaDto [id=" + id + ", name=" + name + ", url=" + url + "]";
+	}
+
+	
+	
 }

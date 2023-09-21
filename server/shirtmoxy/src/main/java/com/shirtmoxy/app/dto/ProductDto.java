@@ -16,39 +16,47 @@ public class ProductDto {
 	@NotEmpty(message = "SKU is required and must not be empty")
 	@Size(max = 255, message = "SKU cannot exceed 255 characters")
 	private String sku;
-
-	private Set<ProductMediaDto> productMediaSet;
-
-	private CategoryDto category;
-
-	private ManufacturerDto manufacturer;
-
+	
 	@NotEmpty(message = "Name is required and must not be empty")
 	@Size(max = 255, message = "Name cannot exceed 255 characters")
 	private String name;
-
+	
 	@NotEmpty(message = "Description is required and must not be empty")
-	@Size(max = 255, message = "Description cannot exceed 255 characters")
+	@Size(max = 512, message = "Description cannot exceed 255 characters")
 	private String description;
-
-	@DecimalMax(value = "999999.99", inclusive = true, message = "Weight must be less than or equal to 999999.99")
-	private BigDecimal weight;
-
+	
 	@DecimalMax(value = "999999.99", inclusive = true, message = "Price must be less than or equal to 999999.99")
 	private BigDecimal unitPrice;
-
-	private VariantDto variant;
-
-	private BarcodeDto barcode;
-
+	
+	@DecimalMax(value = "999999.99", inclusive = true, message = "Weight must be less than or equal to 999999.99")
+	private BigDecimal weight;
+	
+	private int unitsInStock;
+	
 	@NotNull(message = "isActive must not be null")
 	private boolean isActive;
-
-	private int unitsInStock;
 
 	private Date dateCreated;
 
 	private Date lastUpdated;
+
+	private Set<ProductMediaDto> productMediaSet;
+	
+	private ProductTypeDto productType;
+
+	private CategoryDto category;
+
+	private ManufacturerDto manufacturer;
+	
+	private GenderDto gender;
+	
+	private ColorDto color;
+	
+	private SizeDto size;
+	
+	private MaterialDto material;
+
+	private BarcodeDto barcode;
 
 	public ProductDto() {
 	}
@@ -125,13 +133,6 @@ public class ProductDto {
 		this.unitPrice = price;
 	}
 
-	public VariantDto getVariant() {
-		return variant;
-	}
-
-	public void setVariant(VariantDto variant) {
-		this.variant = variant;
-	}
 
 	public BarcodeDto getBarcode() {
 		return barcode;
@@ -172,5 +173,52 @@ public class ProductDto {
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+
+	public ProductTypeDto getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductTypeDto productType) {
+		this.productType = productType;
+	}
+
+	public GenderDto getGender() {
+		return gender;
+	}
+
+	public void setGender(GenderDto gender) {
+		this.gender = gender;
+	}
+
+	public ColorDto getColor() {
+		return color;
+	}
+
+	public void setColor(ColorDto color) {
+		this.color = color;
+	}
+
+	public SizeDto getSize() {
+		return size;
+	}
+
+	public void setSize(SizeDto size) {
+		this.size = size;
+	}
+
+	public MaterialDto getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(MaterialDto material) {
+		this.material = material;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductDto [productMediaSet=" + productMediaSet + "]";
+	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.shirtmoxy.app.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -23,6 +24,8 @@ public class SizeDto {
 	@DecimalMin(value = "0.0", inclusive = true, message = "Width must be greater than or equal to 0.0")
 	@DecimalMax(value = "999.9", inclusive = true, message = "Width must be less than or equal to 999.9")
 	private BigDecimal width;
+
+	private List<ProductDto> productList;
 
 	public SizeDto() {
 	}
@@ -57,6 +60,14 @@ public class SizeDto {
 
 	public void setWidth(BigDecimal width) {
 		this.width = width;
+	}
+
+	public List<ProductDto> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<ProductDto> productList) {
+		this.productList = productList;
 	}
 
 }
