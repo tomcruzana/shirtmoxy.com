@@ -101,9 +101,3 @@ CREATE TABLE IF NOT EXISTS `product_and_product_media` (
   FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   FOREIGN KEY (`product_media_id`) REFERENCES `product_media` (`id`)
 ) ENGINE = INNODB;
-
--- Add FULLTEXT index for search functionality
-ALTER TABLE
-  `product`
-ADD
-  FULLTEXT(`SKU`, `name`, `description`); #@TODO - add manufacturer

@@ -1,6 +1,5 @@
 package com.shirtmoxy.app.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,19 +11,30 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shirtmoxy.app.dto.ProductDto;
 import com.shirtmoxy.app.dto.ProductSkuDto;
+import com.shirtmoxy.app.entity.Category;
+import com.shirtmoxy.app.entity.Color;
+import com.shirtmoxy.app.entity.Gender;
+import com.shirtmoxy.app.entity.Manufacturer;
+import com.shirtmoxy.app.entity.Material;
 import com.shirtmoxy.app.entity.Product;
+import com.shirtmoxy.app.entity.Size;
 import com.shirtmoxy.app.exception.ProductException;
+import com.shirtmoxy.app.repository.CategoryRepository;
+import com.shirtmoxy.app.repository.ColorRepository;
+import com.shirtmoxy.app.repository.GenderRepository;
+import com.shirtmoxy.app.repository.ManufacturerRepository;
+import com.shirtmoxy.app.repository.MaterialRepository;
 import com.shirtmoxy.app.repository.ProductRepository;
+import com.shirtmoxy.app.repository.SizeRepository;
 import com.shirtmoxy.app.utils.helper.converter.ObjectConverter;
 
-import jakarta.persistence.criteria.Predicate;
-
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	// number of product items per page
@@ -34,138 +44,149 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepo;
 
 	@Autowired
+	private CategoryRepository categoryRepo;
+
+	@Autowired
+	private ManufacturerRepository manufacturerRepo;
+
+	@Autowired
+	private GenderRepository genderRepo;
+
+	@Autowired
+	private ColorRepository colorRepo;
+
+	@Autowired
+	private SizeRepository sizeRepo;
+	
+	@Autowired
+	private MaterialRepository materialRepo;
+
+	@Autowired
 	@Qualifier("ProductConverter")
 	private ObjectConverter<ProductDto, Product> productConverter;
 
-	// TODO - to be deleted
 	@Override
-	public Page<ProductDto> readAllProducts(int pageNum, int pageSize) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
-		Page<Product> productsPage = productRepo.findAll(pageable);
-
-		List<ProductDto> productDtos = new ArrayList<>();
-
-		for (Product product : productsPage.getContent()) {
-			ProductDto productDto = productConverter.convertToDTO(product);
-
-			productDtos.add(productDto);
-		}
-
-		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
-	}
-
-	@Override
-	public Page<ProductDto> search(String keyword, int pageNum, int pageSize) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("name"));
-		Page<Product> searchResult = productRepo.search(keyword, pageable);
-
-		List<ProductDto> productDtos = new ArrayList<>();
-
-		for (Product product : searchResult.getContent()) {
-			ProductDto productDto = productConverter.convertToDTO(product);
-			productDtos.add(productDto);
-		}
-
-		return new PageImpl<>(productDtos, pageable, searchResult.getTotalElements());
-	}
-
-	@Override
-	public Page<ProductDto> readByCategoryId(int id, int pageNum, int pageSize) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
-		Page<Product> productsPage = productRepo.findByCategoryId(id, pageable);
-
-		List<ProductDto> productDtos = new ArrayList<>();
-
-		for (Product product : productsPage.getContent()) {
-			ProductDto productDto = productConverter.convertToDTO(product);
-			productDtos.add(productDto);
-		}
-
-		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
-	}
-
-	@Override
-	public Page<ProductDto> readByGenderId(int id, int pageNum, int pageSize) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
-		Page<Product> productsPage = productRepo.findByGenderId(id, pageable);
-
-		List<ProductDto> productDtos = new ArrayList<>();
-
-		for (Product product : productsPage.getContent()) {
-			ProductDto productDto = productConverter.convertToDTO(product);
-			productDtos.add(productDto);
-		}
-
-		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
-	}
-
-	@Override
-	public Page<ProductDto> readByManufacturerId(int id, int pageNum, int pageSize) throws ProductException {
-		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
-		Page<Product> productsPage = productRepo.findByManufacturerId(id, pageable);
-
-		List<ProductDto> productDtos = new ArrayList<>();
-
-		for (Product product : productsPage.getContent()) {
-			ProductDto productDto = productConverter.convertToDTO(product);
-			productDtos.add(productDto);
-		}
-
-		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
-	}
-
-	@Override
-	public Page<ProductDto> readFilteredProducts(String productType, String category, List<String> manufacturers,
-			List<String> genders, List<String> colors, List<String> sizes, List<String> materials, int pageNum,
-			int pageSize) throws ProductException {
+	public Page<ProductDto> readFilteredProducts(String productType, String searchQuery, List<String> categories,
+			List<String> manufacturers, List<String> genders, List<String> colors, List<String> sizes,
+			List<String> materials, int pageNum, int pageSize) throws ProductException {
+		// Create a Pageable object for pagination
 		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("id"));
 
-		// This code allows us to filter products based on the provided parameters, and
-		// it's scalable, so we can easily add more filter criteria as needed
+		// check if product type is null or empty
+		if (productType == null || productType.isEmpty()) {
+			throw new ProductException("Product type must be specified.");
+		}
 
-		// Create a Specification to dynamically build the query
-		Specification<Product> spec = (root, query, cb) -> {
-			List<Predicate> predicates = new ArrayList<>();
+		// @TODO: temporary sanitation & validation
+		if (searchQuery != null && !searchQuery.isEmpty()) {
+			// Trim leading and trailing whitespace
+			searchQuery = searchQuery.trim();
+			System.out.println("Log: Trimmed searchQuery: |" + searchQuery + "|");
+		}
 
-			if (productType != null) {
-				predicates.add(cb.equal(root.get("productType").get("name"), productType));
-			}
+		// Check if category is null or empty
+		if (categories == null || categories.isEmpty()) {
+			// Fetch all category names from a repository method
+			List<Category> categoryList = categoryRepo.findAll();
 
-			if (category != null) {
-				predicates.add(cb.equal(root.get("category").get("name"), category));
-			}
+			// Extract category names from Category objects
+			List<String> categoryNames = categoryList.stream().map(Category::getName).collect(Collectors.toList());
 
-			if (manufacturers != null && !manufacturers.isEmpty()) {
-				predicates.add(root.get("manufacturer").get("name").in(manufacturers));
-			}
+			// Assign the categoryNames to the category list
+			categories = categoryNames;
 
-			if (genders != null && !genders.isEmpty()) {
-				predicates.add(root.get("gender").get("type").in(genders));
-			}
+			// TEMP LOG
+			String result = categories.stream().collect(Collectors.joining(", "));
 
-			if (colors != null && !colors.isEmpty()) {
-				predicates.add(root.get("color").get("name").in(colors));
-			}
+			System.out.println("CATEGORY WAS DETECTED EMPTY. SO WE ADDED ALL" + result);
+		}
 
-			if (sizes != null && !sizes.isEmpty()) {
-				predicates.add(root.get("size").get("type").in(sizes));
-			}
+		// Check if manufacturers is null or empty
+		if (manufacturers == null || manufacturers.isEmpty()) {
+			// Fetch all category names from a repository method
+			List<Manufacturer> manufacturerList = manufacturerRepo.findAll();
 
-			if (materials != null && !materials.isEmpty()) {
-				predicates.add(root.get("material").get("type").in(materials));
-			}
+			List<String> manufacturerNames = manufacturerList.stream().map(Manufacturer::getName)
+					.collect(Collectors.toList());
 
-			return cb.and(predicates.toArray(new Predicate[0]));
-		};
+			manufacturers = manufacturerNames;
 
-		// find filtered products
-		Page<Product> productsPage = productRepo.findAll(spec, pageable);
+			// TEMP LOG
+			String result = manufacturers.stream().collect(Collectors.joining(", "));
 
-		// convert to dto
-		List<ProductDto> productDtos = productsPage.getContent().stream().map(productConverter::convertToDTO)
+			System.out.println("MANUFACTURER WAS DETECTED EMPTY. SO WE ADDED ALL" + result);
+		}
+
+		// Check if genders is null or empty
+		if (genders == null || genders.isEmpty()) {
+			// Fetch all category names from a repository method
+			List<Gender> genderList = genderRepo.findAll();
+
+			List<String> genderNames = genderList.stream().map(Gender::getType).collect(Collectors.toList());
+
+			genders = genderNames;
+
+			// TEMP LOG
+			String result = genders.stream().collect(Collectors.joining(", "));
+
+			System.out.println("GENDER WAS DETECTED EMPTY. SO WE ADDED ALL" + result);
+		}
+
+		// Check if colors is null or empty
+		if (colors == null || colors.isEmpty()) {
+			// Fetch all category names from a repository method
+			List<Color> colorList = colorRepo.findAll();
+
+			List<String> colorNames = colorList.stream().map(Color::getName).collect(Collectors.toList());
+
+			colors = colorNames;
+
+			// TEMP LOG
+			String result = colors.stream().collect(Collectors.joining(", "));
+
+			System.out.println("COLOR WAS DETECTED EMPTY. SO WE ADDED ALL" + result);
+		}
+
+		// Check if sizes is null or empty
+		if (sizes == null || sizes.isEmpty()) {
+			// Fetch all category names from a repository method
+			List<Size> sizeList = sizeRepo.findAll();
+
+			List<String> sizeNames = sizeList.stream().map(Size::getType).collect(Collectors.toList());
+
+			sizes = sizeNames;
+
+			// TEMP LOG
+			String result = sizes.stream().collect(Collectors.joining(", "));
+
+			System.out.println("SIZE WAS DETECTED EMPTY. SO WE ADDED ALL" + result);
+		}
+
+		// Check if materials is null or empty
+		if (materials == null || materials.isEmpty()) {
+			// Fetch all category names from a repository method
+			List<Material> materialList = materialRepo.findAll();
+
+			List<String> materialNames = materialList.stream().map(Material::getType).collect(Collectors.toList());
+
+			materials = materialNames;
+
+			// TEMP LOG
+			String result = materials.stream().collect(Collectors.joining(", "));
+
+			System.out.println("MATERIAL WAS DETECTED EMPTY. SO WE ADDED ALL" + result);
+		}
+
+		// Call the repository method with the provided parameters
+		Page<Product> filteredProducts = productRepo.findFilteredProducts(productType, searchQuery, categories,
+				manufacturers, genders, colors, sizes, materials, pageable);
+
+		// Convert the Page<Product> to DTOs using the ProductConverter
+		List<ProductDto> productDtos = filteredProducts.getContent().stream().map(productConverter::convertToDTO)
 				.collect(Collectors.toList());
 
-		return new PageImpl<>(productDtos, pageable, productsPage.getTotalElements());
+		// Create a PageImpl for the final return output
+		return new PageImpl<>(productDtos, pageable, filteredProducts.getTotalElements());
 	}
 
 	@Override
@@ -177,14 +198,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductSkuDto readProductDetailsByNameAndColor(String productName, int colorId) throws ProductException {
+	public ProductSkuDto readProductSkuByNameAndColor(String productName, int colorId) throws ProductException {
 		Optional<Product> productOptional = productRepo.findProductsByNameAndColorGrouped(productName, colorId);
-		Product product = productOptional.orElseThrow(() -> new ProductException("No products found"));
+		Product product = productOptional.orElseThrow(() -> new ProductException("No product SKUs found"));
 
 		ProductSkuDto productSkuDto = new ProductSkuDto();
 		productSkuDto.setSku(product.getSku());
 
 		return productSkuDto;
+	}
+
+	@Override
+	public ProductDto readProductDetailsByNameAndColor(String productName, int colorId) throws ProductException {
+		Optional<Product> productOptional = productRepo.findProductsByNameAndColorGrouped(productName, colorId);
+		Product product = productOptional.orElseThrow(() -> new ProductException("No products found"));
+
+		return productConverter.convertToDTO(product);
 	}
 
 }

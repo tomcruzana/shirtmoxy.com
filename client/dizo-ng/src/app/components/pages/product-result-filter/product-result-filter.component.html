@@ -1,0 +1,30 @@
+<div class="d-flex">
+    <div class="form-group-select me-4 d-flex">
+        <label class="text-dark" for="inputSortBy">Sort by</label>
+        <div id="inputSortBy" class="select-box">
+            <select class="form-control">
+                <option selected="true">Recommended</option>
+                <option>Price low to high</option>
+                <option>Price high to low</option>
+                <option>Best Selling</option>
+                <option>Rating</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group-select d-flex">
+        <label class="text-dark" for="inputPageSize">Page Size</label>
+        <div id="inputPageSize" class="select-box">
+            <select
+                #pageSizeSelect
+                (change)="updatePageSize(pageSizeSelect.value)"
+                class="form-control"
+            >
+                <option selected="true">10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+            </select>
+        </div>
+    </div>
+</div>

@@ -40,8 +40,6 @@ const routes: Routes = [
         component: ProductsComponent,
     },
     { path: "product-details/:sku", component: ProductsDetailsComponent },
-    { path: "product/search/:query", component: ProductsComponent },
-    
     {
         path: "product-editor",
         component: ProductEditorComponent,
@@ -58,7 +56,7 @@ const routes: Routes = [
     {
         path: "user/projects",
         component: UserProjectsComponent,
-        canActivate: [AuthActivateRouteGuard],
+        // canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/profile",
@@ -68,22 +66,22 @@ const routes: Routes = [
     {
         path: "user/orders",
         component: OrdersComponent,
-        // ,canActivate: [AuthActivateRouteGuard],
+        // canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/orders/details",
         component: OrderDetailsComponent,
-        // ,canActivate: [AuthActivateRouteGuard],
+        // canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/password-reset",
         component: ChangePasswordComponent,
-        canActivate: [AuthActivateRouteGuard],
+        // canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "user/manage-account",
         component: ManageAccountComponent,
-        canActivate: [AuthActivateRouteGuard],
+        // canActivate: [AuthActivateRouteGuard],
     },
     {
         path: "checkout",

@@ -47,7 +47,7 @@ public class ProjectSecurityConfig {
 					}
 				}))
 				.csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler)
-						.ignoringRequestMatchers("/contact", "/sign-in", "/sign-up", "/subscribe", "/checkout/**") // @TODO
+						.ignoringRequestMatchers("/contact/**", "/sign-in", "/sign-up", "/subscribe", "/checkout/**", "/user") // @TODO
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
 						.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
 						.addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
@@ -62,7 +62,7 @@ public class ProjectSecurityConfig {
 							.requestMatchers("/user/manage-account").hasRole("REGISTERED_USER")
 //							.requestMatchers("/user/orders/**").hasRole("REGISTERED_USER")
 							.requestMatchers("/user").authenticated()
-							.requestMatchers("/home", "/product/**", "/about", "/contact", "/faq", "/shipping-and-returns",
+							.requestMatchers("/home", "/product/**", "/about", "/contact/**", "/faq", "/shipping-and-returns",
 									"/sign-in", "/sign-up", "/sign-out", "/recover-password", "/track", "/cart",
 									"/checkout/**", "/subscribe", "/terms-condition", "/privacy-policy", "/coming-soon",
 									"/storeform/**", "/user/orders/**")

@@ -1,0 +1,171 @@
+<div class="product-filter-pills d-flex justify-content-start flex-wrap my-3">
+    <!-- Search filter -->
+    <div
+        class="search-filter-pill filter-pill"
+        *ngIf="filterPills.search"
+        (click)="removeFromProductFilters('', filterPills.search, 'query')"
+    >
+        <span
+            class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+        >
+            Search: {{ filterPills.search }}
+            <button
+                type="button"
+                class="btn-close"
+                disabled
+                aria-label="Close"
+            ></button>
+        </span>
+    </div>
+
+    <!-- Category filter -->
+    <div
+        class="category-filter-pill filter-pill"
+        *ngIf="filterPills.category"
+        (click)="removeFromProductFilters('', filterPills.category, 'category')"
+    >
+        <span
+            class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+        >
+            {{ filterPills.category }}
+            <button
+                type="button"
+                class="btn-close"
+                disabled
+                aria-label="Close"
+            ></button>
+        </span>
+    </div>
+
+    <!-- Colors filter -->
+    <ng-container *ngIf="filterPills.colors">
+        <div
+            class="category-filter-pill filter-pill"
+            *ngFor="let color of filterPills.colors"
+            (click)="
+                removeFromProductFilters(color, filterPills.colors, 'colors')
+            "
+        >
+            <span
+                class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+            >
+                {{ color }}
+                <button
+                    type="button"
+                    class="btn-close"
+                    disabled
+                    aria-label="Close"
+                ></button>
+            </span>
+        </div>
+    </ng-container>
+
+    <!-- Genders filter -->
+    <ng-container *ngIf="filterPills.genders">
+        <div
+            class="category-filter-pill filter-pill"
+            *ngFor="let gender of filterPills.genders"
+            (click)="
+                removeFromProductFilters(gender, filterPills.genders, 'genders')
+            "
+        >
+            <span
+                class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+            >
+                {{ gender }}
+                <button
+                    type="button"
+                    class="btn-close"
+                    disabled
+                    aria-label="Close"
+                ></button>
+            </span>
+        </div>
+    </ng-container>
+
+    <!-- Manufacturers filter -->
+    <ng-container *ngIf="filterPills.manufacturers">
+        <div
+            class="category-filter-pill filter-pill"
+            *ngFor="let manufacturer of filterPills.manufacturers"
+            (click)="
+                removeFromProductFilters(
+                    manufacturer,
+                    filterPills.manufacturers,
+                    'manufacturers'
+                )
+            "
+        >
+            <span
+                class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+            >
+                {{ manufacturer }}
+                <button
+                    type="button"
+                    class="btn-close"
+                    disabled
+                    aria-label="Close"
+                ></button>
+            </span>
+        </div>
+    </ng-container>
+
+    <!-- Sizes filter -->
+    <ng-container *ngIf="filterPills.sizes">
+        <div
+            class="category-filter-pill filter-pill"
+            *ngFor="let size of filterPills.sizes"
+            (click)="removeFromProductFilters(size, filterPills.sizes, 'sizes')"
+        >
+            <span
+                class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+            >
+                {{ size }}
+                <button
+                    type="button"
+                    class="btn-close"
+                    disabled
+                    aria-label="Close"
+                ></button>
+            </span>
+        </div>
+    </ng-container>
+
+    <!-- Materials filter -->
+    <ng-container *ngIf="filterPills.materials">
+        <div
+            class="category-filter-pill filter-pill"
+            *ngFor="let material of filterPills.materials"
+            (click)="
+                removeFromProductFilters(
+                    material,
+                    filterPills.materials,
+                    'materials'
+                )
+            "
+        >
+            <span
+                class="border badge rounded-pill text-dark px-3 py-2 me-3 my-1 align-middle"
+            >
+                {{ material }}
+                <button
+                    type="button"
+                    class="btn-close"
+                    disabled
+                    aria-label="Close"
+                ></button>
+            </span>
+        </div>
+    </ng-container>
+
+    <ng-container>
+        <button
+            type="button"
+            class="btn text-dark btn-link border-0"
+            *ngIf="hasFilterValue()"
+            (click)="clearAllFiltersExceptCategory()"
+        >
+            Clear All
+        </button>
+    </ng-container>
+</div>

@@ -10,21 +10,13 @@ import com.shirtmoxy.app.exception.ProductException;
 
 public interface ProductService {
 
-	public Page<ProductDto> readAllProducts(int pageNum, int pageSize) throws ProductException;
-
-	public Page<ProductDto> search(String keyword, int pageNum, int pageSize) throws ProductException;
-
-	public Page<ProductDto> readByCategoryId(int id, int pageNum, int pageSize) throws ProductException;
-
-	public Page<ProductDto> readByGenderId(int id, int pageNum, int pageSize) throws ProductException;
-
-	public Page<ProductDto> readByManufacturerId(int id, int pageNum, int pageSize) throws ProductException;
-
-	public Page<ProductDto> readFilteredProducts(String productType, String category, List<String> manufacturers,
-			List<String> genders, List<String> colors, List<String> sizes, List<String> materials, int pageNum,
-			int pageSize) throws ProductException;
+	public Page<ProductDto> readFilteredProducts(String productType, String searchQuery, List<String> category,
+			List<String> manufacturers, List<String> genders, List<String> colors, List<String> sizes,
+			List<String> materials, int pageNum, int pageSize) throws ProductException;
 
 	public ProductDto readProductDetailsBySku(String sku) throws ProductException;
 
-	public ProductSkuDto readProductDetailsByNameAndColor(String productName, int colorId) throws ProductException;
+	public ProductSkuDto readProductSkuByNameAndColor(String productName, int colorId) throws ProductException;
+
+	public ProductDto readProductDetailsByNameAndColor(String productName, int colorId) throws ProductException;
 }

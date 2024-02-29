@@ -60,7 +60,14 @@ import { ProductEditorComponent } from "./components/pages/product-editor/produc
 import { ShippingAndReturnsComponent } from "./components/pages/shipping-and-returns/shipping-and-returns.component";
 import { PriceQuantityCalculatorComponent } from "./components/common/price-quantity-calculator/price-quantity-calculator.component";
 import { NumericInputOnlyDirective } from "./directives/numeric-input-only.directive";
-import { JoinPipe } from './pipes/join.pipe';
+import { JoinPipe } from "./pipes/join.pipe";
+import { ProductFilterPillsComponent } from "./components/common/product-filter-pills/product-filter-pills.component";
+import { NoWhitespaceDirective } from "./directives/no-whitespace.directive";
+import { Event, Router, NavigationEnd, Scroll } from "@angular/router";
+import { ViewportScroller } from "@angular/common";
+import { filter, pairwise } from "rxjs/operators";
+import { UserAddressComponent } from './components/user-address/user-address.component';
+import { UserPaymentInformationComponent } from './components/user-payment-information/user-payment-information.component';
 
 @NgModule({
     declarations: [
@@ -112,6 +119,10 @@ import { JoinPipe } from './pipes/join.pipe';
         PriceQuantityCalculatorComponent,
         NumericInputOnlyDirective,
         JoinPipe,
+        ProductFilterPillsComponent,
+        NoWhitespaceDirective,
+        UserAddressComponent,
+        UserPaymentInformationComponent,
     ],
     imports: [
         SweetAlert2Module,

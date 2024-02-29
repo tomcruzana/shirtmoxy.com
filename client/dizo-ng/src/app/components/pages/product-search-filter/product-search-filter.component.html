@@ -1,0 +1,412 @@
+<div id="sidebar" class="collapse collapse-horizontal show">
+    <div
+        id="sidebar-nav"
+        class="list-group border-0 rounded-0 text-sm-start min-vh-100"
+    >
+        <!-- search controls area start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <div class="product-search ps-3">
+                <app-product-search-bar></app-product-search-bar>
+            </div>
+        </div>
+        <!-- search controls area end -->
+
+        <!-- category filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#categoryFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['categoryFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'categoryFilterCollapse'"
+                (click)="toggleFilterCollapse('categoryFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Categories</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['categoryFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="categoryFilterCollapse">
+                <ul class="list-unstyled ps-4">
+                    <li class="border-start">
+                        <button
+                            class="btn btn-link border-0 ps-2 link-dark text-underline-hover"
+                            [class.active-link-btn]="activeButton === 'all'"
+                            (click)="
+                                addToProductFilters('', '', 'categories');
+                                activeButton = 'all'
+                            "
+                        >
+                            {{ "all" | titlecase }}
+                        </button>
+                    </li>
+                    <li
+                        class="border-start"
+                        *ngFor="let category of productCategories"
+                    >
+                        <button
+                            class="btn btn-link border-0 ps-2 link-dark text-underline-hover"
+                            [class.active-link-btn]="
+                                activeButton === category.name
+                            "
+                            (click)="
+                                addToProductFilters(
+                                    category.name,
+                                    categoriesFilter,
+                                    'categories'
+                                );
+                                activeButton = category.name
+                            "
+                        >
+                            {{ category.name | titlecase }}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- category filter end -->
+
+        <!-- color filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#colorFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['colorFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'colorFilterCollapse'"
+                (click)="toggleFilterCollapse('colorFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Colors</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['colorFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="colorFilterCollapse">
+                <ul class="list-unstyled ps-2">
+                    <li>
+                        <div class="product-search-filter">
+                            <div class="product-color-icons d-flex flex-wrap">
+                                <div *ngFor="let color of productColors">
+                                    <div
+                                        [attr.id]="color.name"
+                                        class="round r36 my-2 ms-0 me-2"
+                                        [class.active-color-36]="
+                                            colorsFilter.includes(color.name)
+                                        "
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        [attr.title]="color.name"
+                                        [style.background-color]="
+                                            'rgb(' +
+                                            color.red +
+                                            ',' +
+                                            color.green +
+                                            ',' +
+                                            color.blue +
+                                            ')'
+                                        "
+                                        (click)="
+                                            addToProductFilters(
+                                                color.name,
+                                                colorsFilter,
+                                                'colors'
+                                            )
+                                        "
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- color filter end -->
+
+        <!-- price filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#priceFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['priceFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'priceFilterCollapse'"
+                (click)="toggleFilterCollapse('priceFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Price Range - $</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['priceFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="priceFilterCollapse">TODO</div>
+        </div>
+        <!-- price filter end -->
+
+        <!-- gender / manufacturer filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#genderFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['genderFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'genderFilterCollapse'"
+                (click)="toggleFilterCollapse('genderFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Gender</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['genderFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="genderFilterCollapse">
+                <ul class="list-unstyled ps-4">
+                    <li *ngFor="let gender of productGenders">
+                        <div class="form-check ps-4">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                [attr.id]="gender.type"
+                                [value]="gender.type"
+                                [checked]="gendersFilter.includes(gender.type)"
+                                (change)="
+                                    addToProductFilters(
+                                        gender.type,
+                                        gendersFilter,
+                                        'genders'
+                                    )
+                                "
+                            />
+                            <label
+                                class="form-check-label"
+                                [attr.for]="gender.type"
+                                >{{ gender.type | titlecase }}</label
+                            >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- gender filter end -->
+
+        <!-- brand / manufacturer filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#brandFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['brandFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'brandFilterCollapse'"
+                (click)="toggleFilterCollapse('brandFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Brand</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['brandFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="brandFilterCollapse">
+                <ul class="list-unstyled ps-4">
+                    <li *ngFor="let manufacturer of productManufacturers">
+                        <div class="form-check ps-4">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                [attr.id]="manufacturer.name"
+                                [value]="manufacturer.name"
+                                [checked]="
+                                    manufacturersFilter.includes(
+                                        manufacturer.name
+                                    )
+                                "
+                                (change)="
+                                    addToProductFilters(
+                                        manufacturer.name,
+                                        manufacturersFilter,
+                                        'manufacturers'
+                                    )
+                                "
+                            />
+                            <label
+                                class="form-check-label"
+                                [attr.for]="manufacturer.name"
+                                >{{ manufacturer.name | titlecase }}</label
+                            >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- brand / manufacturer filter end -->
+
+        <!-- size filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#sizeFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['sizeFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'sizeFilterCollapse'"
+                (click)="toggleFilterCollapse('sizeFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Size</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['sizeFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="sizeFilterCollapse">
+                <ul class="list-unstyled ps-4">
+                    <li *ngFor="let size of productSizes">
+                        <div class="form-check ps-4">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                [attr.id]="size.type"
+                                [value]="size.type"
+                                [checked]="sizesFilter.includes(size.type)"
+                                (change)="
+                                    addToProductFilters(
+                                        size.type,
+                                        sizesFilter,
+                                        'sizes'
+                                    )
+                                "
+                            />
+                            <label
+                                class="form-check-label"
+                                [attr.for]="size.type"
+                            >
+                                {{ size.type }}</label
+                            >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- size filter end -->
+
+        <!-- material filter start -->
+        <div
+            class="list-group-item border-0 border-bottom d-inline-block text-truncate"
+            data-bs-parent="#sidebar"
+        >
+            <a
+                class="ps-3 filter-title text-dark d-flex justify-content-between"
+                data-bs-toggle="collapse"
+                href="#materialFilterCollapse"
+                role="button"
+                [attr.aria-expanded]="
+                    collapseStates['materialFilterCollapse'] ? 'true' : 'false'
+                "
+                [attr.aria-controls]="'materialFilterCollapse'"
+                (click)="toggleFilterCollapse('materialFilterCollapse')"
+            >
+                <h2 class="m-0 align-middle">Material</h2>
+                <i
+                    class="align-middle bx bx-sm"
+                    [ngClass]="
+                        collapseStates['materialFilterCollapse']
+                            ? 'bx-chevron-down'
+                            : 'bx-chevron-right'
+                    "
+                ></i>
+            </a>
+            <div class="collapse show" id="materialFilterCollapse">
+                <ul class="list-unstyled ps-4">
+                    <li *ngFor="let material of productMaterials">
+                        <div class="form-check ps-4">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                [attr.id]="material.type"
+                                [value]="material.type"
+                                [checked]="
+                                    materialsFilter.includes(material.type)
+                                "
+                                (change)="
+                                    addToProductFilters(
+                                        material.type,
+                                        materialsFilter,
+                                        'materials'
+                                    )
+                                "
+                            />
+                            <label
+                                class="form-check-label"
+                                [attr.for]="material.type"
+                            >
+                                {{ material.type }}</label
+                            >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- material filter end -->
+    </div>
+</div>

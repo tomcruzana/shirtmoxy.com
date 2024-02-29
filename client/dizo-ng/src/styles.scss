@@ -1138,6 +1138,21 @@ Service Area Style
 }
 
 /*=================================
+Product Filter Pill Style
+====================================*/
+.product-filter-pills {
+    .filter-pill {
+        cursor: pointer;
+    }
+
+    span.badge {
+        &:hover {
+            background-color: $white-smoke-color !important;
+        }
+    }
+}
+
+/*=================================
 Search Btn Style
 ====================================*/
 .search-btn {
@@ -1151,7 +1166,12 @@ Search Btn Style
     overflow: hidden;
     z-index: 1;
 
-    &::before {
+    &.disabled {
+        opacity: 0.5;
+        background-color: $dim-gray;
+    }
+
+    &:not(:disabled)::before {
         content: "";
         position: absolute;
         top: 50%;
@@ -1163,7 +1183,7 @@ Search Btn Style
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
     }
-    &::after {
+    &:not(:disabled)::after {
         content: "";
         position: absolute;
         bottom: 50%;
@@ -1175,21 +1195,21 @@ Search Btn Style
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
     }
-    &:hover {
+    &:not(:disabled):hover {
         color: $color-white;
     }
-    &:hover::before {
+    &:not(:disabled):hover::before {
         top: 0;
         background-color: $title-color;
         color: $color-white;
     }
 
-    &:hover::after {
+    &:not(:disabled):hover::after {
         bottom: 0;
         background-color: $title-color;
         color: $color-white;
     }
-    &.active {
+    &:not(:disabled).active {
         margin-left: 20px;
         color: #232350;
         background-color: transparent;
@@ -1201,12 +1221,12 @@ Search Btn Style
             background-color: $title-color;
         }
     }
-    &.active::before {
+    &:not(:disabled).active::before {
         width: 100%;
         height: 100%;
         background-color: transparent;
     }
-    &.active::after {
+    &:not(:disabled).active::after {
         width: 100%;
         height: 100%;
         background-color: transparent;
@@ -1259,17 +1279,16 @@ $tertiary-colors: rgb(255, 102, 0),
 
         .active-color-36 {
             border: 5px solid #fff !important;
-            outline:1px solid $title-color;
+            outline: 1px solid $title-color;
         }
 
         .active-color-18 {
             border: 3px solid #fff !important;
-            outline:1px solid $title-color;
+            outline: 1px solid $title-color;
         }
 
         .round {
             border-radius: 50%;
-            margin: 8px; // Adjust margin as needed
             border: 1px solid $dim-gray;
 
             &.multi-color {
@@ -1314,7 +1333,7 @@ $tertiary-colors: rgb(255, 102, 0),
             display: block;
 
             h3 {
-                font-size: 24px;
+                font-size: 22px;
                 line-height: 1;
             }
             h2 {
@@ -1329,7 +1348,17 @@ $tertiary-colors: rgb(255, 102, 0),
             font-size: 15px;
             span {
                 color: $carrot-orange-color;
-                font-size: 20px;
+                font-size: 15px;
+            }
+        }
+        .product-colors {
+            .product-color-icons {
+                .color-display-btn {
+                    &:focus,
+                    &:active {
+                        outline: 1px solid $dim-gray !important;
+                    }
+                }
             }
         }
         .product-cart {
@@ -4883,7 +4912,7 @@ Testimonials Page Style
         text-align: center;
 
         h1 {
-            font-size: 300px;
+            font-size: 52px;
             line-height: 1;
             font-weight: 700;
             color: $title-color;
@@ -4893,6 +4922,7 @@ Testimonials Page Style
             }
         }
         h3 {
+            font-size: 32px;
             margin: 50px 0 0;
             position: relative;
             color: $carrot-orange-color;

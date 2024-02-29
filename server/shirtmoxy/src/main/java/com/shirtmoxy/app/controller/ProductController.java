@@ -53,18 +53,7 @@ public class ProductController {
 	@Autowired
 	ManufacturerService manufacturerService;
 
-	/** start of load all products **/
-	@GetMapping("/all")
-	public ResponseEntity<Page<ProductDto>> getAllProducts(@RequestParam("pageNum") int pageNum,
-			@RequestParam("pageSize") int pageSize) {
-
-		Page<ProductDto> productPage = productService.readAllProducts(pageNum, pageSize);
-		return new ResponseEntity<>(productPage, HttpStatus.OK);
-	}
-
-	/** end of load all products **/
-
-	/** start of search filters **/
+	/** start of filters **/
 	@GetMapping("/category/all")
 	public ResponseEntity<List<CategoryDto>> getAllCategories() {
 
@@ -107,38 +96,14 @@ public class ProductController {
 		return new ResponseEntity<>(manufacturerList, HttpStatus.OK);
 	}
 
-	/** end of search filters **/
-
-	// @TODO - to be deleted
-	@GetMapping("/category")
-	public ResponseEntity<Page<ProductDto>> getProductByCategoryId(@RequestParam("cId") int id,
-			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-
-		Page<ProductDto> productPage = productService.readByCategoryId(id, pageNum, pageSize);
-		return new ResponseEntity<>(productPage, HttpStatus.OK);
-	}
-
-	@GetMapping("/gender")
-	public ResponseEntity<Page<ProductDto>> getProductByGenderId(@RequestParam("gId") int id,
-			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-
-		Page<ProductDto> productPage = productService.readByGenderId(id, pageNum, pageSize);
-		return new ResponseEntity<>(productPage, HttpStatus.OK);
-	}
-
-	@GetMapping("/manufacturer")
-	public ResponseEntity<Page<ProductDto>> getProductByManufacturerId(@RequestParam("mId") int id,
-			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-
-		Page<ProductDto> productPage = productService.readByManufacturerId(id, pageNum, pageSize);
-		return new ResponseEntity<>(productPage, HttpStatus.OK);
-	}
+	/** end of filters **/
 
 	/** start of dynamic search filters **/
-	@GetMapping("/{clothing}/all/filteredList")
+	@GetMapping("/{clothing}/filteredList")
 	public ResponseEntity<Page<ProductDto>> getAllFilteredProducts(
-			@PathVariable(name = "clothing", required = false) String productType,
-			@RequestParam(name = "category", required = false) String category,
+			@PathVariable(name = "clothing", required = true) String productType,
+			@RequestParam(name = "query", required = false) String searchQuery,
+			@RequestParam(name = "categories", required = false) List<String> categories,
 			@RequestParam(name = "manufacturers", required = false) List<String> manufacturers,
 			@RequestParam(name = "genders", required = false) List<String> genders,
 			@RequestParam(name = "colors", required = false) List<String> colors,
@@ -147,38 +112,35 @@ public class ProductController {
 			@RequestParam(name = "pageNum", required = true) int pageNum,
 			@RequestParam(name = "pageSize", required = true) int pageSize) {
 
-		Page<ProductDto> productPage = productService.readFilteredProducts(productType, category, manufacturers,
-				genders, colors, sizes, materials, pageNum, pageSize);
+		Page<ProductDto> productPage = productService.readFilteredProducts(productType, searchQuery, categories,
+				manufacturers, genders, colors, sizes, materials, pageNum, pageSize);
 		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
 
 	/** end of dynamic search filters **/
 
-	/** start of product search **/
-	@GetMapping("/search")
-	public ResponseEntity<Page<ProductDto>> searchProducts(@RequestParam("query") String keyword,
-			@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
-
-		Page<ProductDto> searchResult = productService.search(keyword, pageNum, pageSize);
-		return new ResponseEntity<>(searchResult, HttpStatus.OK);
-	}
-
-	/** end of product search **/
-
 	/** start of product details **/
 	@GetMapping("/details/{sku}")
-	public ResponseEntity<ProductDto> getProductDetailsById(@PathVariable String sku) {
+	public ResponseEntity<ProductDto> getProductDetailsBySku(@PathVariable String sku) {
 
 		ProductDto productDetails = productService.readProductDetailsBySku(sku);
 		return new ResponseEntity<>(productDetails, HttpStatus.OK);
 	}
 
-	@GetMapping("/details")
-	public ResponseEntity<ProductSkuDto> getProductDetailsByProductNameAndColorId(@RequestParam("productName") String name,
+	@GetMapping("/sku-details")
+	public ResponseEntity<ProductSkuDto> getProductSkuByProductNameAndColorId(@RequestParam("productName") String name,
 			@RequestParam("colorId") int colorId) {
 
-		ProductSkuDto productSkuDetails = productService.readProductDetailsByNameAndColor(name, colorId);
+		ProductSkuDto productSkuDetails = productService.readProductSkuByNameAndColor(name, colorId);
 		return new ResponseEntity<>(productSkuDetails, HttpStatus.OK);
+	}
+
+	@GetMapping("/details")
+	public ResponseEntity<ProductDto> getProductDetailsByProductNameAndColorId(@RequestParam("productName") String name,
+			@RequestParam("colorId") int colorId) {
+
+		ProductDto productDto = productService.readProductDetailsByNameAndColor(name, colorId);
+		return new ResponseEntity<>(productDto, HttpStatus.OK);
 	}
 
 	@GetMapping("/details/available-colors")

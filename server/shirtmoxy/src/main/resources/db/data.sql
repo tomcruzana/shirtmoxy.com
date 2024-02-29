@@ -77,8 +77,8 @@ INSERT INTO `barcode` (`type`) VALUES
   INSERT INTO `manufacturer` (`name`) VALUES
   ('adidas'),
   ('allmade'),
-  ('abercrombie & fitch'),
-  ('bella + canvas'),
+  ('abercrombie and fitch'),
+  ('bella canvas'),
   ('fruit of the loom'),
   ('anvil');
 
@@ -139,7 +139,10 @@ VALUES
     ('SKU031', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 10, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 4, 2, 1),
     ('SKU032', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 5, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 5, 2, 1),
     ('SKU033', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 4, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 6, 2, 1),
-    ('SKU034', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 0, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 7, 2, 1);
+    ('SKU034', 'Adult Topflight Heather Performance T-Shirt', 'Lorem ipsum dolor text', 19.99, 2.1, 0, TRUE, NOW(), NOW(), 2, 1, 3, 1, 4, 3, 7, 2, 1),
+    
+    ('SKU035', 'Product 21', 'Lorem ipsum dolor text', 19.99, 2.1, 2, TRUE, NOW(), NOW(), 1, 1, 3, 1, 4, 4, 1, 2, 1),
+    ('SKU036', 'Product 21', 'Lorem ipsum dolor text', 19.99, 2.1, 8, TRUE, NOW(), NOW(), 1, 1, 3, 1, 4, 6, 2, 2, 1);
 
 -- Insert statements for the product_and_product_media table
 INSERT INTO `product_and_product_media` (`product_id`, `product_media_id`)
@@ -177,7 +180,9 @@ VALUES
   (31, 2),
   (32, 2),
   (33, 2),
-  (34, 2);
+  (34, 2),
+  (35, 1),
+  (36, 1);
 
 -- Inserting data into the country table
 INSERT INTO `country` VALUES 

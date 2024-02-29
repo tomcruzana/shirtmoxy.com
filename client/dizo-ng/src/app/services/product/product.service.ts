@@ -11,6 +11,7 @@ import { ProductManufacturer } from "app/models/product-manufacturer.model";
 import { ProductColor } from "app/models/product-color.model";
 import { ProductSize } from "app/models/product-size";
 import { ProductMaterial } from "app/models/product-material";
+import { ProductOverview } from "app/models/product-overview";
 
 @Injectable({
     providedIn: "root",
@@ -81,6 +82,17 @@ export class ProductService {
             environment.rooturl +
                 AppConstants.PRODUCT_DETAILS +
                 `/${theProductSku}`
+        );
+    }
+
+    getProductSkuByNameAndColorId(
+        theProductName: string,
+        theColorId: number
+    ): Observable<Product> {
+        return this.httpClient.get<Product>(
+            environment.rooturl +
+                AppConstants.PRODUCT_SKU_DETAILS +
+                `?productName=${theProductName}&colorId=${theColorId}`
         );
     }
 
@@ -216,27 +228,58 @@ export class ProductService {
                             `${url}/filteredList?${optionalFilteredListUrlQueryParams}&pageNum=${thePageNum}&pageSize=${thePageSize}`
                     );
 
-                    console.log(response);
+                    // console.log(response);
                     return response;
                 })
             );
     }
 
-    /*** TODO - To be Deleted **********************************/
-
-    // search for products
-    searchProductsPaginate(
-        theQuery: string,
+    // get product overview
+    getAllClothingProductsAndColors(
         thePageNum: number,
-        thePageSize: number
-    ): Observable<GetResponseProductPage> {
-        return this.httpClient
-            .get<GetResponseProductPage>(
-                environment.rooturl +
-                    AppConstants.ALL_PRODUCTS_SEARCH_API_URL +
-                    `?query=${theQuery}&pageNum=${thePageNum}&pageSize=${thePageSize}`
-            )
-            .pipe(map((response) => response));
+        thePageSize: number,
+        optionalFilteredListUrlQueryParams: string = ""
+    ): Observable<{
+        products: ProductOverview[];
+        pageNumber: number;
+        pageSize: number;
+        totalElements: number;
+    }> {
+        return this.getAllClothingFilteredProductsPaginate(
+            thePageNum,
+            thePageSize,
+            optionalFilteredListUrlQueryParams
+        ).pipe(
+            switchMap((response) => {
+                // Create an array of observables for fetching colors for each product
+                const colorRequests = response.content.map((product) =>
+                    this.getAllAvailableColorsByProductName(product.name)
+                );
+
+                // Use forkJoin to wait for all color requests to complete
+                return forkJoin([...colorRequests]).pipe(
+                    map((colorsArray) => {
+                        // Map the response to ProductOverview model
+                        const products = response.content.map(
+                            (product, index) => {
+                                return new ProductOverview(
+                                    product,
+                                    colorsArray[index]
+                                );
+                            }
+                        );
+
+                        // Return an object containing products, pageNumber, pageSize, and totalElements
+                        return {
+                            products: products,
+                            pageNumber: response.pageable.pageNumber,
+                            pageSize: response.pageable.pageSize,
+                            totalElements: response.totalElements,
+                        };
+                    })
+                );
+            })
+        );
     }
 }
 

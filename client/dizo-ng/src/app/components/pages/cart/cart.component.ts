@@ -21,7 +21,6 @@ export class CartComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadCartDetails();
-
         this.hidePromotion = false;
     }
 

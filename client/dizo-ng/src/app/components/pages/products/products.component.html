@@ -1,69 +1,219 @@
 <app-navbar-style-one></app-navbar-style-one>
 
-<section class="product-area pt-100 pb-70">
-    <div class="container">
-        <div class="scetion-title text-center">
-            <span>Products</span>
+<div class="row flex-nowrap">
+    <!-- side menu start -->
+    <div class="col-auto px-0 border-end">
+        <app-product-search-filter></app-product-search-filter>
+    </div>
+    <!-- side menu end -->
+
+    <main class="col px-md-4 pt-2">
+        <!-- page breadcrumbs start -->
+        <!-- <div class="page-breadcrumbs">
+            <ul>
+                <li class="align-middle"><a routerLink="/">Home</a></li>
+                <li><i class="bx bxs-chevrons-right align-middle"></i></li>
+                <li class="align-middle">Products</li>
+            </ul>
+        </div> -->
+        <!-- page breadcrumbs end -->
+
+        <!-- current category filter banner start -->
+        <div class="inner-banner inner-bg-product-banner">
+            <div class="container">
+                <div class="my-2">
+                    <h2 class="pt-5">"Category Name"</h2>
+                    <p class="pb-5">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                </div>
+            </div>
         </div>
+        <!-- current category filter banner end -->
 
-        <!-- product search controls area start -->
-        <div class="product-search">
-            <!-- search bar start -->
-            <app-product-search-bar></app-product-search-bar>
-            <!-- search bar end -->
+        <!-- sidebar btn start -->
+        <a
+            hidden
+            href="#"
+            data-bs-target="#sidebar"
+            data-bs-toggle="collapse"
+            class="border rounded-3 p-1 text-decoration-none"
+            ><i class="bi bi-list bi-lg py-2 p-1"></i> Menu</a
+        >
+        <!-- sidebar btn end -->
 
-            <!-- search filter start -->
+        <!-- total product result set start -->
+        <div
+            class="d-flex justify-content-between"
+            *ngIf="productsOverviews.length != 0"
+        >
+            <p class="text-dark">
+                <span class="total-product-resultset">{{
+                    productsOverviews.length
+                }}</span>
+                results
+            </p>
 
-            <app-search-filter
+            <app-product-result-filter
                 (newPageSizeEvent)="handleNewPageSizeEvent($event)"
-            ></app-search-filter>
-            <!-- search filter end -->
+            ></app-product-result-filter>
         </div>
-        <!-- product search controls area end -->
+        <!-- total product result set end -->
+
+        <!-- product filter pills start -->
+        <app-product-filter-pills></app-product-filter-pills>
+        <!-- product filter pills end  -->
 
         <!-- product list start -->
-        <div class="row pt-20">
-            <div class="col-lg-4 col-md-6" *ngFor="let p of products">
+        <div class="row">
+            <div
+                class="col-lg-3 col-md-4 col-sm-12"
+                *ngFor="
+                    let productOverview of productsOverviews;
+                    index as productOverviewIndex
+                "
+            >
                 <div class="product-card">
-                    <a routerLink="/product/{{ p.id }}"
+                    <a
+                        routerLink="/product-details/{{
+                            productOverview.product.sku
+                        }}"
                         ><img
-                            [src]="p.productMediaSet[0].url"
+                            [src]="
+                                productOverview.product.productMediaSet[0].url
+                            "
                             alt="Products Image"
                     /></a>
 
                     <div class="product-content">
-                        <a routerLink="/product/{{ p.id }}"
-                            ><h3>
-                                {{ p.manufacturer.name | titlecase }} -
-                                {{ p.name | titlecase }}
-                            </h3></a
-                        >
-                        <p>colors here</p>
-                        <p>
-                            1 starting at
-                            <span>{{ p.unitPrice | currency }}</span> / unit
-                        </p>
-                        <!-- <div class="product-cart">
-                            <ul>
-                                <li>
-                                    <a routerLink="/"
-                                        ><i class="bx bx-heart"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a routerLink="/cart"
-                                        ><i class="bx bx-cart"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div> -->
+                        <!-- product colors start -->
+                        <div class="product-colors">
+                            <div
+                                class="product-color-icons d-flex flex-row justify-content-between"
+                            >
+                                <div
+                                    class="d-flex flex-wrap align-items-center"
+                                >
+                                    <div
+                                        *ngFor="
+                                            let color of productOverview.availableColors.slice(
+                                                0,
+                                                currentColorDisplayLimit
+                                            );
+                                            index as colorIndex
+                                        "
+                                    >
+                                        <div
+                                            [attr.id]="color.name"
+                                            [class.active-color-18]="
+                                                color.name ==
+                                                productOverview.product.color
+                                                    .name
+                                            "
+                                            class="round r18 my-2 ms-0 me-2"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            [attr.id]="color.id"
+                                            #color
+                                            [attr.title]="color.name"
+                                            [style.background-color]="
+                                                'rgb(' +
+                                                color.red +
+                                                ',' +
+                                                color.green +
+                                                ',' +
+                                                color.blue +
+                                                ')'
+                                            "
+                                            (click)="
+                                                handleChangeProductColorAndReloadDetails(
+                                                    productOverviewIndex,
+                                                    productOverview.product
+                                                        .name,
+                                                    color.id
+                                                )
+                                            "
+                                        ></div>
+                                    </div>
+                                </div>
+
+                                <ng-container
+                                    *ngIf="
+                                        productOverview.availableColors.length >
+                                        INITIAL_COLOR_DISPLAY_LIMIT
+                                    "
+                                >
+                                    <button
+                                        (click)="
+                                            toggleColorDisplayLimit(
+                                                productOverviewIndex
+                                            )
+                                        "
+                                        type="button"
+                                        class="btn btn-sm color-display-btn p-2 align-self-start border-0"
+                                    >
+                                        <ng-container
+                                            *ngIf="
+                                                calculateRemainingDisplayedColors(
+                                                    productOverviewIndex
+                                                ) != 0
+                                            "
+                                        >
+                                            {{
+                                                calculateRemainingDisplayedColors(
+                                                    productOverviewIndex
+                                                )
+                                            }} </ng-container
+                                        ><i
+                                            #chevron
+                                            class="align-middle bx bx-sm bx-chevron-down d-inline"
+                                        ></i>
+                                    </button>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- product colors end -->
+
+                        <div class="product-name">
+                            <a
+                                routerLink="/product-details/{{
+                                    productOverview.product.sku
+                                }}"
+                                ><h2
+                                    class="mb-0 mt-2 text-decoration-underline"
+                                >
+                                    {{
+                                        productOverview.product.manufacturer
+                                            .name | titlecase
+                                    }}
+                                    -
+                                    {{
+                                        productOverview.product.name | titlecase
+                                    }}
+                                </h2></a
+                            >
+                        </div>
+                        <div class="product-pricing">
+                            <p class="small">
+                                1 starting at
+                                <span>
+                                    {{
+                                        productOverview.product.unitPrice
+                                            | currency
+                                    }}
+                                </span>
+                                / each
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- if no products found then display this message -->
             <div
-                *ngIf="products?.length == 0"
+                *ngIf="productsOverviews?.length == 0"
                 class="alert alert-warning col-md-12"
                 role="alert"
             >
@@ -145,7 +295,6 @@
             <!-- product pagination end -->
         </div>
         <!-- product list end -->
-    </div>
-</section>
-
+    </main>
+</div>
 <app-footer-style-two></app-footer-style-two>

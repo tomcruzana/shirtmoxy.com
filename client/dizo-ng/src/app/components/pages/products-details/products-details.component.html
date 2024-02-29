@@ -64,7 +64,7 @@
                                 <span class="highest-price">{{
                                     p?.unitPrice | currency
                                 }}</span> -->
-                            <span class="per-unit-text"> / unit </span>
+                            <span class="per-unit-text"> / each </span>
                         </div>
 
                         <div class="input-count-area">
@@ -147,11 +147,11 @@
                                         color.name === activeColorName
                                     "
                                     (click)="
-                                        changeProductColorAndReloadDetails(
+                                        handleChangeProductColorAndReloadDetails(
                                             color.id
                                         )
                                     "
-                                    class="round r18"
+                                    class="round r18 my-2 ms-0 me-2"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
                                     [attr.title]="color.name"
@@ -196,7 +196,7 @@
                         >
                     </div>
 
-                    <!-- <div class="product-add">
+                    <div class="product-add">
                          <button class="default-btn m-1">
                             <i class="bx bx-pencil align-middle"></i> Start
                             Designing
@@ -207,7 +207,7 @@
                         <button (click)="addToCart(p)" class="default-btn m-1">
                             Add to Cart
                         </button>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 

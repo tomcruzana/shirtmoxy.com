@@ -13,8 +13,9 @@ export class CartService {
     // maximum cart capacity
     readonly MAX_CART_CAPACITY: number = 5;
 
-    // set to max qty (This should come from the current available stock in the backend inventory)
+    // set min & max qty (This should come from the current available stock in the backend inventory)
     readonly MAX_STOCK_QTY: number = 999;
+    readonly MIN_STOCK_QTY: number = 1;
 
     totalPrice: Subject<number> = new BehaviorSubject<number>(0);
     totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
@@ -83,7 +84,7 @@ export class CartService {
 
         if (item.quantity <= 0) {
             // set to min qty
-            item.quantity = 1;
+            item.quantity = this.MIN_STOCK_QTY;
         } else {
             this.computeCartTotals();
         }
@@ -95,7 +96,7 @@ export class CartService {
 
         if (item.quantity <= 0) {
             // set to min qty
-            item.quantity = 1;
+            item.quantity = this.MIN_STOCK_QTY;
         }
 
         this.computeCartTotals();

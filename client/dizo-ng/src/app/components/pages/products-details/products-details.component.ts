@@ -45,15 +45,20 @@ export class ProductsDetailsComponent implements OnInit {
 
         this.productService
             .getProductDetailsAndColorsAndSizes(theProductSku)
-            .subscribe((data) => {
-                this.p = data.product;
-                this.productColors = data.colors;
-                this.productSizes = data.sizes;
-                this.inStockSizes = data.inStockSizes;
-                this.outOfStockSizes = data.outOfStockSizes;
-                this.activeColorName = data.product.color.name;
-                console.log(this.p);
-            });
+            .subscribe(
+                (data) => {
+                    this.p = data.product;
+                    this.productColors = data.colors;
+                    this.productSizes = data.sizes;
+                    this.inStockSizes = data.inStockSizes;
+                    this.outOfStockSizes = data.outOfStockSizes;
+                    this.activeColorName = data.product.color.name;
+                    console.log(this.p);
+                },
+                (error) => {
+                    this.router.navigate(["/error"]);
+                }
+            );
     }
 
     scrollTo(el: HTMLElement) {
@@ -64,20 +69,19 @@ export class ProductsDetailsComponent implements OnInit {
         });
     }
 
-    // temp
-    changeProductColorAndReloadDetails(colorId: number): void {
+    handleChangeProductColorAndReloadDetails(colorId: number): void {
+        // invalidate request if color is already active
+        if (colorId == this.p.color.id) {
+            return;
+        }
+
         this.productService
-            .getProductDetailsByNameAndColorId(this.p.name, colorId)
-            .subscribe((data) => {
-                console.log(data);
-                
-                // Check if the id is the same
-                if (colorId == this.p.color.id) {
-                    return;
-                }
+            .getProductSkuByNameAndColorId(this.p.name, colorId)
+            .subscribe((product) => {
+                console.log(product);
 
                 // Update the URL with the new product id
-                this.router.navigate(["product-details", data.sku]);
+                this.router.navigate(["product-details", product.sku]);
             });
     }
 
